@@ -65,19 +65,21 @@
         <div class="flex flex-wrap gap-1 bg-green-400 ml-9 my-4 mr-2 w-2/3 items-center justify-center">
             {{-- kolom berita --}}
             @foreach ($artikel as $article)
-                <div class="p-2 my-1  ">
-                    <div class="card bg-gray-500 dark:bg-white shadow-xl w-48 items-center">
-                        <figure class="">
-                            <img src="https://source.unsplash.com/random/800x600/?1" alt="Gambar Berita" class="lazyload" />
-                        </figure>
-                        <div class="card-body">
-                            <h2 class="card-title dark:text-black text-white hover:text-red-500 text-sm">
-                                <a href="{{ route('post.show', $article) }}">{{ $article->judulPost }}</a>
-                            </h2>
+                @if ($article->statusPost === 'Diposting')
+                    <div class="p-2 my-1">
+                        <div class="card bg-gray-500 dark:bg-white shadow-xl w-48 items-center">
+                            <figure>
+                                <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita" class="lazyload" />
+                            </figure>
+                            <div class="card-body">
+                                <h2 class="card-title dark:text-black text-white hover:text-red-500 text-sm">
+                                    <a href="{{ route('post.show', $article) }}">{{ $article->judulPost }}</a>
+                                </h2>
+                            </div>
                         </div>
+                        <div class="divider"></div>
                     </div>
-                    <div class="divider"></div>
-                </div>
+                @endif
             @endforeach
         </div>
 

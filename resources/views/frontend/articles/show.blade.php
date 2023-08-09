@@ -6,7 +6,7 @@
             <h1 class="font-bold text-4xl p-1"> Judul Artikel : {{ $article->judulPost }}</h1>
             <h2 class="font-bold p-1"> . kategori : {{ $article->kategori->namaKategori }}</h2>
             @if ($article->fotoPost)
-                <img src="{{ asset('uploads/' . $article->fotoPost) }}" alt="Article Image">
+                <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Article Image">
             @endif
 
             <p>{!! $article->isiPost !!}</p>
@@ -36,7 +36,7 @@
                     @foreach ($relatedArticles as $relatedArticle)
                         <div class="grid grid-cols-1 hover:text-yellow-300 mt-4">
                             <li class="text-sm p-0">
-                                <a href="{{ route('post.show', $relatedArticle) }}">{{ $relatedArticle->judulArtikel }}</a>
+                                <a href="{{ route('post.show', $relatedArticle) }}">{{ $relatedArticle->judulPost }}</a>
                                 <div class="divider m-1"></div>
                             </li>
                         </div>

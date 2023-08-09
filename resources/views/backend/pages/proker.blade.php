@@ -1,7 +1,7 @@
 @section('title')
     PROGRAM KEGIATAN - KECAMATAN BALONG
 @endsection
-@extends('admin.layout.master')
+@extends('backend.layout.master')
 
 @section('content')
     @include('sweetalert::alert')
@@ -39,6 +39,7 @@
                         <th style="width: 20px">No</th>
                         <th>Nama Program Kegiatan</th>
                         <th>Deskripsi Program Kegiatan</th>
+                        <th>Dokumen</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -55,7 +56,8 @@
                             <tr>
                                 <td class="text-center">{{ $counter }}</td>
                                 <td>{{ $proker->namaProker }}</td>
-                                <td>{{ $proker->descProker }}</td>
+                                <td style="text-align: justify;">{{ Str::words($proker->descProker , 10, ' ...') }}</td>
+                                <td>{{ $proker->fileProgram }}</td>
                                 <td class="text-center aligns-item-center">
                                     <div
                                         class="button-container d-flex justify-content-center align-items-center posting-form">
@@ -110,6 +112,11 @@
                         <textarea name="descProker" id="descProker" cols="10" rows="3" class="form-control"
                             placeholder="Isi Postingan / Berita"></textarea>
                     </div>
+                    <div>
+                        <label for="nameBackdrop" class="form-label">Tambahkan File <span class="text-capitalize fw-semibold text-danger">*</span></label>
+                        <input type="file" name="fileProgram" id="fileProgram" class="form-control mb-1" accept=".pdf" max="2048">
+                        <span class="text-capitalize fw-semibold text-danger">* Opsional.</span>
+                    </div>
                     <div class="modal-footer d-flex">
                         <button type="button" class="btn btn-outline-danger mb-0" data-bs-dismiss="modal">
                             Close
@@ -142,6 +149,11 @@
                         <label for="nameBackdrop" class="form-label">Deskripsi Kegiatan</label>
                         <textarea name="descProker" id="descProker" cols="10" rows="3" class="form-control"
                             placeholder="Isi Postingan / Berita"></textarea>
+                    </div>
+                    <div>
+                        <label for="nameBackdrop" class="form-label">Tambahkan File <span class="text-capitalize fw-semibold text-danger">*</span></label>
+                        <input type="file" name="fileProgram" id="fileProgram" class="form-control mb-1" accept=".pdf" max="2048">
+                        <span class="text-capitalize fw-semibold text-danger">* Tidak Perlu Di isi jika tidak ada perubahan.</span>
                     </div>
                     <div class="modal-footer d-flex">
                         <button type="button" class="btn btn-outline-danger mb-0" data-bs-dismiss="modal">

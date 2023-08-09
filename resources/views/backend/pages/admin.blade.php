@@ -1,7 +1,7 @@
 @section('title')
     AKUN - KECAMATAN BALONG
 @endsection
-@extends('admin.layout.master')
+@extends('backend.layout.master')
 @section('content')
     @include('sweetalert::alert')
     <h6 class="fw-bold mb-4"><span class="text-muted fw-light">Akun / </span> Daftar Admin</h6>

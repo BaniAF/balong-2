@@ -35,6 +35,6 @@ class ContactController extends Controller
     public function index()
     {
         $saran = Contact::All();
-        return view('admin.pages.saran', compact('saran'));
+        return view('backend.pages.saran', compact('saran'));
     }
 }

@@ -1,7 +1,7 @@
 @section('title')
     DASHBOARD - KECAMATAN BALONG
 @endsection
-@extends('admin.layout.master')
+@extends('backend.layout.master')
 
 @section('content')
     @include('sweetalert::alert')
@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <h2 class="card-title fw-bold text-primary">Selamat Datang, {{ Auth::user()->namaUser }}.</h2>
                         <p class="mb-4">
-                            <span class="fw-bold">SIBALO</span> adalah sistem informasi admin yang bertujuan untuk mengelola
+                            <span class="fw-bold">SIBALO</span> adalah sistem informasi backend yang bertujuan untuk mengelola
                             informasi berita dan profil kecamatan Balong secara efisien dan terintegrasi.
                         </p>
                     </div>

@@ -10,7 +10,7 @@ class KategoriController extends Controller
     public function daftarKategoriPost()
     {
         $kategori = Kategori::all();
-        return view('admin.pages.kategoriPost', ['kategori' => $kategori]);
+        return view('backend.pages.kategoriPost', ['kategori' => $kategori]);
     }
 
     public function tambahKategori(Request $request)

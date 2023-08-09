@@ -10,7 +10,7 @@ class AkunController extends Controller
     public function daftarAkun()
     {
         $user = Akun::all();
-        return view('admin.pages.admin', ['user' => $user]);
+        return view('backend.pages.admin', ['user' => $user]);
     }
 
     public function tambahAkun(Request $request)

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOGIN - SIBALONG</title>
-    @include('admin.layout.headscript')
+    @include('backend.layout.headscript')
     <link rel="stylesheet" href="../assets/vendor/css/pages/page-auth.css" />
     @vite('resources/js/app.js')
 </head>
@@ -67,7 +67,7 @@
         </div>
     </div>
     <!-- / Content -->
-    @include('admin.layout.script')
+    @include('backend.layout.script')
     <script>
         @if ($errors->has('message'))
             Swal.fire({
@@ -77,7 +77,6 @@
             });
         @endif
     </script>
-
 </body>
 
 </html>

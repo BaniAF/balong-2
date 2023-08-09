@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-    @include('admin.layout.headscript')
+    @include('backend.layout.headscript')
     <!-- <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script> -->
     <style>
         .nav-link {
@@ -26,12 +26,12 @@
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- Menu -->
-            @include('admin.layout.sidebar')
+            @include('backend.layout.sidebar')
             <!-- / Menu -->
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
-                @include('admin.layout.navbar')
+                @include('backend.layout.navbar')
                 <!-- / Navbar -->
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
@@ -51,7 +51,7 @@
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-    @include('admin.layout.script')
+    @include('backend.layout.script')
 </body>
 
 </html>

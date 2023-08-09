@@ -15,4 +15,5 @@
 <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
 <script src="{{ asset('assets/js/config.js') }}"></script>
 <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
-<script src="{{ asset('assets/js/ckeditor.js') }}"></script>
+<!-- <script src="{{ asset('assets/js/ckeditor.js') }}"></script> -->
+<script src="{{ asset('assets/js/ckeditor5.js') }}"></script>

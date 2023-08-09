@@ -10,7 +10,7 @@ class AdminLoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('admin.pages.login');
+        return view('backend/pages.login');
     }
 
     public function login(Request $request)
@@ -32,7 +32,7 @@ class AdminLoginController extends Controller
         // Autentikasi berhasil
         Auth::login($user);
         toast('Login Berhasil', 'success');
-        return redirect()->intended('/dashboard');
+        return redirect()->intended('/admin');
     }
 
 

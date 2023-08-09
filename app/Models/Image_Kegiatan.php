@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Proker extends Model
+class Image_Kegiatan extends Model
 {
     use HasFactory;
-    protected $table = 'proker';
+    protected $table = 'proker_image';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = [
         'id',
-        'namaProker',
-        'descProker',
-        'fileProgram'
+        'kodeProker',
+        'image'
     ];
-    public function prokerImages(){
-        return $this->hasMany(Image_Kegiatan::class, 'kodeProker', 'id');
+    public function proker(){
+        return $this->belongsTo(Proker::class, 'kodeProker', 'id');
     }
 }

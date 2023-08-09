@@ -79,14 +79,17 @@ Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('logi
 Route::post('/login/post', [AdminLoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
-
 Route::middleware(['auth'])->group(function () {
     // Kelola Postingan
     Route::get('/post', function () {
         return (new PostController)->daftarPostingan('post');
     })->name('post');
     Route::post('/tambah-postingan', [PostController::class, 'tambahPostingan'])->name('tambah-postingan');
+    Route::get('/form-tambahPostingan', [PostController::class, 'formTambah'])->name('tambah-form');
+    Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('image.upload');
+    Route::post('/delete-image', [PostController::class, 'deleteImage'])->name('image.delete');
     Route::post('/postingan/{id}/hapus', [PostController::class, 'hapusPostingan'])->name('postingan.hapus');
+    Route::get('/edit-postingan/{id}', [PostController::class, 'editPostingan'])->name('edit-postingan');
     Route::post('/postingan/{id}', [PostController::class, 'updatePostingan'])->name('postingan.update');
     Route::post('/postingan/update-status/{id}', [PostController::class, 'updateStatusPostingan'])->name('postingan.updateStatus');
     Route::get('/galeriPost', function () {
@@ -102,10 +105,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Kelola Program Kegiatan
     Route::get('/proker', [ProkerController::class, 'daftarProker'])->name('proker');
+    Route::get('/tambah-foto', [ProkerController::class, 'tambahImage'])->name('tambah-foto');
     Route::post('/tambah-program', [ProkerController::class, 'tambahProgram'])->name('tambah-program');
     Route::post('/program/{id}/hapus', [ProkerController::class, 'hapusProgram'])->name('program.hapus');
     Route::post('/proker/edit/{id}', [ProkerController::class, 'editProgram'])->name('proker-edit');
-
+    Route::post('/deleteImage', [ProkerController::class, 'hapusImageProgram'])->name('deleteImage');
     // Kelola Layanan Publik
     Route::get('/layanan-publik', [LayananController::class, 'daftarLayanan'])->name('layanan-publik');
     Route::post('/tambah-layanan', [LayananController::class, 'tambahLayanan'])->name('tambah-layanan');
@@ -126,6 +130,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tambah-buku', [BukuTamuController::class, 'tambahTamu'])->name('tambah-tamu');
     Route::get('/pegawai', [PegawaiController::class, 'tampilPegawai'])->name('pegawai');
     Route::post('/tambah-pegawai', [PegawaiController::class, 'tambahPegawai'])->name('tambah-pegawai');
+    Route::post('/pegawai/edit/{id}', [PegawaiController::class, 'updatePegawai'])->name('pegawai-edit');
     Route::post('/pegawai/{id}/hapus', [PegawaiController::class, 'hapusPegawai'])->name('pegawai-hapus');
 
     // kelola menu
@@ -138,4 +143,11 @@ Route::middleware(['auth'])->group(function () {
 
     //kelola saran
     Route::get('/saran', [ContactController::class, 'index'])->name('saran.index');
+    
+    Route::post('/tambah-foto-kegiatan', [ProkerController::class, 'tambahFotoKegiatan'])->name('tambah-foto-kegiatan');
+    //kelola saran
+    // Route::get('/profil', [ProfilController::class, 'index'])->name('saran.index');
+    Route::get('/profil', function () {
+        return view('backend.pages.profil');
+    });
 });

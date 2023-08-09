@@ -18,6 +18,6 @@ class dashboardController extends Controller
         $totalLayanan = Layanan::count();
         $totalTamu = BukuTamu::count();
         $totalPegawai = Pegawai::count();
-        return view('admin.home', compact('totalPost', 'totalProker', 'totalLayanan', 'totalTamu', 'totalPegawai'));
+        return view('backend.home', compact('totalPost', 'totalProker', 'totalLayanan', 'totalTamu', 'totalPegawai'));
     }
 }

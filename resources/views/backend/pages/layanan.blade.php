@@ -1,7 +1,7 @@
 @section('title')
     LAYANAN PUBLIK - KECAMATAN BALONG
 @endsection
-@extends('admin.layout.master')
+@extends('backend.layout.master')
 
 @section('content')
     @include('sweetalert::alert')

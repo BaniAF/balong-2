@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Kategori;
+use App\Models\Image_Kegiatan;
 
 class PostController extends Controller
 {
@@ -14,11 +15,31 @@ class PostController extends Controller
         $postingan = Post::with('kategori')->get();
         $kategoriList = Kategori::all(); // Mendapatkan data kategori
         $dataGaleri = Post::select('fotoPost', 'judulPost')->get();
+        $galeriKegiatan = Image_Kegiatan::all();
         if ($view === 'post') {
-            return view('admin.pages.postingan', ['postingan' => $postingan, 'kategoriList' => $kategoriList]);
+            return view('backend.pages.postingan', ['postingan' => $postingan, 'kategoriList' => $kategoriList]);
         } elseif ($view === 'galeriPost') {
-            return view('admin.pages.galeri', ['dataGaleri' => $dataGaleri]);
+            return view('backend.pages.galeri', ['dataGaleri' => $dataGaleri, 'galeriKegiatan' => $galeriKegiatan]);
         }
+    }
+    public function editPostingan($id)
+    {
+        // Ambil data postingan berdasarkan ID
+        $post = Post::with('kategori')->find($id);
+
+        if (!$post) {
+            // Jika data postingan tidak ditemukan, tampilkan pesan error atau redirect ke halaman lain
+            abort(404, 'Postingan tidak ditemukan');
+        }
+
+        $kategoriList = Kategori::all(); // Mendapatkan data kategori
+        return view('backend.pages.postingan.edit-postingan', compact('post', 'kategoriList'));
+    }
+    public function formTambah()
+    {
+        $postingan = Post::with('kategori')->get();
+        $kategoriList = Kategori::all(); // Mendapatkan data kategori
+        return view('backend/pages/postingan/tambah-postingan', ['postingan' => $postingan, 'kategoriList' => $kategoriList]);
     }
     // fungsi tambah post
     public function tambahPostingan(Request $request)
@@ -95,8 +116,7 @@ class PostController extends Controller
             // return redirect('/post')->with('error', 'Postingan tidak ditemukan!');
         }
     }
-    public function updateStatusPostingan($id, Request $request)
-    {
+    public function updateStatusPostingan($id, Request $request){
         // dd($id);
         $post = Post::find($id);
 
@@ -114,8 +134,7 @@ class PostController extends Controller
     }
 
     // Fungsi untuk mengedit data Psotingan
-    public function updatePostingan(Request $request, $id)
-    {
+    public function updatePostingan(Request $request, $id) {
         $request->validate([
             'judulPost' => 'required',
             'isiPost' => 'required',
@@ -126,7 +145,6 @@ class PostController extends Controller
 
         // Temukan data postingan berdasarkan ID
         $post = Post::find($id);
-
         if ($post) {
             // Periksa apakah ada file foto baru yang diunggah
             if ($request->hasFile('fotoPost')) {
@@ -171,5 +189,41 @@ class PostController extends Controller
             'article' => $article,
             'relatedArticles' => $article->related(),
         ]);
+    }
+
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $fileFoto = $request->file('upload'); // Corrected: Use 'upload' instead of 'fotoPost'
+            $id = time();
+            $namaFoto = $id . ' - ' . $fileFoto->getClientOriginalName();
+
+            $fileFoto->move(public_path('uploads/Artikel/Postingan/'), $namaFoto);
+
+            $url = asset('uploads/Artikel/Postingan/' . $namaFoto);
+
+            // Return the image URL as part of the response
+            return response()->json([
+                'uploaded' => true,
+                'url' => $url,
+            ]);
+        }
+
+        // If no file was uploaded or there was an error, return an error response
+        return response()->json([
+            'uploaded' => false,
+            'error' => ['message' => 'File upload failed.'],
+        ]);
+    }
+    public function deleteImage($filename) 
+    {
+        $filePath = public_path('uploads/Artikel/') . $filename;
+
+        if (File::exists($filePath)) {
+            File::delete($filePath);
+            return response()->json(['message' => 'Image deleted successfully.']);
+        }
+
+        return response()->json(['error' => 'Image not found.'], 404);
     }
 }

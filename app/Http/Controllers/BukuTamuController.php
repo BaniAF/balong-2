@@ -12,7 +12,7 @@ class BukuTamuController extends Controller
     {
         $bukutamu = BukuTamu::all();
         $pegawai = Pegawai::all();
-        return view('admin.pages/buku-tamu.bukutamu', ['bukutamu' => $bukutamu, 'pegawai' => $pegawai]);
+        return view('backend.pages/buku-tamu.bukutamu', ['bukutamu' => $bukutamu, 'pegawai' => $pegawai]);
     }
     public function tambahTamu(Request $request)
     {

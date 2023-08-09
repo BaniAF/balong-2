@@ -10,7 +10,7 @@ class layananController extends Controller
     public function daftarLayanan()
     {
         $layanan = Layanan::all();
-        return view('admin.pages.layanan', ['layanan' => $layanan]);
+        return view('backend.pages.layanan', ['layanan' => $layanan]);
     }
     // fungsi tambah post
     public function tambahLayanan(Request $request)

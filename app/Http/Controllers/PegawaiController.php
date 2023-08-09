@@ -13,7 +13,7 @@ class PegawaiController extends Controller
     public function tampilPegawai()
     {
         $pegawai = Pegawai::all();
-        return view('admin.pages/buku-tamu.pegawai', ['pegawai' => $pegawai]);
+        return view('backend.pages/buku-tamu.pegawai', ['pegawai' => $pegawai]);
     }
 
     /**
@@ -72,12 +72,59 @@ class PegawaiController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pegawai $pegawai)
-    {
-        //
+    public function updatePegawai(Request $request, $id) {
+        // dd($request->all());
+        $request->validate([
+            'namaPegawai' => 'required',
+            'jabatan' => 'required',
+            'fotoPegawai' => 'image|mimes:jpeg,png,jpg|max:2048', 
+        ], [
+            'namaPegawai.required' => 'Nama Pegawai harus diisi',
+            'jabatan.required' => 'Jabatan Pegawai harus diisi',
+            'fotoPegawai.image' => 'File harus berupa gambar',
+            'fotoPegawai.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg',
+            'fotoPegawai.max' => 'Ukuran gambar maksimal 2MB',
+        ]);
+
+        // Temukan data postingan berdasarkan ID
+        $pegawai = Pegawai::find($id);
+
+        if ($pegawai) {
+            // Periksa apakah ada file foto baru yang diunggah
+            if ($request->hasFile('fotoPegawai')) {
+                // Upload file foto baru
+                $fileFoto = $request->file('fotoPegawai');
+                $namaPegawai = $request->namaPegawai;
+                $namaFoto = $id . ' - ' . $namaPegawai . '.' . $fileFoto->getClientOriginalExtension();
+                $fileFoto->move(public_path('uploads/Pegawai/'), $namaFoto);
+
+                // Hapus foto lama (jika ada)
+                if ($pegawai->fotoPost) {
+                    $path = public_path('uploads/Pegawai/' . $pegawai->fotoPegawai);
+                    if (file_exists($path)) {
+                        unlink($path);
+                    }
+                }
+                // Update data postingan dengan foto baru
+                $pegawai->fotoPegawai = $namaFoto;
+            }
+
+            $pangkat = $request->pangkat;
+            $golongan = $request->golongan;
+            $pangkat = $pangkat . ' ' . $golongan;
+            // Update data pegawai
+            $pegawai->namaPegawai = $request->namaPegawai;
+            $pegawai->jabatan = $request->jabatan;
+            $pegawai->pangkat = $pangkat;
+            $pegawai->save();
+
+            // Redirect atau berikan respon sesuai kebutuhan
+            toast('Data Pegawai berhasil diubah', 'success');
+            return redirect('/pegawai');
+        } else {
+            toast('Data Pegawai tidak ditemukan', 'error');
+            return redirect('/pegawai');
+        }
     }
 
     /**
