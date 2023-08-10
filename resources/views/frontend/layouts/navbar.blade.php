@@ -1,28 +1,38 @@
-<header class="p-2 bg-gray-800 text-gray-100">
+<header class="p-2 bg-gray-800 text-gray-100 grid grid-rows-[auto,1fr] justify-center">
+
     {{-- bagian atas --}}
-    <div class="min-h-full justify-center">
-        <a rel="noopener noreferrer" href="#" aria-label="Back to homepage" class="flex items-center p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 32 32" class="w-8 h-8 text-violet-400">
-                <path
-                    d="M27.912 7.289l-10.324-5.961c-0.455-0.268-1.002-0.425-1.588-0.425s-1.133 0.158-1.604 0.433l0.015-0.008-10.324 5.961c-0.955 0.561-1.586 1.582-1.588 2.75v11.922c0.002 1.168 0.635 2.189 1.574 2.742l0.016 0.008 10.322 5.961c0.455 0.267 1.004 0.425 1.59 0.425 0.584 0 1.131-0.158 1.602-0.433l-0.014 0.008 10.322-5.961c0.955-0.561 1.586-1.582 1.588-2.75v-11.922c-0.002-1.168-0.633-2.189-1.573-2.742zM27.383 21.961c0 0.389-0.211 0.73-0.526 0.914l-0.004 0.002-10.324 5.961c-0.152 0.088-0.334 0.142-0.53 0.142s-0.377-0.053-0.535-0.145l0.005 0.002-10.324-5.961c-0.319-0.186-0.529-0.527-0.529-0.916v-11.922c0-0.389 0.211-0.73 0.526-0.914l0.004-0.002 10.324-5.961c0.152-0.090 0.334-0.143 0.53-0.143s0.377 0.053 0.535 0.144l-0.006-0.002 10.324 5.961c0.319 0.185 0.529 0.527 0.529 0.916z">
-                </path>
-                <path
-                    d="M22.094 19.451h-0.758c-0.188 0-0.363 0.049-0.515 0.135l0.006-0.004-4.574 2.512-5.282-3.049v-6.082l5.282-3.051 4.576 2.504c0.146 0.082 0.323 0.131 0.508 0.131h0.758c0.293 0 0.529-0.239 0.529-0.531v-0.716c0-0.2-0.11-0.373-0.271-0.463l-0.004-0.002-5.078-2.777c-0.293-0.164-0.645-0.26-1.015-0.26-0.39 0-0.756 0.106-1.070 0.289l0.010-0.006-5.281 3.049c-0.636 0.375-1.056 1.055-1.059 1.834v6.082c0 0.779 0.422 1.461 1.049 1.828l0.009 0.006 5.281 3.049c0.305 0.178 0.67 0.284 1.061 0.284 0.373 0 0.723-0.098 1.027-0.265l-0.012 0.006 5.080-2.787c0.166-0.091 0.276-0.265 0.276-0.465v-0.716c0-0.293-0.238-0.529-0.529-0.529z">
-                </path>
-            </svg>
+    <div class="flex justify-center items-center">
+        <a rel="noopener noreferrer" href="#" aria-label="Back to homepage" class="flex items-center p-2 m-5">
+            <img src="{{ asset('assets/img/logokab.png') }}" alt="Logo" class="w-10 h-auto ">
+            <span class=" font-bold text-uppercase text-2xl ml-3">Kecamatan<br>
+                <h2 class="text-3xl">BALONG</h2>
+            </span>
         </a>
+        <div class="relative">
+            <form action="{{ route('search.news') }}" method="GET" id="searchForm">
+                @csrf
+                <input id="searchInput" name="title" type="text"
+                    class="bg-gray-900 text-white px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-400"
+                    placeholder="Search for..">
+                <button type="submit" class="ml-2 px-4 py-2 bg-violet-400 text-white rounded-md">Cari</button>
+                <ul id="searchResults"
+                    class="dropdown hidden absolute mt-2 py-2 w-60 text-sm dark:bg-gray-800 bg-white rounded-sm shadow-lg">
+                    <!-- Search results will be dynamically generated here -->
+                </ul>
+            </form>
+        </div>
     </div>
     {{-- bagian bawah --}}
     <div class="container flex justify-between h-16 mx-auto">
         <ul class="items-stretch hidden space-x-3 lg:flex">
             <li class="flex">
-                <a rel="noopener noreferrer" href="#"
+                <a rel="noopener noreferrer" href="/"
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Home</a>
             </li>
             <li class="flex relative">
                 <a href="#" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Profil</a>
                 <ul
-                    class="dropdown hidden absolute mt-2 py-2 w-44 text-sm dark:bg-gray-800 bg-white rounded-md shadow-lg">
+                    class="dropdown hidden absolute mt-2 py-2 w-44 text-sm dark:bg-gray-800 bg-white rounded-sm shadow-lg">
                     <li><a href="#"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Organisasi
                             dan Tata
@@ -50,27 +60,27 @@
                 <a rel="noopener noreferrer" href="#"
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Program Kerja</a>
                 <ul
-                    class="dropdown hidden absolute mt-2 py-2 w-44 text-sm dark:bg-gray-800 bg-white rounded-md shadow-lg">
-                    <li><a href="#"
-                            class="block px-4 py-2 dark:text-white text-black text-md hover:bg-indigo-500 hover:text-white">RENJA</a>
+                    class="dropdown hidden absolute mt-2 py-2 w-44 text-sm dark:bg-gray-800 bg-white rounded-sm shadow-lg">
+                    <li><a href="{{ route('proker.tampil.kode', ['kode' => 'PK01']) }}"
+                            class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">RENJA</a>
                     </li>
-                    <li><a href="#"
+                    <li><a href="{{ route('proker.tampil.kode', ['kode' => 'PK02']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">RENSTRA</a>
                     </li>
-                    <li><a href="#"
+                    <li><a href="{{ route('proker.tampil.kode', ['kode' => 'PK03']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">IKU</a>
                     </li>
-                    <li><a href="#"
+                    <li><a href="{{ route('proker.tampil.kode', ['kode' => 'PK04']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">DPA</a>
                     </li>
-                    <li><a href="#"
+                    <li><a href="{{ route('proker.tampil.kode', ['kode' => 'PK05']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">PERJANJIAN
                             KINERJA</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('proker.tampil.kode', ['kode' => 'PK06']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">LAPORAN
                             KINERJA</a>
                     </li>
-                    <li><a href="#"
+                    <li><a href="{{ route('proker.tampil.kode', ['kode' => 'PK07']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">RENCANA
                             KERJA</a>
                     </li>
@@ -82,7 +92,7 @@
                 <a rel="noopener noreferrer" href="#"
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Bidang</a>
                 <ul
-                    class="dropdown hidden absolute mt-2 py-2 w-44 text-sm dark:bg-gray-800 bg-white rounded-md shadow-lg">
+                    class="dropdown hidden absolute mt-2 py-2 w-44 text-sm dark:bg-gray-800 bg-white rounded-sm shadow-lg">
                     <li><a href="#"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Bidang</a>
                     </li>
@@ -96,7 +106,7 @@
                 <a rel="noopener noreferrer" href="#"
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Regulasi</a>
                 <ul
-                    class="dropdown hidden absolute mt-2 py-2 w-44 text-sm dark:bg-gray-800 bg-white rounded-lg shadow-lg">
+                    class="dropdown hidden absolute mt-2 py-2 w-44 text-sm dark:bg-gray-800 bg-white rounded-sm shadow-lg">
                     <li><a href="#"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Undang
                             - Undang</a></li>
@@ -138,28 +148,6 @@
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Peta Situs</a>
             </li>
         </ul>
-        <div class="flex items-center md:space-x-4">
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                    <button type="submit" title="Search" class="p-1 focus:outline-none focus:ring">
-                        <svg fill="currentColor" viewBox="0 0 512 512" class="w-4 h-4 text-gray-100">
-                            <path
-                                d="M479.6,399.716l-81.084-81.084-62.368-25.767A175.014,175.014,0,0,0,368,192c0-97.047-78.953-176-176-176S16,94.953,16,192,94.953,368,192,368a175.034,175.034,0,0,0,101.619-32.377l25.7,62.2L400.4,478.911a56,56,0,1,0,79.2-79.195ZM48,192c0-79.4,64.6-144,144-144s144,64.6,144,144S271.4,336,192,336,48,271.4,48,192ZM456.971,456.284a24.028,24.028,0,0,1-33.942,0l-76.572-76.572-23.894-57.835L380.4,345.771l76.573,76.572A24.028,24.028,0,0,1,456.971,456.284Z">
-                            </path>
-                        </svg>
-                    </button>
-                </span>
-                <input type="search" name="Search" placeholder="Search..."
-                    class="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none bg-gray-800 text-gray-100 focus:bg-gray-900">
-            </div>
-        </div>
-        <button title="Open menu" type="button" class="p-4 lg:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                class="w-6 h-6 text-gray-100">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                </path>
-            </svg>
-        </button>
     </div>
 </header>
 
@@ -182,3 +170,76 @@
         display: inline;
     }
 </style>
+
+
+<!-- Include jQuery -->
+<!-- resources/views/search.blade.php -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        const searchForm = $('#searchForm');
+        const searchInput = $('#searchInput');
+        const searchResults = $('#searchResults');
+
+        searchInput.on('input', function() {
+            const searchTerm = $(this).val().trim();
+            if (searchTerm.length > 0) {
+                $.ajax({
+                    type: 'GET',
+                    url: searchForm.attr('action'),
+                    data: searchForm.serialize(),
+                    dataType: 'json',
+                    success: function(data) {
+                        searchResults.empty();
+
+                        if (data.length > 0) {
+                            $.each(data, function(index, item) {
+                                const resultItem = $(
+                                    '<li class="py-2 px-4 hover:bg-gray-200 cursor-pointer">' +
+                                    item.judulPost + '</li>');
+                                resultItem.click(function() {
+                                    searchInput.val(item.judulPost);
+                                    searchResults.addClass('hidden')
+                                        .empty();
+                                });
+                                searchResults.append(resultItem);
+                            });
+                            searchResults.removeClass('hidden');
+                        } else {
+                            searchResults.addClass('hidden').empty();
+                        }
+                    }
+                });
+            } else {
+                searchResults.addClass('hidden').empty();
+            }
+        });
+
+        $(document).on('click', function(event) {
+            if (!$(event.target).closest(searchResults).length && !$(event.target).closest(searchInput)
+                .length) {
+                searchResults.addClass('hidden').empty();
+            }
+        });
+    });
+</script>
+
+<script>
+    $('a[data-id]').click(function(e) {
+        e.preventDefault();
+        var programId = $(this).data('id');
+
+        // Kirim permintaan AJAX ke ProkerController
+        $.ajax({
+            url: '/proker/' + programId, // Ganti dengan rute yang sesuai
+            type: 'GET',
+            success: function(response) {
+                // Manipulasi atau tampilkan data dari respons
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+</script>

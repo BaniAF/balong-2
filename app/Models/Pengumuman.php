@@ -10,4 +10,5 @@ class Pengumuman extends Model
     use HasFactory;
 
     protected $table = 'pengumuman_image';
+    protected $fillable = ['image', 'aktif'];
 }

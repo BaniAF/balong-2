@@ -1,17 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Proker;
 use App\Models\Image_Kegiatan;
 
 use Illuminate\Http\Request;
 
-class ProkerController extends Controller {
-    public function daftarProker() {
+class ProkerController extends Controller
+{
+    public function daftarProker()
+    {
         $prokerja = Proker::all();
         return view('backend.pages.proker', ['prokerja' => $prokerja]);
     }
-    public function tambahImage() {
+    public function tambahImage()
+    {
         $prokerja = Proker::all();
         return view('backend/pages/galeri/tambah-galeri', ['prokerja' => $prokerja]);
     }
@@ -41,22 +45,23 @@ class ProkerController extends Controller {
                 'kodeProker' => $idProgramKegiatan,
             ]);
         }
-         toast('Foto berhasil ditambahkan', 'success');
+        toast('Foto berhasil ditambahkan', 'success');
         return redirect('galeriPost');
         // return redirect()->back(); // Redirect kembali ke halaman sebelumnya setelah data berhasil disimpan
     }
     // fungsi tambah post
-    public function tambahProgram(Request $request) {
+    public function tambahProgram(Request $request)
+    {
         $request->validate([
             'namaProker' => 'required',
             'descProker' => 'required',
             'fileProgram' => 'nullable|mimes:pdf|max:2048',
         ]);
-    
+
         // Mendapatkan id terakhir
         $lastProker = Proker::orderBy('id', 'desc')->first();
         $lastId = $lastProker ? intval(substr($lastProker->id, 2)) : 0;
-    
+
         // Membuat id baru dengan format "PK001"
         $id = 'PK' . str_pad($lastId + 1, 2, '0', STR_PAD_LEFT);
         // Simpan data program kegiatan ke database
@@ -74,16 +79,17 @@ class ProkerController extends Controller {
             $proker->fileProgram = '-';
         }
         $proker->save();
-    
+
         // Redirect atau berikan respon sesuai kebutuhan
         toast('Program Kegiatan berhasil ditambahkan', 'success');
         return redirect('proker');
     }
-    
-    public function hapusProgram($id) {
+
+    public function hapusProgram($id)
+    {
         // Cari postingan berdasarkan id
         $proker = Proker::where('id', $id)->first();
-    
+
         if ($proker) {
             // Hapus data postingan dari database
             $proker->delete();
@@ -102,8 +108,8 @@ class ProkerController extends Controller {
 
         // Cari postingan dengan image yang sesuai
         $fotoKegiatan = Image_Kegiatan::where('image', $imageName)
-                                    ->where('kodeProker', $imageId)
-                                    ->first();
+            ->where('kodeProker', $imageId)
+            ->first();
 
         if ($fotoKegiatan) {
             // Hapus file gambar dari folder uploads/Foto-Kegiatan menggunakan unlink
@@ -124,7 +130,8 @@ class ProkerController extends Controller {
     }
 
 
-    public function editProgram(Request $request, $id) {
+    public function editProgram(Request $request, $id)
+    {
         $request->validate([
             'namaProker' => 'required',
             'descProker' => 'required',
@@ -137,7 +144,7 @@ class ProkerController extends Controller {
             // Update data program kegiatan
             $proker->namaProker = $request->namaProker;
             $proker->descProker = $request->descProker;
-            
+
             if ($request->hasFile('fileProgram')) {
                 if ($proker->fileProgram) {
                     $oldFilePath = public_path('uploads/File/' . $proker->fileProgram);
@@ -161,5 +168,17 @@ class ProkerController extends Controller {
             toast('Program Kegiatan tidak ditemukan', 'error');
             return redirect('proker');
         }
+    }
+
+    public function tampil($id)
+    {
+        $program = Proker::findOrFail($id);
+        return view('frontend.articles.proker', compact('program'));
+    }
+
+    public function tampilKode($kode)
+    {
+        $program = Proker::where('id', $kode)->firstOrFail(); // Menggunakan 'id' sebagai kolom kode
+        return view('frontend.articles.proker_detail', compact('program'));
     }
 }

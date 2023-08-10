@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app')
-
+@section('title')
+    Pemerintah Kecamatan Balong
+@endsection
 @section('content')
     {{-- slider --}}
 
@@ -23,9 +25,9 @@
             </div>
         </div>
         {{-- end hero section --}}
-        <div class="divider lg:divider-horizontal p-4"></div>
+        <div class="divider lg:divider-horizontal -p-4"></div>
         {{-- weather --}}
-        {{-- <div class="mt-8 ml-15 mr-10 w-1/3">
+        <div class="mt-8 ml-15 mr-10 w-1/3">
             <div class="flex flex-col bg-white rounded p-4 w-full max-w-xs">
                 <div class="font-bold text-2xl">{{ $weather['name'] }}</div>
                 @php
@@ -55,7 +57,7 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
         {{-- end weather --}}
     </div>
 
@@ -69,7 +71,8 @@
                     <div class="p-2 my-1">
                         <div class="card bg-gray-500 dark:bg-white shadow-xl w-48 items-center">
                             <figure>
-                                <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita" class="lazyload" />
+                                <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita"
+                                    class="lazyload" />
                             </figure>
                             <div class="card-body">
                                 <h2 class="card-title dark:text-black text-white hover:text-red-500 text-sm">
@@ -83,17 +86,114 @@
             @endforeach
         </div>
 
+
         {{-- isi dari bagian pengumuman --}}
         <div class="bg-red-500 flex-1 w-1/3 mr-12 my-4 ml-1 p-5 md:w-">
+            @php
+                $gambarAktif = false;
+            @endphp
             @foreach ($pengumuman as $pengumumanItem)
-                <div>
-                    @if ($pengumumanItem->image)
-                        <img src="{{ asset('images/' . $pengumumanItem->image) }}" alt="Pengumuman Image"
-                            class="w-auto h-96 scale-95">
-                    @endif
-                    <h2>ini bagian pengumuman</h2>
-                </div>
+                @if ($pengumumanItem->aktif === 1)
+                    @php
+                        $gambarAktif = true;
+                    @endphp
+                    <div>
+                        @if ($pengumumanItem->image)
+                            <img src="{{ asset('images/' . $pengumumanItem->image) }}" alt="Pengumuman Image"
+                                class="w-auto h-96 scale-95">
+                        @endif
+                    </div>
+                @endif
             @endforeach
+            @if (!$gambarAktif)
+                <h2
+                    class="text-center justify-center items-center px-3 py-2 text-xl md :text-sm font-semibold tracki uppercase text-gray-100 bg-amber-400">
+                    Tidak ada
+                    Pengumuman</h2>
+            @endif
+            <h2>ini bagian pengumuman</h2>
         </div>
+
     </div>
+
+
+    <section id="berita-kategori" class="p-4">
+
+        <!-- Category: Another Category -->
+        <!-- News Post 1 -->
+        <div class="bg-purple-500 flex flex-wrap gap-1 ml-9 mr-9 my-2  items-center justify-center p-4 rounded-lg">
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                @php $count = 0; @endphp
+                @foreach ($artikel as $article)
+                    @if ($article->statusPost === 'Diposting')
+                        @if ($count < 5)
+                            <div class="flex items-center">
+                                <div class="mr-4">
+                                    <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="News 3 Image"
+                                        class="w-32 h-32 object-cover rounded-lg">
+                                </div>
+                                <div>
+                                    <h4>
+                                        <span
+                                            class="bg-amber-400 text-white py-1 px-2 rounded-sm">{{ $article->kategori->namaKategori }}</span>
+                                    </h4>
+                                    <a href="{{ route('post.show', $article) }}">
+                                        <h1 class="text-purple-500 text-2xl font-bold">{{ $article->judulPost }}
+                                        </h1>
+                                    </a>
+
+                                    <p> {!! Str::limit(strip_tags($article->isiPost), 75) !!}</p>
+                                    <p class="text-gray-500 text-sm p-4"><i class='bx bx-calendar'></i>
+                                        {{ $article->created_at->format('d M Y') }}</p>
+                                </div>
+                            </div>
+                            <div class="divider "></div>
+                        @endif
+                        @php $count++; @endphp
+                    @endif
+                @endforeach
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="load-more-btn bg-purple-500 text-white px-4 py-2 rounded-lg">Load More</button>
+        </div>
+
+    </section>
 @endsection
+
+<!-- Add the following script to your Blade template -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let offset = 5; // Start with the initial count of 5 articles
+        const loadMoreBtn = document.querySelector('.load-more-btn');
+        const articlesContainer = document.querySelector('.articles-container .bg-white');
+
+        loadMoreBtn.addEventListener('click', function() {
+            fetch(`/load-more?offset=${offset}`)
+                .then(response => response.json())
+                .then(articles => {
+                    if (articles.length > 0) {
+                        offset += articles.length;
+
+                        articles.forEach(article => {
+                            const articleDiv = document.createElement('div');
+                            articleDiv.classList.add('flex', 'items-center');
+                            articleDiv.innerHTML = `
+                                <!-- Your article content here -->
+                            `;
+                            articlesContainer.appendChild(articleDiv);
+
+                            const dividerDiv = document.createElement('div');
+                            dividerDiv.classList.add('divider');
+                            articlesContainer.appendChild(dividerDiv);
+                        });
+                    } else {
+                        loadMoreBtn.disabled = true;
+                        loadMoreBtn.innerText = 'No more articles';
+                    }
+                })
+                .catch(error => console.error(error));
+        });
+    });
+</script>

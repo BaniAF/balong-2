@@ -37,6 +37,10 @@ Route::get('/', [LandingController::class, 'index'])->name('landing');
 
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 
+
+Route::get('/load-more', [PostController::class, 'loadMore'])->name('loadMore');
+Route::get('/search-news', [PostController::class, 'searchNews'])->name('search.news');
+
 Route::get('post/{article}', [PostController::class, 'lihat'])->name('post.show');
 
 Route::get('/petasitus', [mapsController::class, 'showMap'])->name('maps');
@@ -52,6 +56,11 @@ Route::get('/program/{id}', [ProkerController::class, 'show'])->name('program.sh
 //route untuk profil
 Route::get('/profil', [ProfileController::class, 'showProfi'])->name('profil.show');
 Route::get('/profil/{id}', [ProkerController::class, 'show'])->name('profil.show');
+
+
+Route::get('/proker/{id}', [ProkerController::class, 'tampil'])->name('proker.tampil');
+Route::get('/proker/{kode}', [ProkerController::class, 'tampilKode'])->name('proker.tampil.kode');
+
 
 Route::get('/pdf/{filename}', function ($filename) {
     $path = public_path('files/' . $filename);
@@ -143,11 +152,23 @@ Route::middleware(['auth'])->group(function () {
 
     //kelola saran
     Route::get('/saran', [ContactController::class, 'index'])->name('saran.index');
-    
+
     Route::post('/tambah-foto-kegiatan', [ProkerController::class, 'tambahFotoKegiatan'])->name('tambah-foto-kegiatan');
     //kelola saran
     // Route::get('/profil', [ProfilController::class, 'index'])->name('saran.index');
     Route::get('/profil', function () {
         return view('backend.pages.profil');
     });
+
+
+    Route::get('/bidang', function () {
+        return view('backend.pages.bidang');
+    });
+
+
+
+    Route::get('/list', [PengumumanController::class, 'lihat'])->name('list.lihat');
+    Route::post('/tambah-gambar', [PengumumanController::class, 'tambahGambar'])->name('tambah-gambar');
+    Route::post('/list/{id}/hapus', [PengumumanController::class, 'hapusGambar'])->name('gambar.hapus');
+    Route::post('/gambar/{id}/aktifkan', [PengumumanController::class, 'aktifkanGambar'])->name('gambar.aktifkan');
 });
