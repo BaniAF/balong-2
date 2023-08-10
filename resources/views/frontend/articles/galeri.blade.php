@@ -10,6 +10,7 @@
             <p>ID: {{ $item->id }}</p>
             <h1 class="font-bold text-5xl">{{ $item->proker->namaProker }}</h1>
             <p>Nama publik: {{ $item->proker->namaProker }}</p>
+            <img src="{{ asset('uploads/Foto-Kegiatan/' . $item->image) }}" alt="">
         @endforeach
 
 
