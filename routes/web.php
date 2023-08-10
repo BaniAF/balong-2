@@ -22,7 +22,7 @@ use App\Http\Controllers\ProkerController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmenuItemController;
-
+use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\RegulasiController;
 
 /*
