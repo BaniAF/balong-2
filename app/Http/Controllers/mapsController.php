@@ -8,6 +8,6 @@ class mapsController extends Controller
 {
     public function showMap()
     {
-        return view('maps');
+        return view('frontend.maps');
     }
 }

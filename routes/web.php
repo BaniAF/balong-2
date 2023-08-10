@@ -15,6 +15,7 @@ use App\Http\Controllers\AkunController;
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\layananController;
 use App\Http\Controllers\PegawaiController;
@@ -46,7 +47,7 @@ Route::get('/search-news', [PostController::class, 'searchNews'])->name('search.
 
 Route::get('post/{article}', [PostController::class, 'lihat'])->name('post.show');
 
-Route::get('/petasitus', [mapsController::class, 'showMap'])->name('maps');
+Route::get('/petasitus', [mapsController::class, 'showMap'])->name('petasitus.maps');
 
 //route contact me
 Route::get('/kontak', [ContactController::class, 'showForm'])->name('contact.form');
@@ -70,6 +71,8 @@ Route::get('/bidang/{id}', [BidangController::class, 'tampilBidang'])->name('bid
 Route::get('/regulasi/{id}', [RegulasiController::class, 'tampilRegulasi'])->name('regulasi.tampil');
 
 Route::get('/layanan', [LayananController::class, 'tampil'])->name('layanan.tampil');
+
+Route::get('/galeri', [GaleriController::class, 'tampil'])->name('galeri.tampil');
 
 Route::get('/pdf/{filename}', function ($filename) {
     $path = public_path('files/' . $filename);

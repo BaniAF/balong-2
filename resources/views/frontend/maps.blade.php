@@ -1,6 +1,9 @@
-@extends('layouts.app')
+@extends('frontend.layouts.app')
 
 @section('content')
+    <div>
+        <h1 class="text-4xl font-bold ">PETA SITUS KECAMATAN BALONG</h1>
+    </div>
     <div id="map" style="height: 400px;"></div>
 @endsection
 
