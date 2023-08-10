@@ -37,7 +37,7 @@
                     <tr>
                         <th style="width: 20px">No</th>
                         <th>Nama User</th>
-                        <th>Password</th>
+                        <th>Username</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -54,12 +54,9 @@
                             <tr>
                                 <td class="text-center">{{ $counter }}</td>
                                 <td>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm fw-bolder multiline">{{ $akun->namaUser }}</h6>
-                                        <p class="text-s text-secondary mb-0">{{ $akun->username }}</p>
-                                    </div>
+                                        <h6 class="mb-0 text-sm">{{ $akun->namaUser }}</h6>
                                 </td>
-                                <td>{{ $akun->userpass }}</td>
+                                <td>{{ $akun->username }}</td>
                                 <td class="text-center aligns-item-center">
                                     <div
                                         class="button-container d-flex justify-content-center align-items-center posting-form">
