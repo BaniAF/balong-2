@@ -64,7 +64,7 @@
             </a>
         </li>
         <li class="menu-item">
-            <a href="#" class="menu-link">
+            <a href="/bidang" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-dashboard"></i>
                 <div data-i18n="Account Settings">Bidang</div>
             </a>
@@ -76,9 +76,15 @@
             </a>
         </li>
         <li class="menu-item">
-            <a href="#" class="menu-link">
+            <a href="Regulasi" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-landmark"></i>
                 <div data-i18n="Account Settings">Regulasi</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="/list" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-bell-plus"></i>
+                <div data-i18n="Account Settings">Pengumuman</div>
             </a>
         </li>
         <li class="menu-header small text-uppercase">

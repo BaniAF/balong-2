@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bidang extends Model
+class Regulasi extends Model
 {
     use HasFactory;
-    protected $table = 'bidang';
+    protected $table = 'regulasi';
     protected $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = [
         'id',
-        'namaBidang',
-        'descBidang',
-        'fileBidang'
+        'namaRegulasi',
+        'descRegulasi',
+        'fileRegulasi'
     ];
 }

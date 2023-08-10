@@ -93,10 +93,10 @@
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Bidang</a>
                 <ul
                     class="dropdown hidden absolute mt-2 py-2 w-44 text-sm dark:bg-gray-800 bg-white rounded-sm shadow-lg">
-                    <li><a href="#"
+                    <li><a href="{{ route('bidang.tampil', ['id' => '1']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Bidang</a>
                     </li>
-                    <li><a href="#"
+                    <li><a href="{{ route('bidang.tampil', ['id' => '2']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Unit
                             Kerja</a></li>
                     <!-- Tambahkan menu-dropdown lain di sini -->
@@ -107,20 +107,20 @@
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Regulasi</a>
                 <ul
                     class="dropdown hidden absolute mt-2 py-2 w-44 text-sm dark:bg-gray-800 bg-white rounded-sm shadow-lg">
-                    <li><a href="#"
+                    <li><a href="{{ route('regulasi.tampil', ['id' => '1']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Undang
                             - Undang</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('regulasi.tampil', ['id' => '2']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Peraturan
                             Pemerintah</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('regulasi.tampil', ['id' => '3']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Peraturan
                             Menteri</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('regulasi.tampil', ['id' => '4']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Peraturan
                             Bupati</a>
                     </li>
-                    <li><a href="#"
+                    <li><a href="{{ route('regulasi.tampil', ['id' => '5']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Peraturan
                             Daerah</a>
                     </li>
@@ -128,7 +128,7 @@
                 </ul>
             </li>
             <li class="flex">
-                <a rel="noopener noreferrer" href="#"
+                <a rel="noopener noreferrer" href="{{ route('layanan.tampil') }}"
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Layanan Publik</a>
             </li>
             <li class="flex">

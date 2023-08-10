@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bidang;
+use App\Models\Regulasi;
 use Illuminate\Http\Request;
 
-class BidangController extends Controller
+class RegulasiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        //
     }
 
     /**
@@ -33,7 +34,7 @@ class BidangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bidang $bidang)
+    public function show(Regulasi $regulasi)
     {
         //
     }
@@ -41,7 +42,7 @@ class BidangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Bidang $bidang)
+    public function edit(Regulasi $regulasi)
     {
         //
     }
@@ -49,7 +50,7 @@ class BidangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Bidang $bidang)
+    public function update(Request $request, Regulasi $regulasi)
     {
         //
     }
@@ -57,20 +58,14 @@ class BidangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bidang $bidang)
+    public function destroy(Regulasi $regulasi)
     {
         //
     }
 
-    public function tampilBidang($id)
+    public function tampilRegulasi($id)
     {
-        $bidang = Bidang::findOrFail($id);
-        return view('frontend.articles.bidang', compact('bidang'));
+        $Regulasi = Regulasi::findOrFail($id);
+        return view('frontend.articles.regulasi', compact('Regulasi'));
     }
-
-    // public function tampilKode($kode)
-    // {
-    //     $bidang = Bidang::where('id', $kode)->firstOrFail(); // Menggunakan 'id' sebagai kolom kode
-    //     return view('frontend.articles.bidang', compact('bidang'));
-    // }
 }
