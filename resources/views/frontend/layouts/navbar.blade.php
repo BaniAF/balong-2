@@ -132,7 +132,7 @@
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Layanan Publik</a>
             </li>
             <li class="flex">
-                <a rel="noopener noreferrer" href="#"
+                <a rel="noopener noreferrer" href="{{ route('galeri.tampil') }}"
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Galeri</a>
             </li>
             <li class="flex">
@@ -144,7 +144,7 @@
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Kontak</a>
             </li>
             <li class="flex">
-                <a rel="noopener noreferrer" href=""
+                <a rel="noopener noreferrer" href="{{ route('petasitus.maps') }}"
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Peta Situs</a>
             </li>
         </ul>
