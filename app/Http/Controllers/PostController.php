@@ -116,7 +116,8 @@ class PostController extends Controller
             // return redirect('/post')->with('error', 'Postingan tidak ditemukan!');
         }
     }
-    public function updateStatusPostingan($id, Request $request){
+    public function updateStatusPostingan($id, Request $request)
+    {
         // dd($id);
         $post = Post::find($id);
 
@@ -134,7 +135,8 @@ class PostController extends Controller
     }
 
     // Fungsi untuk mengedit data Psotingan
-    public function updatePostingan(Request $request, $id) {
+    public function updatePostingan(Request $request, $id)
+    {
         $request->validate([
             'judulPost' => 'required',
             'isiPost' => 'required',
@@ -191,6 +193,28 @@ class PostController extends Controller
         ]);
     }
 
+    public function loadMore(Request $request)
+    {
+        $offset = $request->input('offset', 0);
+        $limit = 5; // Set the number of articles to load per request
+        $articles = Post::where('statusPost', 'Diposting')
+            ->orderBy('created_at', 'desc')
+            ->offset($offset)
+            ->limit($limit)
+            ->get();
+
+        return response()->json($articles);
+    }
+
+    public function searchNews(Request $request)
+    {
+        $searchTerm = $request->input('judulPost');
+
+        $results = Post::where('judulPost', 'like', '%' . $searchTerm . '%')->get();
+
+        return response()->json($results);
+    }
+
     public function uploadImage(Request $request)
     {
         if ($request->hasFile('upload')) {
@@ -215,7 +239,7 @@ class PostController extends Controller
             'error' => ['message' => 'File upload failed.'],
         ]);
     }
-    public function deleteImage($filename) 
+    public function deleteImage($filename)
     {
         $filePath = public_path('uploads/Artikel/') . $filename;
 

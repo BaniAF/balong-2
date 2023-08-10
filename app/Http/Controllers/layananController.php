@@ -123,4 +123,10 @@ class layananController extends Controller
             return redirect('/layanan-publik');
         }
     }
+
+    public function tampil()
+    {
+        $publik = Layanan::all();
+        return view('frontend.articles.layanan', ['layanan' => $publik]);
+    }
 }

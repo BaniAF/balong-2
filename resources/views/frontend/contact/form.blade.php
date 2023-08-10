@@ -1,5 +1,5 @@
 <!-- resources/views/contact/form.blade.php -->
-@extends('layouts.app')
+@extends('frontend.layouts.app')
 
 @section('content')
     <div class="container">
