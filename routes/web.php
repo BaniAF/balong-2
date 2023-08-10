@@ -12,6 +12,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AkunController;
+use App\Http\Controllers\BidangController;
 use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\KategoriController;
@@ -21,6 +22,8 @@ use App\Http\Controllers\ProkerController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmenuItemController;
+
+use App\Http\Controllers\RegulasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +64,12 @@ Route::get('/profil/{id}', [ProkerController::class, 'show'])->name('profil.show
 Route::get('/proker/{id}', [ProkerController::class, 'tampil'])->name('proker.tampil');
 Route::get('/proker/{kode}', [ProkerController::class, 'tampilKode'])->name('proker.tampil.kode');
 
+Route::get('/bidang/{id}', [BidangController::class, 'tampilBidang'])->name('bidang.tampil');
+// Route::get('/bidang/{kode}', [ProkerController::class, 'tampilKode'])->name('bidang.tampil.kode');
+
+Route::get('/regulasi/{id}', [RegulasiController::class, 'tampilRegulasi'])->name('regulasi.tampil');
+
+Route::get('/layanan', [LayananController::class, 'tampil'])->name('layanan.tampil');
 
 Route::get('/pdf/{filename}', function ($filename) {
     $path = public_path('files/' . $filename);

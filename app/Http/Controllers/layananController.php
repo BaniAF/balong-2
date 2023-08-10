@@ -127,6 +127,6 @@ class layananController extends Controller
     public function tampil()
     {
         $publik = Layanan::all();
-        return view('frontend.articles.layanan', ['layanan' => $publik]);
+        return view('frontend.articles.layanan');
     }
 }
