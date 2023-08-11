@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Agu 2023 pada 03.41
+-- Waktu pembuatan: 11 Agu 2023 pada 03.00
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -71,6 +71,29 @@ INSERT INTO `articles` (`id`, `judulArtikel`, `isiArtikel`, `image`, `idKategori
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `bidang`
+--
+
+CREATE TABLE `bidang` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `namaBidang` char(50) NOT NULL,
+  `descBidang` text NOT NULL,
+  `fileBidang` char(50) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `bidang`
+--
+
+INSERT INTO `bidang` (`id`, `namaBidang`, `descBidang`, `fileBidang`, `created_at`, `updated_at`) VALUES
+(1, 'Bidang', 'adsvf fafwdqa ascasca dqqq ', '', NULL, NULL),
+(2, 'Unit', 'dasdasda dadasdsa asdsaad dasdsad dasdsa dasdsa dasda dasdas dasda dasdas da as a', '', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `bukutamu`
 --
 
@@ -90,7 +113,10 @@ CREATE TABLE `bukutamu` (
 
 INSERT INTO `bukutamu` (`id`, `namaPengunjung`, `keperluan`, `keterangan`, `noTelp`, `created_at`, `updated_at`) VALUES
 ('BT001', 'Moh. Sifaul Khoir', 'Mengajukan / Mengirim Surat', 'asdfghjk', '0812345678', '2023-07-26 22:05:20', '2023-07-26 22:05:20'),
-('BT002', 'Icha Prastika', 'Bertemu Dengan PEG01', 'asdffsda', '45678912', '2023-07-26 22:06:35', '2023-07-26 22:06:35');
+('BT002', 'Icha Prastika', 'Bertemu Dengan PEG01', 'asdffsda', '45678912', '2023-07-26 22:06:35', '2023-07-26 22:06:35'),
+('BT003', 'bani comel', 'Penerbitan Surat', 'halo boloku', '98765', '2023-08-10 17:43:13', '2023-08-10 17:43:13'),
+('BT004', 'bani bann', 'Bertemu Dengan Icha Prastika', 'sdcfvghj aaa ada', '23456789', '2023-08-10 17:48:15', '2023-08-10 17:48:15'),
+('BT005', 'arkhanb', 'Pengaduan Masyarakat', 'sifaul nakal', '23456789', '2023-08-10 17:49:15', '2023-08-10 17:49:15');
 
 -- --------------------------------------------------------
 
@@ -198,8 +224,8 @@ CREATE TABLE `kategoripost` (
 INSERT INTO `kategoripost` (`id`, `namaKategori`, `created_at`, `updated_at`) VALUES
 ('K001', 'Kebudayaan', '2023-07-09 21:51:46', '2023-07-26 22:34:43'),
 ('K002', 'Umum', '2023-07-09 21:52:34', '2023-07-09 21:52:34'),
-('K003', 'Wisata', '2023-07-10 19:01:06', '2023-07-10 19:15:58'),
-('K004', 'Ekonomi', '2023-07-25 18:19:05', '2023-07-25 18:19:05');
+('K004', 'Ekonomi', '2023-07-25 18:19:05', '2023-07-25 18:19:05'),
+('K005', 'wisata', '2023-08-08 21:32:07', '2023-08-08 21:32:07');
 
 -- --------------------------------------------------------
 
@@ -227,32 +253,7 @@ CREATE TABLE `layanan` (
 --
 
 INSERT INTO `layanan` (`id`, `namaLayanan`, `created_at`, `updated_at`, `descLayanan`, `lokasi`, `kontak`, `jam_operasional`, `kategoriLayanan`, `persyaratan`, `biaya`, `keterangan`) VALUES
-('L002', 'Kantor Kecamatan Balong', '2023-07-04 18:44:36', '2023-07-05 21:53:39', 'Layanan Administrasi Kecamatan Balong', 'Jl. Kecamatan', '08219182347', '08:00-21:00', 'Kependudukan', 'Membawa Surat Undangan', 'Gratis', 'Membuat KTP');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `menu_items`
---
-
-CREATE TABLE `menu_items` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `link` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `menu_items`
---
-
-INSERT INTO `menu_items` (`id`, `nama`, `link`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Contac Us', '/contact', 'enable', '2023-08-01 07:47:46', '2023-08-01 07:47:46'),
-(2, 'Profil', '/profil', 'enable', '2023-08-01 08:08:02', '2023-08-01 08:08:02'),
-(3, 'Home', '{{ route ( \'landing\' ) }}', 'enable', '2023-08-01 18:30:11', '2023-08-01 18:30:11'),
-(4, 'Program Kerja', '{{ route ( \'program\' ) }}', 'enable', '2023-08-01 18:30:52', '2023-08-01 18:30:52');
+('L002', 'Kantor Kecamatan Balong', '2023-07-04 18:44:36', '2023-08-03 18:21:44', 'Layanan Administrasi Kecamatan Balong', 'Jl. Kecamatan', '08219182347', '08:00-21:00', 'Kependudukan', 'Membawa Surat Undangan', 'Gratis', 'Pembuatan KTP atau Surat Lainnya');
 
 -- --------------------------------------------------------
 
@@ -283,7 +284,24 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2023_08_01_005647_create_contacts_table', 5),
 (11, '2023_08_01_064425_create_menu_items_table', 6),
 (12, '2023_08_01_144914_create_submenu_items_table', 7),
-(13, '2023_08_02_012533_add_menu_item_id_to_submenu_items_table', 8);
+(13, '2023_08_02_012533_add_menu_item_id_to_submenu_items_table', 8),
+(14, '2023_08_02_030153_create_weather_table', 9),
+(15, '2023_08_02_131820_ubahtb_program_kegiatan', 10),
+(16, '2023_08_05_051747_tb_profil', 11),
+(17, '2023_08_07_023102_add_aktif_column_to_pengumuman_image', 11),
+(18, '2023_08_07_060143_create_bidangs_table', 12),
+(19, '2023_08_07_011655_tb_galeri', 13),
+(20, '2023_08_07_011955_tb_galeri_lagi', 13),
+(21, '2023_08_07_052737_remove_primary_ey', 13),
+(22, '2023_08_09_040118_ubah_proker_image', 13),
+(23, '2023_08_10_023327_create_regulasis_table', 13),
+(24, '2023_08_10_030717_create_table_galeri', 14),
+(25, '2023_08_10_033446_drop_id_primary', 14),
+(26, '2023_08_10_040015_create_menus_table', 15),
+(27, '2023_08_10_040017_create_submenus_table', 15),
+(28, '2023_08_10_053851_create_menu_table', 16),
+(29, '2023_08_10_055123_create_sub_menu_table', 17),
+(30, '2023_08_10_213934_create_profils_table', 18);
 
 -- --------------------------------------------------------
 
@@ -320,7 +338,7 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`id`, `nip`, `namaPegawai`, `jenisKelamin`, `jabatan`, `pangkat`, `created_at`, `updated_at`, `fotoPegawai`) VALUES
-('PEG02', '2131730066', 'Icha Prastika', 'Perempuan', 'Sekretaris Kecamatan', 'Penata III-D', '2023-07-28 20:53:33', '2023-07-28 20:53:33', 'Icha Prastika - PEG02.jpg');
+('PEG02', '2131730066', 'Icha Prastika', 'Perempuan', 'Sekretaris Kecamatan', 'Penata III-D', '2023-07-28 20:53:33', '2023-08-05 08:26:46', 'PEG02 - Icha Prastika.jpg');
 
 -- --------------------------------------------------------
 
@@ -332,15 +350,18 @@ CREATE TABLE `pengumuman_image` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `image` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `aktif` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `pengumuman_image`
 --
 
-INSERT INTO `pengumuman_image` (`id`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'pengumuman1.jpeg', NULL, NULL);
+INSERT INTO `pengumuman_image` (`id`, `image`, `created_at`, `updated_at`, `aktif`) VALUES
+(1, 'pengumuman1.jpeg', NULL, '2023-08-08 20:10:01', 1),
+(4, '1691374830.png', '2023-08-06 19:20:30', '2023-08-08 20:09:57', 1),
+(6, 'dsa.jpg', '2023-08-08 21:21:21', '2023-08-08 21:21:58', 0);
 
 -- --------------------------------------------------------
 
@@ -384,8 +405,36 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`id`, `judulPost`, `isiPost`, `kategoriPost`, `userPost`, `statusPost`, `fotoPost`, `created_at`, `updated_at`) VALUES
-('P003', 'Kecamatan Balong', '<p><strong>Balong </strong>adalah sebuah kecamatan di Kabupaten Ponorogo, Provinsi Jawa Timur, Indonesia. Kecamatan ini berjarak sekitar 18 kilometer dari ibu kota Kabupaten Ponorogo ke arah barat daya. Pusat pemerintahannya berada di desa Balong.</p>', 'K002', 'Kecamatan Balong', 'Diposting', 'P003 - Lokasi_Kecamatan_Balong,_Ponorogo.png', '2023-07-12 17:45:03', '2023-07-16 20:18:54'),
-('P004', 'Cob', '<p><strong>Ini Juga COba</strong></p>', 'K002', 'Admin', 'Diposting', 'P004 - kue-ondeh-ondeh.jpg', '2023-07-12 18:30:02', '2023-07-25 18:19:39');
+('P003', 'Kecamatan Balong', '<p><strong>Balong </strong>adalah sebuah kecamatan di Kabupaten Ponorogo, Provinsi Jawa Timur, Indonesia. Kecamatan ini berjarak sekitar 18 kilometer dari ibu kota Kabupaten Ponorogo ke arah barat daya. Pusat pemerintahannya berada di desa Balong.&nbsp;</p>', 'K002', 'Kecamatan Balong', 'Diposting', 'P003 - Lokasi_Kecamatan_Balong,_Ponorogo.png', '2023-07-12 17:45:03', '2023-08-04 22:09:29'),
+('P004', 'Cob', '<p><strong>Ini Juga COba</strong></p>', 'K002', 'Admin', 'Diposting', 'P004 - kue-ondeh-ondeh.jpg', '2023-07-12 18:30:02', '2023-07-25 18:19:39'),
+('P005', 'Ini Judul Belum Diposting', '<p>I<strong>ni Belum Diposting </strong>Ini Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Bel<img src=\"http://127.0.0.1:8000/uploads/Artikel/Postingan/1691393938 - 1.png\">um DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum Diposting</p>', 'K001', 'Kecamatan Balong', 'Diposting', 'P005 - IPNU IPPNU - HUT RI.jpg', '2023-08-02 20:54:52', '2023-08-07 00:39:15');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `profils`
+--
+
+CREATE TABLE `profils` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `namaProfil` char(50) NOT NULL,
+  `descProfil` text NOT NULL,
+  `fileProfil` char(50) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `profils`
+--
+
+INSERT INTO `profils` (`id`, `namaProfil`, `descProfil`, `fileProfil`, `created_at`, `updated_at`) VALUES
+(1, 'Organisasi dan Tata Kerja', 'isinya tentang Organisasi, bisa struktur atau yang lain', '', NULL, NULL),
+(2, 'Tugas dan Fungsi', 'Berisi tentang Tupoksi dari Kecamatan', '', NULL, NULL),
+(3, 'Struktur Organisasi', 'Berisi tentang struktur pemerintahan', '', NULL, NULL),
+(4, 'Visi, Misi, Tujuan, Sasaran', 'Visi apa,\r\n\r\nMisi apa,\r\n\r\nTujuan apa,\r\n\r\nSasaran apa,', '', NULL, NULL),
+(5, 'Profil Pejabat Struktural', 'Profil bapak/ibu camat', '', NULL, NULL),
+(6, 'Jumlah Pegawai', 'Isi pegawai', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -397,6 +446,7 @@ CREATE TABLE `proker` (
   `id` varchar(5) NOT NULL,
   `namaProker` varchar(50) NOT NULL,
   `descProker` text NOT NULL,
+  `fileProgram` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -405,32 +455,62 @@ CREATE TABLE `proker` (
 -- Dumping data untuk tabel `proker`
 --
 
-INSERT INTO `proker` (`id`, `namaProker`, `descProker`, `created_at`, `updated_at`) VALUES
-('PK01', 'Grebeg Suro 2023', 'Grebeg Suro Telah selesai', '2023-07-05 17:30:02', '2023-07-25 17:55:20'),
-('PK02', 'Bersih Desa', 'Ini bersih Desa', '2023-07-05 21:17:12', '2023-07-05 21:17:12');
+INSERT INTO `proker` (`id`, `namaProker`, `descProker`, `fileProgram`, `created_at`, `updated_at`) VALUES
+('PK01', 'RENJA', 'Keterangan Logo Resmi untuk HUT RI 2023', 'PK01_HUT RI 78_Logo.pdf', '2023-08-03 18:04:36', '2023-08-08 19:58:05'),
+('PK02', 'RENSTRA', 'dadasnidsnaudasdinas', 'PK02_Daftar Pembimbing PKL.pdf', '2023-08-08 17:44:11', '2023-08-08 19:58:20'),
+('PK03', 'IKU', 'dadasdsada', 'PK03_Daftar Pembimbing PKL.pdf', '2023-08-08 17:44:46', '2023-08-08 19:58:32'),
+('PK04', 'DPA', 'dadsad', '-', '2023-08-08 19:58:43', '2023-08-08 19:58:43'),
+('PK05', 'PERJANJIAN KINERJA', 'dasdasddasdasdasdqwewqqweq', '-', '2023-08-08 19:59:01', '2023-08-08 19:59:01'),
+('PK06', 'LAPORAN KINERJA', 'wqednwqiudwqydqdq', '-', '2023-08-08 19:59:21', '2023-08-08 19:59:21'),
+('PK07', 'RENCANA KERJA', 'zasxrdctfvybhudaoidqwdv', '-', '2023-08-08 19:59:37', '2023-08-08 19:59:37');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `submenu_items`
+-- Struktur dari tabel `proker_image`
 --
 
-CREATE TABLE `submenu_items` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `link` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
+CREATE TABLE `proker_image` (
+  `id` varchar(5) NOT NULL,
+  `kodeProker` varchar(5) NOT NULL,
+  `image` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `menu_item_id` bigint(20) UNSIGNED NOT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `submenu_items`
+-- Dumping data untuk tabel `proker_image`
 --
 
-INSERT INTO `submenu_items` (`id`, `name`, `link`, `status`, `created_at`, `updated_at`, `menu_item_id`) VALUES
-(2, 'Organisasi dan Tata Kerja', '{{ route ( \'profil.Organisasi\' ) }}', 'enable', '2023-08-01 18:37:23', '2023-08-01 18:37:23', 2);
+INSERT INTO `proker_image` (`id`, `kodeProker`, `image`, `created_at`, `updated_at`) VALUES
+('FK01', 'PK01', 'PK01 - Harlah Pancasila.jpg', '2023-08-08 21:03:14', '2023-08-08 21:03:14'),
+('FK02', 'PK02', 'PK02 - PK01 - cover_2.jpg', '2023-08-09 20:33:21', '2023-08-09 20:33:21');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `regulasi`
+--
+
+CREATE TABLE `regulasi` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `namaRegulasi` char(50) NOT NULL,
+  `descRegulasi` text NOT NULL,
+  `fileRegulasi` char(50) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `regulasi`
+--
+
+INSERT INTO `regulasi` (`id`, `namaRegulasi`, `descRegulasi`, `fileRegulasi`, `created_at`, `updated_at`) VALUES
+(1, 'Undang - Undang', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL),
+(2, 'Peraturan Pemerintah', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL),
+(3, 'Peraturan Menteri', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL),
+(4, 'Peraturan Bupati', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL),
+(5, 'Peraturan Daerah', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -458,16 +538,11 @@ INSERT INTO `user` (`id`, `username`, `namaUser`, `userpass`, `created_at`, `upd
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Struktur dari tabel `weather`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `weather` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -482,6 +557,12 @@ CREATE TABLE `users` (
 ALTER TABLE `articles`
   ADD PRIMARY KEY (`id`),
   ADD KEY `articles_idkategori_foreign` (`idKategori`);
+
+--
+-- Indeks untuk tabel `bidang`
+--
+ALTER TABLE `bidang`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `bukutamu`
@@ -518,12 +599,6 @@ ALTER TABLE `kategoripost`
 -- Indeks untuk tabel `layanan`
 --
 ALTER TABLE `layanan`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks untuk tabel `menu_items`
---
-ALTER TABLE `menu_items`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -565,17 +640,22 @@ ALTER TABLE `post`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `profils`
+--
+ALTER TABLE `profils`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `proker`
 --
 ALTER TABLE `proker`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `submenu_items`
+-- Indeks untuk tabel `regulasi`
 --
-ALTER TABLE `submenu_items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `submenu_items_menu_item_id_foreign` (`menu_item_id`);
+ALTER TABLE `regulasi`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `user`
@@ -584,11 +664,10 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indeks untuk tabel `weather`
 --
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+ALTER TABLE `weather`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -599,6 +678,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `articles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT untuk tabel `bidang`
+--
+ALTER TABLE `bidang`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `categories`
@@ -619,22 +704,16 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `menu_items`
---
-ALTER TABLE `menu_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengumuman_image`
 --
 ALTER TABLE `pengumuman_image`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
@@ -643,15 +722,21 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `submenu_items`
+-- AUTO_INCREMENT untuk tabel `profils`
 --
-ALTER TABLE `submenu_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `profils`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT untuk tabel `regulasi`
 --
-ALTER TABLE `users`
+ALTER TABLE `regulasi`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `weather`
+--
+ALTER TABLE `weather`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -663,12 +748,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `articles`
   ADD CONSTRAINT `articles_idkategori_foreign` FOREIGN KEY (`idKategori`) REFERENCES `categories` (`id`) ON DELETE SET NULL;
-
---
--- Ketidakleluasaan untuk tabel `submenu_items`
---
-ALTER TABLE `submenu_items`
-  ADD CONSTRAINT `submenu_items_menu_item_id_foreign` FOREIGN KEY (`menu_item_id`) REFERENCES `menu_items` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
