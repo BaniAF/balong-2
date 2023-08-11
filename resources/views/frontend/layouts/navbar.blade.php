@@ -33,23 +33,23 @@
                 <a href="#" class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Profil</a>
                 <ul
                     class="dropdown hidden absolute mt-2 py-2 w-44 text-sm dark:bg-gray-800 bg-white rounded-sm shadow-lg">
-                    <li><a href="#"
+                    <li><a href="{{ route('profil.tampil', ['id' => '1']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Organisasi
                             dan Tata
                             Kerja</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('profil.tampil', ['id' => '2']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Tugas
                             dan Fungsi</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('profil.tampil', ['id' => '3']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Struktur
                             Organisasi</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('profil.tampil', ['id' => '4']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Visi,
                             Misi, Tujuan, Sasaran</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('profil.tampil', ['id' => '5']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Profil
                             Pejabat Struktural</a></li>
-                    <li><a href="#"
+                    <li><a href="{{ route('profil.tampil', ['id' => '6']) }}"
                             class="block px-4 py-2 dark:text-white text-black hover:bg-indigo-500 hover:text-white">Jumlah
                             Pegawai berdasarkan Pendidikan/ Pangkat/ Golongan/ Jenis Kelamin</a></li>
                     <!-- Tambahkan menu-dropdown lain di sini -->
@@ -136,7 +136,7 @@
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Galeri</a>
             </li>
             <li class="flex">
-                <a rel="noopener noreferrer" href="#"
+                <a rel="noopener noreferrer" href="{{ route('tampil.tamu') }}"
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Buku Tamu</a>
             </li>
             <li class="flex">
@@ -148,6 +148,7 @@
                     class="flex items-center px-4 -mb-1 border-b-2 border-transparent">Peta Situs</a>
             </li>
         </ul>
+
     </div>
 </header>
 

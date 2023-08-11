@@ -7,6 +7,7 @@ use App\Http\Controllers\mapsController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfilController;
 
 // admin controller
 use App\Http\Controllers\PostController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubmenuItemController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\RegulasiController;
+use App\Http\Controllers\SubmenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,31 +72,18 @@ Route::get('/bidang/{id}', [BidangController::class, 'tampilBidang'])->name('bid
 
 Route::get('/regulasi/{id}', [RegulasiController::class, 'tampilRegulasi'])->name('regulasi.tampil');
 
+Route::get('/rprofil/{id}', [ProfilController::class, 'tampilProfil'])->name('profil.tampil');
+
 Route::get('/layanan', [LayananController::class, 'tampil'])->name('layanan.tampil');
 
 Route::get('/galeri', [GaleriController::class, 'tampil'])->name('galeri.tampil');
 
-Route::get('/pdf/{filename}', function ($filename) {
-    $path = public_path('files/' . $filename);
+//=========> buku tamu <==========//
+Route::get('/buktam', [BukuTamuController::class, 'tampilTamu'])->name('tampil.tamu');
+Route::post('/buktam', [BukuTamuController::class, 'store'])->name('tambah.tamu');
 
-    if (file_exists($path)) {
-        return response()->file($path);
-    }
 
-    abort(404);
-});
-
-Route::get('/video/{filename}', function ($filename) {
-    $path = public_path('videos/' . $filename);
-
-    if (file_exists($path)) {
-        return response()->file($path);
-    }
-
-    abort(404);
-});
-
-// admin routes
+//-------------------------- admin routes ---------------------------//
 
 Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login/post', [AdminLoginController::class, 'login'])->name('login.post');
@@ -176,8 +165,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bidang', function () {
         return view('backend.pages.bidang');
     });
-
-
 
     Route::get('/list', [PengumumanController::class, 'lihat'])->name('list.lihat');
     Route::post('/tambah-gambar', [PengumumanController::class, 'tambahGambar'])->name('tambah-gambar');

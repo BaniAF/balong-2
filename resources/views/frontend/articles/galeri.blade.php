@@ -15,4 +15,15 @@
 
 
     </div>
+    <div class="container m-2 p-4">
+        @foreach ($posting as $item)
+            <h1>Detail publik Layanan</h1>
+            <p>ID: {{ $item->id }}</p>
+            <h1 class="font-bold text-5xl">{{ $item->judulPost }}</h1>
+            <p>Nama publik: {{ $item->judulPost }}</p>
+            <img src="{{ asset('uploads/Artikel/' . $item->fotoPost) }}" alt="">
+        @endforeach
+
+
+    </div>
 @endsection

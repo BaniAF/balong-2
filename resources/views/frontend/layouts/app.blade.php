@@ -17,6 +17,19 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAO-ccTqjDiPdSx-N9Rzy6eN1h_Z1QmQCw&callback=initMap" async
+        defer></script>
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: -7.2575,
+                    lng: 112.7521
+                },
+                zoom: 10
+            });
+        }
+    </script>
 </head>
 
 <body class="font-sans antialiased">
@@ -43,6 +56,9 @@
     <div>
         @include('frontend.layouts.footer')
     </div>
+
+    <script src="{{ asset('js/maps.js') }}"></script>
+
 
 </body>
 

@@ -32,7 +32,6 @@ class AdminLoginController extends Controller
         // Autentikasi berhasil
         Auth::login($user);
         toast('Login Berhasil', 'success');
-        
         return redirect()->intended('/admin');
     }
 
