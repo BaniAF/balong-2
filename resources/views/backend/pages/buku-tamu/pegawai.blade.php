@@ -103,12 +103,15 @@
     <div class="card-body">
         <div class="card-title d-flex align-items-center justify-content-between">
             <h5 class="fw-semibold">Daftar Pegawai</h5>
-            <button class="btn btn-md bg-primary mb-2 text-white fw-semibold" 
+            <!-- <button class="btn btn-md bg-primary mb-2 text-white fw-semibold" 
                 data-bs-toggle="modal"
                 data-bs-target="#backDropModal"
                 type="button" >
                 <i class='bx bxs-file-plus me-2'></i>Tambah
-            </button>
+            </button> -->
+            <a href="/tambah-pegawai" class="btn btn-md bg-primary mb-2 text-white fw-semibold">
+                <i class='bx bxs-user-plus me-2'></i>Tambah Pegawai
+            </a>
         </div>
         <table class="table table-bordered">
             <thead class="text-center fw-bolder">

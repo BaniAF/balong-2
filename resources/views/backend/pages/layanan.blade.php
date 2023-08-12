@@ -87,7 +87,7 @@
                                         </button>
                                         <button
                                             class="tf-icons btn btn-sm btn-outline-primary me-1 btn-icon rounded-pill btn-detail"
-                                            type="button" data-bs-toggle="modal" data-bs-target="#backDropDetail"
+                                            type="button" data-bs-toggle="modal" data-bs-target="#modalDetail"
                                             data-id="{{ $layananP->id }}" data-bs-nama="{{ $layananP->namaLayanan }}"
                                             data-bs-deskripsi="{{ $layananP->descLayanan }}"
                                             data-bs-informasi="{{ $layananP->keterangan }}"
@@ -231,7 +231,7 @@
     </div>
 
     <!-- Modal Detail -->
-    <div class="modal fade" id="backDropDetail" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal fade" id="modalDetail" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
             <form class="modal-content" >
                 <div class="modal-header">
@@ -239,7 +239,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-black">
-                    
+                    <table>
+                        <tbody id="tableDetail">
+                            <tr>
+                                <td>
+                                    <p class="fw-normal mb-0" style="font-size:15px">Anggota</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer d-flex mt-1">
                     <button type="button" class="btn btn-outline-danger mb-0" data-bs-dismiss="modal">
@@ -321,7 +329,77 @@
             </form>
         </div>
     </div> -->
+    
+    <!-- script detail anggota -->
+<script>
+    function openModal(nama, deskripsi, informasi, lokasi, kontak, syarat, biaya, kategori, jam) {
+        const modal = document.getElementById('modalDetail');
+        modal.style.display = 'block';
 
+        const tableBody = document.getElementById('tableDetail');
+        tableBody.innerHTML = ''; // Bersihkan isi tabel sebelum mengisi ulang
+
+        // Menambahkan baris informasi ke dalam tabel
+        function addRow(label, value) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <p class="fw-semibold mb-2 me-2" style="font-size:15px">${label} </p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-2 me-3" style="font-size:15px"> : </p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-2" style="font-size:15px"> ${value}</p>                
+                </td>
+            `;
+            tableBody.appendChild(row);
+        }
+
+        // Menambahkan informasi ke dalam tabel
+        addRow('Nama Layanan', nama);
+        addRow('Deskripsi Layanan', deskripsi);
+        addRow('Alamat', lokasi);
+        addRow('No Telepon', kontak);
+        addRow('Persyaratan', syarat);
+        addRow('Biaya', biaya);
+        addRow('Kategori Layanan', kategori);
+        addRow('Jam Operasional', jam);
+        addRow('Informasi Tambahan', informasi);
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('modalDetail');
+        modal.style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mendapatkan modal dan tombol detail
+        const modal = document.getElementById('modalDetail');
+        const buttons = document.querySelectorAll('.btn-detail');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                // const nip = this.getAttribute('data-id');
+                const nama = this.getAttribute('data-bs-nama');
+                const deskripsi = this.getAttribute('data-bs-deskripsi');
+                const informasi = this.getAttribute('data-bs-informasi');
+                const lokasi = this.getAttribute('data-bs-lokasi');
+                const kontak = this.getAttribute('data-bs-kontak');
+                const syarat = this.getAttribute('data-bs-persyaratan');
+                const biaya = this.getAttribute('data-bs-biaya');
+                const kategori = this.getAttribute('data-bs-kategori');
+                const jam = this.getAttribute('data-bs-jam');
+
+                // Menampilkan modal
+                modal.style.display = 'block';
+
+                // Memanggil fungsi openModal dengan nilai-nilai dari atribut data
+                openModal(nama, deskripsi, informasi, lokasi, kontak, syarat, biaya, kategori, jam);
+            });
+        });
+    });
+</script>
 
     <!-- Modal Edit -->
     <div class="modal fade" id="backDropEdit" data-bs-backdrop="static" tabindex="-1">

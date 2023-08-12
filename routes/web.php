@@ -165,6 +165,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bidang', function () {
         return view('backend.pages.bidang');
     });
+    Route::get('/tambah-pegawai', function () {
+        return view('backend.pages.buku-tamu.tambah-pegawai');
+    });
 
     Route::get('/list', [PengumumanController::class, 'lihat'])->name('list.lihat');
     Route::post('/tambah-gambar', [PengumumanController::class, 'tambahGambar'])->name('tambah-gambar');
