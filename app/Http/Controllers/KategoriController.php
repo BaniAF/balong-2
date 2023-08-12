@@ -9,23 +9,22 @@ class KategoriController extends Controller
 {
     public function daftarKategoriPost()
     {
-        $kategori = Kategori::all();
+        $kategori = Kategori::paginate(10);
         return view('backend.pages.kategoriPost', ['kategori' => $kategori]);
     }
 
     public function tambahKategori(Request $request)
     {
         $request->validate([
-            'namaKategori' => 'required|unique:kategoriPost',
+            'namaKategori' => 'required|unique:kategoriPost,namaKategori,NULL,id,deleted_at,NULL',
         ], [
             'namaKategori.required' => 'Silahkan masukkan data dengan lengkap.',
+            'namaKategori.unique' => 'Kategori dengan nama ini sudah ada.',
         ]);
 
-        // Mendapatkan id terakhir
-        $lastKategori = Kategori::orderBy('id', 'desc')->first();
+        $lastKategori = Kategori::withTrashed()->orderBy('id', 'desc')->first();
         $lastId = $lastKategori ? intval(substr($lastKategori->id, 1)) : 0;
 
-        // Membuat id baru dengan format "K001"
         $id = 'K' . str_pad($lastId + 1, 3, '0', STR_PAD_LEFT);
 
         $kategori = new Kategori();

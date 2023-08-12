@@ -37,7 +37,7 @@
                     <tr>
                         <th style="width: 20px">No</th>
                         <th>Nama User</th>
-                        <th>Password</th>
+                        <th>Username</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -48,18 +48,15 @@
                         </tr>
                     @else
                         @php
-                            $counter = 1;
+                            $counter = ($user->currentPage() - 1) * $user->perPage() + 1;
                         @endphp
                         @foreach ($user as $akun)
                             <tr>
                                 <td class="text-center">{{ $counter }}</td>
                                 <td>
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm fw-bolder multiline">{{ $akun->namaUser }}</h6>
-                                        <p class="text-s text-secondary mb-0">{{ $akun->username }}</p>
-                                    </div>
+                                    <h6 class="mb-0 text-sm">{{ $akun->namaUser }}</h6>
                                 </td>
-                                <td>{{ $akun->userpass }}</td>
+                                <td>{{ $akun->username }}</td>
                                 <td class="text-center aligns-item-center">
                                     <div
                                         class="button-container d-flex justify-content-center align-items-center posting-form">
@@ -94,6 +91,25 @@
                     @endif
                 </tbody>
             </table>
+            <div class="page mt-3">
+                @if (!$user->isEmpty())
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item {{ $user->currentPage() == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $user->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                            </li>
+                            @for ($i = 1; $i <= $user->lastPage(); $i++)
+                                <li class="page-item {{ $user->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $user->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+                            <li class="page-item {{ $user->currentPage() == $user->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $user->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                @endif
+            </div>
         </div>
     </div>
     <!-- Modal Tambah Posting -->

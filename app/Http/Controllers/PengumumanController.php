@@ -9,7 +9,7 @@ class PengumumanController extends Controller
 {
     public function lihat()
     {
-        $announcement = Pengumuman::all();
+        $announcement = Pengumuman::paginate(5);
 
         return view('backend.pages.pengumuman.list', compact('announcement'));
     }
@@ -18,6 +18,10 @@ class PengumumanController extends Controller
     {
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Sesuaikan dengan ekstensi dan ukuran file yang diizinkan
+        ], [
+            'image.image' => 'File harus berupa gambar',
+            'image.mimes' => 'Format gambar yang diperbolehkan adalah jpeg, png, jpg, gif',
+            'image.max' => 'Ukuran gambar maksimal 2MB',
         ]);
 
         if ($request->hasFile('image')) {

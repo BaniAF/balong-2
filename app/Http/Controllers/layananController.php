@@ -9,7 +9,7 @@ class layananController extends Controller
 {
     public function daftarLayanan()
     {
-        $layanan = Layanan::all();
+        $layanan = Layanan::paginate(10);
         return view('backend.pages.layanan', ['layanan' => $layanan]);
     }
     // fungsi tambah post

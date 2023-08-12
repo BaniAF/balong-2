@@ -10,7 +10,7 @@
         <script>
             Swal.fire({
                 title: "Error",
-                text: "Lengkapi data input!",
+                text: "Data Invalid!",
                 icon: "error",
                 button: "OK"
             });
@@ -45,24 +45,35 @@
                 <tbody class="text-left">
                     @if ($announcement->isEmpty())
                         <tr>
-                            <td colspan="5" class="text-center fw-semibold">Belum ada Program Kegiatan</td>
+                            <td colspan="5" class="text-center fw-semibold">Belum ada Pengumuman.</td>
                         </tr>
                     @else
                         @php
-                            $counter = 1;
+                            $counter = ($announcement->currentPage() - 1) * $announcement->perPage() + 1;
                         @endphp
                         @foreach ($announcement as $item)
                             <tr>
+                                @php
+                                    $imagePath = public_path('images/' . $item->image);
+                                    $imageSize = getimagesize($imagePath);
+                                    $fileSize = round(filesize($imagePath) / (1024 * 1024), 2);
+                                @endphp
                                 <td class="text-center">{{ $counter }}</td>
-                                <td>{{ $item->image }}</td>
-                                {{-- <td style="text-align: justify;">{{ Str::words($item->descProker, 10, ' ...') }}</td> --}}
                                 <td>
+                                    {{ $item->image }}
+                                    <span style="display: block; margin-top: 1px;">
+                                        Ukuran File : {{ $fileSize }} Mb
+                                    </span>
+                                </td>
+                                <td class="text-center">
                                     @if ($item->image)
                                         <img src="{{ asset('images/' . $item->image) }}" alt="Pengumuman Image"
-                                            class=""
-                                            style="height: 200px;
-                                                width: auto;
-                                            ">
+                                            style="height: 200px; width: auto;">
+                                        @if ($imageSize)
+                                            <span style="display: block; margin-top: 5px;">
+                                                Ukuran Asli : {{ $imageSize[0] }} x {{ $imageSize[1] }} piksel
+                                            </span>
+                                        @endif
                                     @endif
                                 </td>
                                 <td class="text-center aligns-item-center">
@@ -94,7 +105,6 @@
                                         </form>
                                     </div>
                                 </td>
-
                             </tr>
                             @php
                                 $counter++;
@@ -103,6 +113,25 @@
                     @endif
                 </tbody>
             </table>
+            <div class="page mt-3">
+                @if (!$announcement->isEmpty())
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item {{ $announcement->currentPage() == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $announcement->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                            </li>
+                            @for ($i = 1; $i <= $announcement->lastPage(); $i++)
+                                <li class="page-item {{ $announcement->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $announcement->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+                            <li class="page-item {{ $announcement->currentPage() == $announcement->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $announcement->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                @endif
+            </div>
         </div>
     </div>
     <!-- Modal Tambah Posting -->
@@ -120,7 +149,7 @@
                                 class="text-capitalize fw-semibold text-danger">*</span></label>
                         <input type="file" name="image" id="image" class="form-control mb-1" accept="images/*"
                             max="2048">
-                        <span class="text-capitalize fw-semibold text-danger">* Opsional.</span>
+                        <span class="text-capitalize fw-semibold text-danger">* Max 2Mb.</span>
                     </div>
 
                     <div class="modal-footer d-flex">

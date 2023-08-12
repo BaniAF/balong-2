@@ -120,6 +120,25 @@
                     @endif
                 </tbody>
             </table>
+            <div class="page mt-3">
+                @if (!$layanan->isEmpty())
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item {{ $layanan->currentPage() == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $layanan->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                            </li>
+                            @for ($i = 1; $i <= $layanan->lastPage(); $i++)
+                                <li class="page-item {{ $layanan->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $layanan->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+                            <li class="page-item {{ $layanan->currentPage() == $layanan->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $layanan->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                @endif
+            </div>
         </div>
     </div>
     <!-- Modal Tambah Posting -->
@@ -214,6 +233,24 @@
     <!-- Modal Detail -->
     <div class="modal fade" id="backDropDetail" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
+            <form class="modal-content" >
+                <div class="modal-header">
+                    <h3 class="modal-title" id="backDropModalTitle">Detail Layanan Publik</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-black">
+                    
+                </div>
+                <div class="modal-footer d-flex mt-1">
+                    <button type="button" class="btn btn-outline-danger mb-0" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- <div class="modal fade" id="backDropDetail" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog">
             <form class="modal-content" enctype="multipart/form-data" method="post"
                 action="{{ route('tambah-layanan') }}">
                 @csrf
@@ -283,7 +320,8 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
+
 
     <!-- Modal Edit -->
     <div class="modal fade" id="backDropEdit" data-bs-backdrop="static" tabindex="-1">

@@ -11,7 +11,7 @@ class ProkerController extends Controller
 {
     public function daftarProker()
     {
-        $prokerja = Proker::all();
+        $prokerja = Proker::paginate(10);
         return view('backend.pages.proker', ['prokerja' => $prokerja]);
     }
     public function tambahImage()

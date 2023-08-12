@@ -31,7 +31,7 @@
                     <i class='bx bxs-file-plus me-2'></i>Tambah Postingan
                 </a>
             </div>
-            <table class="table table-bordered" id="tabelPost">
+            <table class="table table-bordered mb-3" id="tabelPost">
                 <thead class="text-center fw-bolder">
                     <tr>
                         <th>Tanggal</th>
@@ -54,9 +54,17 @@
                                 <tr>
                                     <td class="p-2 m-1 text-center">{{ $post->created_at->format('d M Y') }}</td>
                                     <td class="p-2 m-1">{{ $post->judulPost }}</td>
-                                    <td style="text-align: justify;" class="p-2 mb-0">{!! Str::words($post->isiPost, 15, ' ...') !!}</td>
+                                    <td style="text-align: justify;" class="p-2 mb-0">{!! Str::limit($post->isiPost, 50, ' ...') !!}</td>
                                     <td class="text-capitalize">
-                                        {{ $post->kategori ? $post->kategori->namaKategori : 'Tidak Diketahui' }}
+                                        @if ($post->kategori)
+                                            @if ($post->kategori->trashed())
+                                                {{ $post->kategori->namaKategori }} <span class="fw-bold text-s text-danger">*Kategori Terhapus</span>
+                                            @else
+                                                {{ $post->kategori->namaKategori }}
+                                            @endif
+                                        @else
+                                            Tidak Ada Kategori
+                                        @endif
                                     </td>
                                     <td>{{ $post->userPost }}</td>
                                     <td class="d-flex justify-content-center">
@@ -87,17 +95,6 @@
                                             <a href="{{route('edit-postingan',$post->id)}}"class="tf-icons btn btn-sm btn-outline-warning me-1 btn-icon rounded-pill">
                                                 <i class="bx bx-edit-alt bx-s m-1"></i>
                                             </a>
-                                            <!-- <button
-                                                class="tf-icons btn btn-sm btn-outline-warning me-1 btn-icon rounded-pill edit-post-btn"
-                                                type="button" data-bs-toggle="modal" data-bs-target="#backDropEdit"
-                                                data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true"
-                                                data-id="{{ $post->id }}" data-bs-judul="{{ $post->judulPost }}"
-                                                data-bs-isi="{{ $post->isiPost }}"
-                                                data-bs-status="{{ $post->statusPost }}"
-                                                data-bs-kategori="{{ $post->kategoriPost }}"
-                                                data-bs-foto="{{ $post->fotoPost }}" title="<span>Edit</span>">
-                                                <i class="bx bx-edit-alt bx-s m-1"></i>
-                                            </button> -->
                                             <form action="{{ route('postingan.hapus', $post->id) }}" method="post">
                                                 @csrf
                                                 <!-- Tombol "Delete" -->
@@ -117,6 +114,25 @@
                     @endif
                 </tbody>
             </table>
+            <div class="page">
+                @if (!$postingan->where('statusPost', '!=', 'Diposting')->isEmpty())
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item {{ $postingan->currentPage() == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $postingan->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                            </li>
+                            @for ($i = 1; $i <= $postingan->lastPage(); $i++)
+                                <li class="page-item {{ $postingan->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $postingan->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+                            <li class="page-item {{ $postingan->currentPage() == $postingan->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $postingan->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                @endif
+            </div>
         </div>
     </div>
     <!-- Card Posting -->
@@ -125,7 +141,7 @@
             <div class="card-title d-flex align-items-center justify-content-between">
                 <h5 class="fw-semibold">Daftar Postingan - Diposting</h5>
             </div>
-            <table class="table table-bordered ">
+            <table class="table table-bordered mb-3">
                 <thead class="text-center fw-bolder">
                     <tr>
                         <th>Tanggal</th>
@@ -148,8 +164,18 @@
                                 <tr>
                                     <td class="p-2 m-1 text-center">{{ $post->created_at->format('d M Y') }}</td>
                                     <td class="p-2 m-1">{{ $post->judulPost }}</td>
-                                    <td style="text-align: justify;">{!! Str::words($post->isiPost, 10, ' ...') !!}</td>
-                                    <td class="text-capitalize">{{ $post->kategori->namaKategori }}</td>
+                                    <td style="text-align: justify;">{!! Str::limit($post->isiPost, 50, ' ...') !!}</td>
+                                    <td class="text-capitalize">
+                                        @if ($post->kategori)
+                                            @if ($post->kategori->trashed())
+                                                {{ $post->kategori->namaKategori }} <span class="fw-bold text-s text-danger">*Kategori Terhapus</span>
+                                            @else
+                                                {{ $post->kategori->namaKategori }}
+                                            @endif
+                                        @else
+                                            Tidak Ada Kategori
+                                        @endif
+                                    </td>
                                     <td>{{ $post->userPost }}</td>
                                     <td class="d-flex justify-content-center">
                                         @if ($post->statusPost == 'Belum Diposting')
@@ -179,17 +205,6 @@
                                             <a href="{{route('edit-postingan',$post->id)}}"class="tf-icons btn btn-sm btn-outline-warning me-1 btn-icon rounded-pill">
                                                 <i class="bx bx-edit-alt bx-s m-1"></i>
                                             </a>
-                                            <!-- <button
-                                                class="tf-icons btn btn-sm btn-outline-warning me-1 btn-icon rounded-pill edit-post-btn"
-                                                type="button" data-bs-toggle="modal" data-bs-target="#backDropEdit"
-                                                data-bs-offset="0,4" data-bs-placement="bottom" data-bs-html="true"
-                                                data-id="{{ $post->id }}" data-bs-judul="{{ $post->judulPost }}"
-                                                data-bs-isi="{{ $post->isiPost }}"
-                                                data-bs-status="{{ $post->statusPost }}"
-                                                data-bs-kategori="{{ $post->kategoriPost }}"
-                                                data-bs-foto="{{ $post->fotoPost }}" title="<span>Edit</span>">
-                                                <i class="bx bx-edit-alt bx-s m-1"></i>
-                                            </button> -->
                                             <form action="{{ route('postingan.hapus', $post->id) }}" method="post">
                                                 @csrf
                                                 <!-- Tombol "Delete" -->
@@ -209,6 +224,25 @@
                     @endif
                 </tbody>
             </table>
+            <div class="page">
+                @if (!$postingan->where('statusPost', '==', 'Diposting')->isEmpty())
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item {{ $postingan->currentPage() == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $postingan->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                            </li>
+                            @for ($i = 1; $i <= $postingan->lastPage(); $i++)
+                                <li class="page-item {{ $postingan->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $postingan->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+                            <li class="page-item {{ $postingan->currentPage() == $postingan->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $postingan->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                @endif
+            </div>
         </div>
     </div>
     <script>

@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pengumuman_image', function (Blueprint $table) {
-            $table->boolean('aktif')->default(true);
+        Schema::table('kategoripost', function (Blueprint $table) {
+            $table->softDeletes();
+        });
+        Schema::table('user', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pengumuman_image', function (Blueprint $table) {
-            $table->dropColumn('aktif');
-        });
+        //
     }
 };

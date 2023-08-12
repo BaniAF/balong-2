@@ -1,5 +1,5 @@
 @section('title')
-    PROGRAM KEGIATAN - KECAMATAN BALONG
+    DATA SARAN - KECAMATAN BALONG
 @endsection
 @extends('backend.layout.master')
 
@@ -46,7 +46,7 @@
                         </tr>
                     @else
                         @php
-                            $counter = 1;
+                            $counter = ($saran->currentPage() - 1) * $saran->perPage() + 1;
                         @endphp
                         @foreach ($saran as $isi)
                             <tr>
@@ -57,7 +57,7 @@
                                 <td style="text-align: justify;" class="p-2 mb-0">
                                     {{ Str::limit($isi->message, 15, ' ...') }}</td>
                                 {{-- kata = words | hruf = limit --}}
-                                <td class="text-center aligns-item-center">
+                                <!-- <td class="text-center aligns-item-center">
                                     <div
                                         class="button-container d-flex justify-content-center align-items-center posting-form">
                                         <button
@@ -69,7 +69,6 @@
                                         </button>
                                         <form action="{{ route('program.hapus', $isi->id) }}" method="post">
                                             @csrf
-                                            <!-- Tombol "Delete" -->
                                             <button
                                                 class="tf-icons btn btn-sm btn-icon btn-outline-danger me-1 rounded-pill show_confirm"
                                                 type="submit" data-bs-toggle="tooltip" data-bs-offset="0,4"
@@ -78,7 +77,7 @@
                                             </button>
                                         </form>
                                     </div>
-                                </td>
+                                </td> -->
                             </tr>
                             @php
                                 $counter++;
@@ -87,6 +86,25 @@
                     @endif
                 </tbody>
             </table>
+            <div class="page mt-3">
+                @if (!$saran->isEmpty())
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item {{ $saran->currentPage() == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $saran->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                            </li>
+                            @for ($i = 1; $i <= $saran->lastPage(); $i++)
+                                <li class="page-item {{ $saran->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $saran->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+                            <li class="page-item {{ $saran->currentPage() == $saran->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $saran->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                @endif
+            </div>
         </div>
     </div>
 @endsection

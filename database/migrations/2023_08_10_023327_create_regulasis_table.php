@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('regulasi', function (Blueprint $table) {
-            $table->id();
-            $table->char('namaRegulasi', 50);
-            $table->text('descRegulasi');
-            $table->char('fileRegulasi', 50);
-            $table->timestamps();
-        });
+        // Schema::create('regulasi', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->char('namaRegulasi', 50);
+        //     $table->text('descRegulasi');
+        //     $table->char('fileRegulasi', 50);
+        //     $table->timestamps();
+        // });
     }
 
     /**

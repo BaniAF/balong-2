@@ -9,7 +9,7 @@ class AkunController extends Controller
 {
     public function daftarAkun()
     {
-        $user = Akun::all();
+        $user = Akun::paginate(5);
         return view('backend.pages.admin', ['user' => $user]);
     }
 

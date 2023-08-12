@@ -50,7 +50,7 @@
                         </tr>
                     @else
                         @php
-                            $counter = 1;
+                            $counter = ($prokerja->currentPage() - 1) * $prokerja->perPage() + 1;
                         @endphp
                         @foreach ($prokerja as $proker)
                             <tr>
@@ -88,6 +88,25 @@
                     @endif
                 </tbody>
             </table>
+            <div class="page mt-3">
+                @if (!$prokerja->isEmpty())
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item {{ $prokerja->currentPage() == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $prokerja->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                            </li>
+                            @for ($i = 1; $i <= $prokerja->lastPage(); $i++)
+                                <li class="page-item {{ $prokerja->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $prokerja->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+                            <li class="page-item {{ $prokerja->currentPage() == $prokerja->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $prokerja->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                @endif
+            </div>
         </div>
     </div>
     <!-- Modal Tambah Posting -->

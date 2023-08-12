@@ -24,68 +24,85 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title d-flex align-items-center justify-content-between">
-                <h5 class="fw-semibold">Daftar Kategori Postingan</h5>
-                <button class="btn btn-md bg-primary mb-2 text-white fw-semibold" data-bs-toggle="modal"
-                    data-bs-target="#modalTambah" type="button">
-                    <i class='bx bxs-file-plus me-2'></i>Tambah Kategori
-                </button>
-            </div>
-            <table class="table table-bordered">
-                <thead class="text-center fw-bolder">
-                    <tr>
-                        <th style="width: 20px">No</th>
-                        <th>Nama Kategori Postingan</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody class="text-left">
-                    @if ($kategori->isEmpty())
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title d-flex align-items-center justify-content-between">
+                    <h5 class="fw-semibold">Daftar Kategori Postingan</h5>
+                    <button class="btn btn-md bg-primary mb-2 text-white fw-semibold" data-bs-toggle="modal"
+                        data-bs-target="#modalTambah" type="button">
+                        <i class='bx bxs-file-plus me-2'></i>Tambah Kategori
+                    </button>
+                </div>
+                <table class="table table-bordered mb-3">
+                    <thead class="text-center fw-bolder">
                         <tr>
-                            <td colspan="3" class="text-center fw-semibold">Belum ada Data Kategori</td>
+                            <th style="width: 20px">No</th>
+                            <th>Nama Kategori Postingan</th>
+                            <th>Action</th>
                         </tr>
-                    @else
-                        @php
-                            $counter = 1;
-                        @endphp
-                        @foreach ($kategori as $kategoriPost)
+                    </thead>
+                    <tbody class="text-left">
+                        @if ($kategori->isEmpty())
                             <tr>
-                                <td class="text-center">{{ $counter }}</td>
-                                <td>{{ $kategoriPost->namaKategori }}</td>
-                                <td class="text-center aligns-item-center">
-                                    <div
-                                        class="button-container d-flex justify-content-center align-items-center posting-form">
-                                        <button
-                                            class="tf-icons btn btn-sm btn-outline-warning me-1 btn-icon rounded-pill btn-program-edit"
-                                            type="button" data-bs-toggle="modal" data-bs-target="#modalEdit"
-                                            data-id="{{ $kategoriPost->id }}"
-                                            data-bs-nama="{{ $kategoriPost->namaKategori }}">
-                                            <i class="bx bx-edit-alt bx-s m-1"></i>
-                                        </button>
-                                        <form action="{{ route('hapus-kategori', $kategoriPost->id) }}" method="post">
-                                            @csrf
-                                            <!-- Tombol "Delete" -->
-                                            <button
-                                                class="tf-icons btn btn-sm btn-icon btn-outline-danger me-1 rounded-pill show_confirm"
-                                                type="submit" data-bs-toggle="tooltip" data-bs-offset="0,4"
-                                                data-bs-placement="bottom" data-bs-html="true" title="<span>Delete</span>">
-                                                <i class="bx bx-trash bx-s m-1"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
+                                <td colspan="3" class="text-center fw-semibold">Belum ada Data Kategori</td>
                             </tr>
+                        @else
                             @php
-                                $counter++;
+                                $counter = ($kategori->currentPage() - 1) * $kategori->perPage() + 1;
                             @endphp
-                        @endforeach
-                    @endif
-                </tbody>
-            </table>
+                            @foreach ($kategori as $kategoriPost)
+                                <tr>
+                                    <td class="text-center">{{ $counter }}</td>
+                                    <td>{{ $kategoriPost->namaKategori }}</td>
+                                    <td class="text-center aligns-item-center">
+                                        <div
+                                            class="button-container d-flex justify-content-center align-items-center posting-form">
+                                            <button
+                                                class="tf-icons btn btn-sm btn-outline-warning me-1 btn-icon rounded-pill btn-program-edit"
+                                                type="button" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                                                data-id="{{ $kategoriPost->id }}"
+                                                data-bs-nama="{{ $kategoriPost->namaKategori }}">
+                                                <i class="bx bx-edit-alt bx-s m-1"></i>
+                                            </button>
+                                            <form action="{{ route('hapus-kategori', $kategoriPost->id) }}" method="post">
+                                                @csrf
+                                                <!-- Tombol "Delete" -->
+                                                <button
+                                                    class="tf-icons btn btn-sm btn-icon btn-outline-danger me-1 rounded-pill show_confirm"
+                                                    type="submit" data-bs-toggle="tooltip" data-bs-offset="0,4"
+                                                    data-bs-placement="bottom" data-bs-html="true" title="<span>Delete</span>">
+                                                    <i class="bx bx-trash bx-s m-1"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @php
+                                    $counter++;
+                                @endphp
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
+                <div class="page">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item {{ $kategori->currentPage() == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $kategori->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                            </li>
+                            @for ($i = 1; $i <= $kategori->lastPage(); $i++)
+                                <li class="page-item {{ $kategori->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $kategori->url($i) }}">{{ $i }}</a>
+                                </li>
+                            @endfor
+                            <li class="page-item {{ $kategori->currentPage() == $kategori->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $kategori->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>            
+            </div>
         </div>
-    </div>
     <!-- Modal Tambah Posting -->
     <div class="modal fade" id="modalTambah" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">

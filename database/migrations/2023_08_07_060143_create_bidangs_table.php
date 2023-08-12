@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bidang', function (Blueprint $table) {
-            $table->id();
-            $table->char('namaBidang', 50);
-            $table->text('descBidang');
-            $table->char('fileBidang', 50);
-            $table->timestamps();
-        });
+        // Schema::create('bidang', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->char('namaBidang', 50);
+        //     $table->text('descBidang');
+        //     $table->char('fileBidang', 50);
+        //     $table->timestamps();
+        // });
     }
 
     /**

@@ -12,7 +12,7 @@ class PostController extends Controller
     // fungsi menampilkan semua postingan
     public function daftarPostingan($view)
     {
-        $postingan = Post::with('kategori')->get();
+        $postingan = Post::with('kategori')->paginate(3);
         $kategoriList = Kategori::all(); // Mendapatkan data kategori
         $dataGaleri = Post::select('fotoPost', 'judulPost')->get();
         $galeriKegiatan = Image_Kegiatan::all();
