@@ -27,7 +27,7 @@ class Post extends Model
 
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class, 'kategoriPost', 'id');
+        return $this->belongsTo(Kategori::class, 'kategoriPost', 'id')->withTrashed();
     }
 
     public function related()

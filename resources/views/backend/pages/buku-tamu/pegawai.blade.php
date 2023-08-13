@@ -130,7 +130,7 @@
                     </tr>
                 @else
                     @php
-                        $counter = 1;
+                        $counter = ($pegawai->currentPage() - 1) * $pegawai->perPage() + 1;
                     @endphp
                     @foreach ($pegawai as $dataPegawai)
                     <tr>
@@ -189,6 +189,25 @@
                 @endif
             </tbody>
         </table>
+        <div class="page mt-3">
+            @if (!$pegawai->isEmpty())
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item {{ $pegawai->currentPage() == 1 ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $pegawai->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                    </li>
+                    @for ($i = 1; $i <= $pegawai->lastPage(); $i++)
+                        <li class="page-item {{ $pegawai->currentPage() == $i ? 'active' : '' }}">
+                            <a class="page-link" href="{{ $pegawai->url($i) }}">{{ $i }}</a>
+                        </li>
+                    @endfor
+                    <li class="page-item {{ $pegawai->currentPage() == $pegawai->lastPage() ? 'disabled' : '' }}">
+                        <a class="page-link" href="{{ $pegawai->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                    </li>
+                </ul>
+            </nav>
+            @endif
+        </div>
     </div>
 </div>
 <!-- Modal Tambah Pegawai -->

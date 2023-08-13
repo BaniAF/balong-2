@@ -12,7 +12,7 @@ class PegawaiController extends Controller
      */
     public function tampilPegawai()
     {
-        $pegawai = Pegawai::all();
+        $pegawai = Pegawai::paginate(10);
         return view('backend.pages/buku-tamu.pegawai', ['pegawai' => $pegawai]);
     }
 
@@ -25,6 +25,7 @@ class PegawaiController extends Controller
             'nip' => 'required|unique:pegawai',
             'namaPegawai' => 'required',
             'jabatan' => 'required',
+            'fotoPegawai' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], [
             'nip.unique' => 'NIP Pegawai telah terdaftar',
             'nip.required' => 'NIP Pegawai harus diisi',

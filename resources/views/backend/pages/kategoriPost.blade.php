@@ -85,6 +85,7 @@
                     </tbody>
                 </table>
                 <div class="page">
+                    @if (!$kategori->isEmpty())
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center">
                             <li class="page-item {{ $kategori->currentPage() == 1 ? 'disabled' : '' }}">
@@ -100,6 +101,7 @@
                             </li>
                         </ul>
                     </nav>
+                    @endif
                 </div>            
             </div>
         </div>

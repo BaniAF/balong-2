@@ -248,6 +248,7 @@
                 <button type="button" class="btn btn-danger me-2" name="submitType" onclick="goBack()">Batal</button>
                 <!-- <button type="button" class="btn btn-primary mb-0" name="submitType" value="simpan" onclick="saveData()">Simpan</button> -->
                 <button type="submit" class="btn btn-primary mb-0" name="submitType" value="simpan">Simpan</button>
+                <button type="submit" class="btn btn-primary mb-0" name="submitType" value="simpan">Simpan</button>
             </div>
         </form>
     </div>
