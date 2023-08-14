@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    @livewireStyles
 
     <title>@yield('title')</title>
 
@@ -19,6 +19,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAO-ccTqjDiPdSx-N9Rzy6eN1h_Z1QmQCw&callback=initMap" async
         defer></script>
+        
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -37,7 +38,8 @@
 
     </div>
     <div class="lg bg-gray-100 dark:bg-gray-900">
-        @include('frontend.layouts.navbar')
+        {{-- @include('frontend.layouts.navbar') --}}
+        <livewire:navbar />
 
         <!-- Page Heading -->
         {{-- @if (isset($header))
@@ -58,7 +60,7 @@
     </div>
 
     <script src="{{ asset('js/maps.js') }}"></script>
-
+    @livewireScripts
 
 </body>
 

@@ -4,7 +4,8 @@
 @endsection
 @section('content')
     {{-- slider --}}
-
+    
+    
     {{-- endslider --}}
     <div class="flex">
         {{-- hero section --}}
@@ -66,24 +67,34 @@
         {{-- isi dari berita utama --}}
         <div class="flex flex-wrap gap-1 bg-green-400 ml-9 my-4 mr-2 w-2/3 items-center justify-center">
             {{-- kolom berita --}}
-            @foreach ($artikel as $article)
-                @if ($article->statusPost === 'Diposting')
-                    <div class="p-2 my-1">
-                        <div class="card bg-gray-500 dark:bg-white shadow-xl w-48 items-center">
-                            <figure>
-                                <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita"
-                                    class="lazyload" />
-                            </figure>
-                            <div class="card-body">
-                                <h2 class="card-title dark:text-black text-white hover:text-red-500 text-sm">
-                                    <a href="{{ route('post.show', $article) }}">{{ $article->judulPost }}</a>
-                                </h2>
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                @php $count = 0; @endphp
+                @foreach ($artikel as $article)
+                    @if ($article->statusPost === 'Diposting')
+                        @if ($count < 5)
+                            <div class="flex items-center">
+                                <div class="mr-4">
+                                    <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="News 3 Image"
+                                        class="w-32 h-32 object-cover rounded-lg">
+                                </div>
+                                <div>
+                                    
+                                    <a href="{{ route('post.show', $article) }}">
+                                        <h1 class="text-purple-500 text-2xl font-bold">{{ $article->judulPost }}
+                                        </h1>
+                                    </a>
+
+                                    <p> {!! Str::limit(strip_tags($article->isiPost), 75) !!}</p>
+                                    <p class="text-gray-500 text-sm p-4"><i class='bx bx-calendar'></i>
+                                        {{ $article->created_at->format('d M Y') }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="divider"></div>
-                    </div>
-                @endif
-            @endforeach
+                            <div class="divider "></div>
+                        @endif
+                        @php $count++; @endphp
+                    @endif
+                @endforeach
+            </div>
         </div>
 
 
@@ -122,37 +133,30 @@
         <!-- Category: Another Category -->
         <!-- News Post 1 -->
         <div class="bg-purple-500 flex flex-wrap gap-1 ml-9 mr-9 my-2  items-center justify-center p-4 rounded-lg">
-            <div class="bg-white p-4 rounded-lg shadow-md">
-                @php $count = 0; @endphp
-                @foreach ($artikel as $article)
-                    @if ($article->statusPost === 'Diposting')
-                        @if ($count < 5)
-                            <div class="flex items-center">
-                                <div class="mr-4">
-                                    <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="News 3 Image"
-                                        class="w-32 h-32 object-cover rounded-lg">
-                                </div>
-                                <div>
-                                    <h4>
-                                        <span
-                                            class="bg-amber-400 text-white py-1 px-2 rounded-sm">{{ $article->kategori->namaKategori }}</span>
-                                    </h4>
-                                    <a href="{{ route('post.show', $article) }}">
-                                        <h1 class="text-purple-500 text-2xl font-bold">{{ $article->judulPost }}
-                                        </h1>
-                                    </a>
-
-                                    <p> {!! Str::limit(strip_tags($article->isiPost), 75) !!}</p>
-                                    <p class="text-gray-500 text-sm p-4"><i class='bx bx-calendar'></i>
-                                        {{ $article->created_at->format('d M Y') }}</p>
-                                </div>
-                            </div>
-                            <div class="divider "></div>
-                        @endif
-                        @php $count++; @endphp
-                    @endif
-                @endforeach
-            </div>
+            @foreach ($artikel as $article)
+            @if ($article->statusPost === 'Diposting')
+            <h4 class="">
+                <span
+                class="bg-amber-400 text-white py-1 px-2 rounded-sm">{{ $article->kategori->namaKategori }}</span>
+            </h4>
+                <div class="p-2 my-1">
+                    <div class="card bg-gray-500 dark:bg-white shadow-xl w-48 h-72 items-center">
+                        <figure>
+                            <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita"
+                                class="lazyload w-full" />
+                        </figure>
+                        <div class="card-body">
+                            
+                            <h2 class="card-title dark:text-black text-white hover:text-red-500 text-md">
+                                <a href="{{ route('post.show', $article) }}">{{ $article->judulPost }}</a>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                </div>
+            @endif
+        @endforeach
+            
         </div>
 
         <div class="text-center mt-4">

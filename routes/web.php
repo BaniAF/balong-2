@@ -65,16 +65,19 @@ Route::get('/profil/{id}', [ProkerController::class, 'show'])->name('profil.show
 
 
 Route::get('/proker/{id}', [ProkerController::class, 'tampil'])->name('proker.tampil');
+Route::get('/proker/{label}', [ProkerController::class, 'tampilProker'])->name('proker.tampil.proker');
 Route::get('/proker/{kode}', [ProkerController::class, 'tampilKode'])->name('proker.tampil.kode');
 
 Route::get('/bidang/{id}', [BidangController::class, 'tampilBidang'])->name('bidang.tampil');
+Route::get('/bidang/{label}', [BidangController::class, 'tampilLabel'])->name('bidang.tampil.label');
 // Route::get('/bidang/{kode}', [ProkerController::class, 'tampilKode'])->name('bidang.tampil.kode');
 
 Route::get('/regulasi/{id}', [RegulasiController::class, 'tampilRegulasi'])->name('regulasi.tampil');
 
-Route::get('/rprofil/{id}', [ProfilController::class, 'tampilProfil'])->name('profil.tampil');
+Route::get('/profil/{id}', [ProfilController::class, 'tampilProfil'])->name('profil.tampil');
+Route::get('/profil/{label}', [ProfilController::class, 'tampilProf'])->name('profil.tampil.profil');
 
-Route::get('/layanan', [LayananController::class, 'tampil'])->name('layanan.tampil');
+Route::get('/publik', [LayananController::class, 'tampil'])->name('publik.tampil');
 
 Route::get('/galeri', [GaleriController::class, 'tampil'])->name('galeri.tampil');
 
@@ -164,9 +167,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/bidang', function () {
         return view('backend.pages.bidang');
-    });
-    Route::get('/tambah-pegawai', function () {
-        return view('backend.pages.buku-tamu.tambah-pegawai');
     });
 
     Route::get('/list', [PengumumanController::class, 'lihat'])->name('list.lihat');
