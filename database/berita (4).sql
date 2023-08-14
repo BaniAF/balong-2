@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Agu 2023 pada 03.00
+-- Waktu pembuatan: 14 Agu 2023 pada 04.31
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -89,7 +89,9 @@ CREATE TABLE `bidang` (
 
 INSERT INTO `bidang` (`id`, `namaBidang`, `descBidang`, `fileBidang`, `created_at`, `updated_at`) VALUES
 (1, 'Bidang', 'adsvf fafwdqa ascasca dqqq ', '', NULL, NULL),
-(2, 'Unit', 'dasdasda dadasdsa asdsaad dasdsad dasdsa dasdsa dasda dasdas dasda dasdas da as a', '', NULL, NULL);
+(2, 'Unit Kerja 1', 'dasdasda dadasdsa asdsaad dasdsad dasdsa dasdsa dasda dasdas dasda dasdas da as a', '', NULL, NULL),
+(3, 'Unit Kerja 2', 'uxbas dnasda dasnisa', '', NULL, NULL),
+(4, 'Unit Kerja 3', 'dadsa daas dadasd dasdas dakdsad', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -214,18 +216,19 @@ CREATE TABLE `kategoripost` (
   `id` varchar(5) NOT NULL,
   `namaKategori` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `kategoripost`
 --
 
-INSERT INTO `kategoripost` (`id`, `namaKategori`, `created_at`, `updated_at`) VALUES
-('K001', 'Kebudayaan', '2023-07-09 21:51:46', '2023-07-26 22:34:43'),
-('K002', 'Umum', '2023-07-09 21:52:34', '2023-07-09 21:52:34'),
-('K004', 'Ekonomi', '2023-07-25 18:19:05', '2023-07-25 18:19:05'),
-('K005', 'wisata', '2023-08-08 21:32:07', '2023-08-08 21:32:07');
+INSERT INTO `kategoripost` (`id`, `namaKategori`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('K001', 'Kebudayaan', '2023-07-09 21:51:46', '2023-07-26 22:34:43', NULL),
+('K002', 'Umum', '2023-07-09 21:52:34', '2023-07-09 21:52:34', NULL),
+('K004', 'Ekonomi', '2023-07-25 18:19:05', '2023-07-25 18:19:05', NULL),
+('K005', 'wisata', '2023-08-08 21:32:07', '2023-08-08 21:32:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -254,6 +257,37 @@ CREATE TABLE `layanan` (
 
 INSERT INTO `layanan` (`id`, `namaLayanan`, `created_at`, `updated_at`, `descLayanan`, `lokasi`, `kontak`, `jam_operasional`, `kategoriLayanan`, `persyaratan`, `biaya`, `keterangan`) VALUES
 ('L002', 'Kantor Kecamatan Balong', '2023-07-04 18:44:36', '2023-08-03 18:21:44', 'Layanan Administrasi Kecamatan Balong', 'Jl. Kecamatan', '08219182347', '08:00-21:00', 'Kependudukan', 'Membawa Surat Undangan', 'Gratis', 'Pembuatan KTP atau Surat Lainnya');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `menu`
+--
+
+CREATE TABLE `menu` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `label` char(255) NOT NULL,
+  `url` char(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `menu`
+--
+
+INSERT INTO `menu` (`id`, `label`, `url`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Home', '/', 1, NULL, NULL),
+(2, 'Profil', '/profil', 1, NULL, NULL),
+(3, 'Program Kerja', '/proker', 1, NULL, NULL),
+(4, 'Bidang', '/bidang', 1, NULL, NULL),
+(5, 'Regulasi', '/regulasi', 1, NULL, NULL),
+(6, 'Layanan Publik', '/publik', 1, NULL, NULL),
+(7, 'Galeri', '/galeri', 1, NULL, NULL),
+(8, 'Buku Tamu', '/buktam', 1, NULL, NULL),
+(9, 'Kontak', '/kontak', 1, NULL, NULL),
+(10, 'Peta Situs', '/petasitus', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -301,7 +335,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (27, '2023_08_10_040017_create_submenus_table', 15),
 (28, '2023_08_10_053851_create_menu_table', 16),
 (29, '2023_08_10_055123_create_sub_menu_table', 17),
-(30, '2023_08_10_213934_create_profils_table', 18);
+(30, '2023_08_10_213934_create_profils_table', 18),
+(31, '2023_08_13_134746_create_menu_table', 19),
+(32, '2023_08_13_134755_create_submenu_table', 19),
+(33, '2023_08_13_140134_update_submenu_table', 20),
+(34, '2023_08_11_001236_soft_delete', 21);
 
 -- --------------------------------------------------------
 
@@ -510,7 +548,53 @@ INSERT INTO `regulasi` (`id`, `namaRegulasi`, `descRegulasi`, `fileRegulasi`, `c
 (2, 'Peraturan Pemerintah', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL),
 (3, 'Peraturan Menteri', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL),
 (4, 'Peraturan Bupati', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL),
-(5, 'Peraturan Daerah', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL);
+(5, 'Peraturan Daerah', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL),
+(6, 'Keputusan Presiden', 'dada dadksad kadasdams dqwiodqo qidmqo', '', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `submenu`
+--
+
+CREATE TABLE `submenu` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `label` char(255) NOT NULL,
+  `url` char(255) NOT NULL,
+  `menu_id` char(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `submenu`
+--
+
+INSERT INTO `submenu` (`id`, `created_at`, `updated_at`, `label`, `url`, `menu_id`, `status`) VALUES
+(1, NULL, NULL, 'Organisasi dan Tata Kerja', '/profil/{id}', '2', 1),
+(2, NULL, NULL, 'Tugas dan Fungsi', '/profil/{id}', '2', 1),
+(3, NULL, NULL, 'Struktur Organisasi', '/profil/{id}', '2', 1),
+(4, NULL, NULL, 'Visi, Misi, Tujuan, Sasaran', '/profil/{id}', '2', 1),
+(5, NULL, NULL, 'Profil Pejabat Struktural', '/profil/{id}', '2', 1),
+(6, NULL, NULL, 'Jumlah Pegawai Berdasarkan Pendidikan/ Pangkat/ Golongan/ Jenis Kelamin', '/profil/{id}', '2', 1),
+(7, NULL, NULL, 'RENJA', '/proker/{id}', '3', 1),
+(8, NULL, NULL, 'RENSTRA', '/proker/{id}', '3', 1),
+(9, NULL, NULL, 'IKU', '/proker/{id}', '3', 1),
+(10, NULL, NULL, 'DPA', '/proker/{id}', '3', 1),
+(11, NULL, NULL, 'PERJANJIAN KINERJA', '/proker/{id}', '3', 1),
+(12, NULL, NULL, 'LAPORAN KINERJA', '/proker/{id}', '3', 1),
+(13, NULL, NULL, 'RENCANA KERJA', '/proker/{label}', '3', 1),
+(14, NULL, NULL, 'Bidang', '/bidang/{id}', '4', 1),
+(15, NULL, NULL, 'Unit Kerja 1', '/bidang/{id}', '4', 1),
+(16, NULL, NULL, 'Unit Kerja 2', '/bidang/{id}', '4', 1),
+(17, NULL, NULL, 'Unit Kerja 3', '/bidang/{label}', '4', 1),
+(18, NULL, NULL, 'Undang - Undang', '/regulasi/{id}', '5', 1),
+(19, NULL, NULL, 'Peraturan Pemerintah', '/regulasi/{id}', '5', 1),
+(20, NULL, NULL, 'Peraturan Menteri', '/regulasi/{id}', '5', 1),
+(21, NULL, NULL, 'Peraturan Bupati', '/regulasi/{id}', '5', 1),
+(22, NULL, NULL, 'Peraturan Daerah', '/regulasi/{id}', '5', 1),
+(23, NULL, NULL, 'Keputusan Presiden', '/regulasi/{label}', '5', 1);
 
 -- --------------------------------------------------------
 
@@ -524,16 +608,17 @@ CREATE TABLE `user` (
   `namaUser` varchar(50) NOT NULL,
   `userpass` varchar(100) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `namaUser`, `userpass`, `created_at`, `updated_at`) VALUES
-('A001', 'sibalong', 'Kecamatan Balong', '123456', '2023-07-08 19:18:30', '2023-07-15 03:52:18'),
-('A002', 'Adminku', 'Admin Kecamatan Balong', 'admin123', NULL, '2023-07-15 03:52:42');
+INSERT INTO `user` (`id`, `username`, `namaUser`, `userpass`, `created_at`, `updated_at`, `deleted_at`) VALUES
+('A001', 'sibalong', 'Kecamatan Balong', '123456', '2023-07-08 19:18:30', '2023-07-15 03:52:18', NULL),
+('A002', 'Adminku', 'Admin Kecamatan Balong', 'admin123', NULL, '2023-07-15 03:52:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -602,6 +687,12 @@ ALTER TABLE `layanan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `menu`
+--
+ALTER TABLE `menu`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
@@ -658,6 +749,12 @@ ALTER TABLE `regulasi`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `submenu`
+--
+ALTER TABLE `submenu`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
@@ -683,7 +780,7 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT untuk tabel `bidang`
 --
 ALTER TABLE `bidang`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `categories`
@@ -704,10 +801,16 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `menu`
+--
+ALTER TABLE `menu`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengumuman_image`
@@ -731,7 +834,13 @@ ALTER TABLE `profils`
 -- AUTO_INCREMENT untuk tabel `regulasi`
 --
 ALTER TABLE `regulasi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `submenu`
+--
+ALTER TABLE `submenu`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `weather`

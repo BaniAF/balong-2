@@ -122,7 +122,7 @@
                 </li>
             </ul>
         </li>
-        {{-- <li class="menu-header small text-uppercase">
+         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Setting</span>
         </li>
         <li class="menu-item">
@@ -138,14 +138,6 @@
                     </a>
                 </li>
             </ul>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="submenu" class="menu-link">
-                        <div data-i18n="Basic">sub Menu Items</div>
-                    </a>
-                </li>
-            </ul>
-        </li> --}}
     </ul>
 </aside>
 <!-- / Menu -->

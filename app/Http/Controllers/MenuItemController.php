@@ -30,9 +30,9 @@ class MenuItemController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'label' => 'required|string|max:255',
             'status' => 'required|in:enable,disable',
-            'link' => 'nullable',
+            'url' => 'nullable',
         ]);
 
         MenuItems::create($request->all());
