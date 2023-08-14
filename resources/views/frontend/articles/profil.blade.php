@@ -17,13 +17,9 @@
                 height="600px"> --}}
             </div>
         @else
-            <p>Dokumen Kosong</p>
+        <p class="text-gray-100">tidak ada dokumen yang ditampilkan</p>
         @endif
         <!-- Tampilkan detail Proker lainnya sesuai kebutuhan -->
     </div>
 @endsection
 
-<div
-    class="flex items-center justify-between p-6 border-l-8 sm:py-8 dark:border-amber-400 dark:bg-gray-900 dark:text-gray-100">
-    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus?</span>
-</div>

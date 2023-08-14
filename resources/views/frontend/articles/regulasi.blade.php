@@ -31,7 +31,7 @@
                 height="600px"> --}}
             </div>
         @else
-            <p>Dokumen Kosong</p>
+        <p class="text-gray-100">tidak ada dokumen yang ditampilkan</p>
         @endif
         <!-- Tampilkan detail Proker lainnya sesuai kebutuhan -->
     </div>

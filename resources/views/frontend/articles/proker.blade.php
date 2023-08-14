@@ -31,8 +31,7 @@
                 height="600px"> --}}
             </div>
         @else
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, soluta debitis nulla velit magni iure, facere
-                consequuntur nostrum vero est aut nemo veritatis dolorum omnis odit culpa hic deleniti voluptate.</p>
+        <p class="text-gray-100">tidak ada dokumen yang ditampilkan</p>
         @endif
         <!-- Tampilkan detail Proker lainnya sesuai kebutuhan -->
     </div>
