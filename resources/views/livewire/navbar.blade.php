@@ -1,16 +1,16 @@
 
-<header class="p-2 bg-white text-gray-100 grid grid-rows-[auto,1fr] justify-center">
+<header class="p-2 bg-gray-50 text-gray-100 grid grid-rows-[auto,1fr] justify-center">
 
     {{-- bagian atas --}}
-    <div class="flex justify-center items-center ">
+    <div class="flex justify-center items-center">
         
         <a rel="noopener noreferrer" href="#" aria-label="Back to homepage" class="flex items-center p-2 m-5">
             <img src="{{ asset('assets/img/logokab.png') }}" alt="Logo" class="w-10 h-auto ">
-            <span class=" font-bold text-gray-800 text-uppercase text-2xl ml-3">Kecamatan<br>
-                <h2 class="text-3xl text-gray-800 ">BALONG</h2>
+            <span class=" font-bold text-gray-800 text-uppercase text-2xl ml-3 ">Kecamatan<br>
+                <h2 class="text-3xl text-gray-800 -mt-2 ">BALONG</h2>
             </span>
         </a>
-        <div class="relative">
+        <div class="relative mt-4">
             <form action="{{ route('search.news') }}" method="GET" id="searchForm">
                 @csrf
                 <div class="join">
@@ -35,22 +35,22 @@
     <div class="container flex justify-between h-16 mx-auto">
         <ul class="items-stretch hidden space-x-3 lg:flex">
             <div class="relative">
-                @foreach ($menus as $menu)
+                @php
+                $menuAktif = false;
+            @endphp
+            @foreach ($menus as $menuItems)
+                @if ($menuItems->status === 1)
+                    @php
+                        $menuAktif = true;
+                    @endphp
                     <div class="group inline-block relative">
-                        <ul class="text-gray-800 hover:bg-gray-100 px-4 py-2">
-            
-                           <a href="{{ $menu['url'] }}">{{ $menu['label'] }}</a> 
+                        <ul class="text-gray-800 font-bold text-md px-4 py-2">
+                           <a href="{{ $menuItems['url'] }}">{{ $menuItems['label'] }}</a> 
                         </ul>
-                        @if (count($menu['submenus']))
+                        @if (count($menuItems['submenus']))
                             <div class="absolute hidden group-hover:block mt-1 bg-white rounded w-52 shadow-lg z-10">
-                                {{-- @foreach ($menu['submenus'] as $submenus)
-                                @php
-                                $url = str_replace(['{id}', '{label}'], [$submenus['id'], $submenus['label']], $submenus['url']);
-                            @endphp
-                                    <a href="{!! $url !!}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">{{ $submenus['label'] }}</a>
-                                @endforeach --}}
-            
-                                @foreach ($menu['submenus'] as $submenu)
+           
+                                @foreach ($menuItems['submenus'] as $submenu)
                                     @php
                                         // Menggunakan relasi untuk mendapatkan data Proker yang sesuai
                                         $proker = $submenu->proker;
@@ -71,10 +71,16 @@
                             </div>
                         @endif
                     </div>
-                @endforeach
+                @endif
+            @endforeach
+            @if (!$menuAktif)
+                <h2
+                    class="text-center justify-center items-center px-3 py-2 text-xl md :text-sm font-semibold tracki uppercase text-gray-100 bg-amber-400">
+                    Tidak ada
+                    Menu</h2>
+            @endif
             </div>
         </ul>
-
     </div>
 </header>
 

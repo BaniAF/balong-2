@@ -1,6 +1,8 @@
 <!-- resources/views/contact/form.blade.php -->
 @extends('frontend.layouts.app')
-
+@section('title')
+    KONTAK KAMI
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-center">

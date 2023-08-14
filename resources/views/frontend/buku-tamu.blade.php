@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app')
-
+@section('title')
+    BUKU TAMU - KECAMATAN BALONG
+@endsection
 @section('content')
     <div class="container-fluid" style="margin-top:20px;">
         <div class="row" style="d-flex justify-content-center items-align-center">

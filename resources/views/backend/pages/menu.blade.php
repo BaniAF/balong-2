@@ -1,5 +1,5 @@
 @section('title')
-    GALERI POSTINGAN - KECAMATAN BALONG
+    MENU - KECAMATAN BALONG
 @endsection
 @extends('backend.layout.master')
 @section('content')

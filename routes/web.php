@@ -27,6 +27,8 @@ use App\Http\Controllers\SubmenuItemController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\RegulasiController;
 use App\Http\Controllers\SubmenuController;
+use App\Http\Livewire\MenuItems;
+use PhpParser\Node\Expr\FuncCall;
 
 /*
 |--------------------------------------------------------------------------
@@ -147,12 +149,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pegawai/{id}/hapus', [PegawaiController::class, 'hapusPegawai'])->name('pegawai-hapus');
 
     // kelola menu
-    Route::get('/menu', [MenuItemController::class, 'create'])->name('menu.create');
-    Route::post('/menu', [MenuItemController::class, 'store'])->name('menuitem.store');
-
-    // kelola submenu
-    Route::get('/submenu', [SubmenuItemController::class, 'create'])->name('submenu.create');
-    Route::post('/submenu', [SubmenuItemController::class, 'store'])->name('submenuitem.store');
+    // Route::get('/menu', [MenuItemController::class, 'create'])->name('menu.create');
+    // Route::post('/menu', [MenuItemController::class, 'store'])->name('menuitem.store');
 
     //kelola saran
     Route::get('/saran', [ContactController::class, 'index'])->name('saran.index');
@@ -168,6 +166,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/bidang', function () {
         return view('backend.pages.bidang');
     });
+
+    Route::get('/menu', function () {
+        return view('backend.pages.menu');
+    });
+    Route::post('/menu/{id}/aktifkan', [MenuItemController::class, 'aktifkanMenu'])->name('menu.aktifkan');
 
     Route::get('/list', [PengumumanController::class, 'lihat'])->name('list.lihat');
     Route::post('/tambah-gambar', [PengumumanController::class, 'tambahGambar'])->name('tambah-gambar');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menu;
 use App\Models\MenuItems;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -71,5 +72,22 @@ class MenuItemController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function aktifkanMenu($id)
+    {
+        $menuItems = Menu::find($id);
+
+        if ($menuItems) {
+            // Ubah status aktif dari gambar
+            $menuItems->status = !$menuItems->status;
+            $menuItems->save();
+
+            toast('Status berhasil diubah', 'success');
+        } else {
+            toast('Status Gagal diubah', 'error');
+        }
+
+        return redirect('menu');
     }
 }

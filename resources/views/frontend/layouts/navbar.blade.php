@@ -4,7 +4,7 @@
     <div class="flex justify-center items-center">
         <a rel="noopener noreferrer" href="#" aria-label="Back to homepage" class="flex items-center p-2 m-5">
             <img src="{{ asset('assets/img/logokab.png') }}" alt="Logo" class="w-10 h-auto ">
-            <span class=" font-bold text-uppercase text-2xl ml-3">Kecamatan<br>
+            <span class=" font-bold text-uppercase text-2xl ml-3 -mt-4">Kecamatan<br>
                 <h2 class="text-3xl">BALONG</h2>
             </span>
         </a>

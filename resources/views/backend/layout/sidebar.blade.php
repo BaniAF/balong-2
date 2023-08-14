@@ -128,7 +128,7 @@
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <!-- <i class="menu-icon tf-icons bx bx-lock-open-alt"></i> -->
-                <i class='menu-icon tf-icons bx bxs-user-circle'></i>
+                <i class='menu-icon tf-icons bx bx-collection'></i>
                 <div data-i18n="Authentications">Items</div>
             </a>
             <ul class="menu-sub">
@@ -138,6 +138,7 @@
                     </a>
                 </li>
             </ul>
+        </li>
     </ul>
 </aside>
 <!-- / Menu -->

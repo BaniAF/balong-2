@@ -4,27 +4,28 @@
 @endsection
 @section('content')
     {{-- slider --}}
-    
-    
+   
     {{-- endslider --}}
     <div class="flex">
         {{-- hero section --}}
         <div class="flex">
-            <div class="hero bg-blue-400 ml-20 px-6 mx-3 mt-3">
+            <div class="hero bg-white ml-14 px-3 mx-1 mt-5 rounded shadow-xl">
                 <div class="hero-content flex-col justify-items-center">
-                    <img src="https://source.unsplash.com/random/800x600/?2" class="max-w-sm rounded-lg shadow-2xl" />
+                    <div class="rounded-lg overflow-hidden" style="height: 400px; width: 800px;">
+                        <img src="https://source.unsplash.com/random/1200x800/?2" alt="Image" class=" object-cover" />
+                    </div>
                     <div class="align-baseline">
                         @foreach ($artikel->take(1) as $article)
                             <h1 class="text-2xl font-bold hover:text-red-500 justify-items-center">
                                 <a href="{{ route('articles.show', $article) }}">{{ $article->judulPost }}</a>
                             </h1>
-                            <p class="py-2">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
-                                exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                            <p> {!! Str::limit(strip_tags($article->isiPost), 100) !!}</p>
                         @endforeach
                     </div>
                 </div>
             </div>
         </div>
+        
         {{-- end hero section --}}
         <div class="divider lg:divider-horizontal -p-4"></div>
         {{-- weather --}}
@@ -64,26 +65,26 @@
 
     {{-- main --}}
     <div class="flex">
-        {{-- isi dari berita utama --}}
-        <div class="flex flex-wrap gap-1 bg-green-400 ml-9 my-4 mr-2 w-2/3 items-center justify-center">
-            {{-- kolom berita --}}
-            <div class="bg-white p-4 rounded-lg shadow-md">
+        {{-- berita atas --}}
+        <div class="flex flex-wrap gap-1  ml-9 my-4 mr-2 w-2/3 bg-white p-4 rounded-lg shadow-md">
+            {{-- <div class="bg-white p-4 rounded-lg shadow-md"> --}}
+                <div class="border-l-4 border-indigo-500 p-2 justify-start text-left h-10 mt-5">
+                    <h3 class="text-2xl font-extrabold md:font-normal text-md sm:text-md">Berita Terbaru</h3>
+                </div>
                 @php $count = 0; @endphp
                 @foreach ($artikel as $article)
                     @if ($article->statusPost === 'Diposting')
                         @if ($count < 5)
-                            <div class="flex items-center">
+                            <div class="flex items-center ">
                                 <div class="mr-4">
                                     <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="News 3 Image"
                                         class="w-32 h-32 object-cover rounded-lg">
                                 </div>
-                                <div>
-                                    
+                                <div> 
                                     <a href="{{ route('post.show', $article) }}">
                                         <h1 class="text-purple-500 text-2xl font-bold">{{ $article->judulPost }}
                                         </h1>
                                     </a>
-
                                     <p> {!! Str::limit(strip_tags($article->isiPost), 75) !!}</p>
                                     <p class="text-gray-500 text-sm p-4"><i class='bx bx-calendar'></i>
                                         {{ $article->created_at->format('d M Y') }}</p>
@@ -94,12 +95,12 @@
                         @php $count++; @endphp
                     @endif
                 @endforeach
-            </div>
+            {{-- </div> --}}
         </div>
 
 
         {{-- isi dari bagian pengumuman --}}
-        <div class="bg-red-500 flex-1 w-1/3 mr-12 my-4 ml-1 p-5 md:w-">
+        <div class=" flex-1 w-1/3 mr-12 my-4 ml-1 p-5 md:w-">
             @php
                 $gambarAktif = false;
             @endphp
@@ -130,15 +131,17 @@
 
     <section id="berita-kategori" class="p-4">
 
-        <!-- Category: Another Category -->
-        <!-- News Post 1 -->
+  
+        <!-- berita bagian bawah -->
         <div class="bg-purple-500 flex flex-wrap gap-1 ml-9 mr-9 my-2  items-center justify-center p-4 rounded-lg">
             @foreach ($artikel as $article)
             @if ($article->statusPost === 'Diposting')
-            <h4 class="">
-                <span
-                class="bg-amber-400 text-white py-1 px-2 rounded-sm">{{ $article->kategori->namaKategori }}</span>
-            </h4>
+            <div class="flex">
+                <h4 class="">
+                    <span
+                    class="bg-amber-400 text-white py-1 px-2 rounded-sm">{{ $article->kategori->namaKategori }}</span>
+                </h4>
+            </div>
                 <div class="p-2 my-1">
                     <div class="card bg-gray-500 dark:bg-white shadow-xl w-48 h-72 items-center">
                         <figure>
@@ -155,15 +158,10 @@
                     <div class="divider"></div>
                 </div>
             @endif
-        @endforeach
-            
+            @endforeach          
         </div>
-
-        <div class="text-center mt-4">
-            <button class="load-more-btn bg-purple-500 text-white px-4 py-2 rounded-lg">Load More</button>
-        </div>
-
     </section>
+    
 @endsection
 
 <!-- Add the following script to your Blade template -->
