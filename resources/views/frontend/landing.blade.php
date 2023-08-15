@@ -2,13 +2,21 @@
 @section('title')
     Pemerintah Kecamatan Balong
 @endsection
+@push('style')
+    @livewireStyles
+@endpush
+@push('script')
+    @livewireScripts
+@endpush
+
+
 @section('content')
     {{-- slider --}}
    
     {{-- endslider --}}
     <div class="flex">
         {{-- hero section --}}
-        <div class="flex">
+        <div class="flex justify-center">
             <div class="hero bg-white ml-14 px-3 mx-1 mt-5 rounded shadow-xl">
                 <div class="hero-content flex-col justify-items-center">
                     <div class="rounded-lg overflow-hidden" style="height: 400px; width: 800px;">
@@ -67,10 +75,10 @@
     <div class="flex">
         {{-- berita atas --}}
         <div class="flex flex-wrap gap-1  ml-9 my-4 mr-2 w-2/3 bg-white p-4 rounded-lg shadow-md">
-            {{-- <div class="bg-white p-4 rounded-lg shadow-md"> --}}
-                <div class="border-l-4 border-indigo-500 p-2 justify-start text-left h-10 mt-5">
-                    <h3 class="text-2xl font-extrabold md:font-normal text-md sm:text-md">Berita Terbaru</h3>
-                </div>
+            <div class="border-l-4 border-indigo-500 p-2 justify-start text-left h-10 mt-5">
+                <h3 class="text-2xl font-extrabold md:font-normal text-md sm:text-md">Berita Terbaru</h3>
+            </div>
+            <div>
                 @php $count = 0; @endphp
                 @foreach ($artikel as $article)
                     @if ($article->statusPost === 'Diposting')
@@ -95,7 +103,11 @@
                         @php $count++; @endphp
                     @endif
                 @endforeach
-            {{-- </div> --}}
+            
+                {{-- <div class="pagination mt-4">
+                    {{ $article->links('frontend.layouts.paginasi') }}
+                </div> --}}
+            </div>            
         </div>
 
 
@@ -129,37 +141,39 @@
     </div>
 
 
-    <section id="berita-kategori" class="p-4">
-
-  
+    <section id="berita-kategori" class="p-16">
         <!-- berita bagian bawah -->
-        <div class="bg-purple-500 flex flex-wrap gap-1 ml-9 mr-9 my-2  items-center justify-center p-4 rounded-lg">
-            @foreach ($artikel as $article)
-            @if ($article->statusPost === 'Diposting')
-            <div class="flex">
-                <h4 class="">
-                    <span
-                    class="bg-amber-400 text-white py-1 px-2 rounded-sm">{{ $article->kategori->namaKategori }}</span>
-                </h4>
-            </div>
-                <div class="p-2 my-1">
-                    <div class="card bg-gray-500 dark:bg-white shadow-xl w-48 h-72 items-center">
-                        <figure>
-                            <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita"
-                                class="lazyload w-full" />
-                        </figure>
-                        <div class="card-body">
-                            
-                            <h2 class="card-title dark:text-black text-white hover:text-red-500 text-md">
-                                <a href="{{ route('post.show', $article) }}">{{ $article->judulPost }}</a>
-                            </h2>
-                        </div>
+        <div class="bg-white flex flex-wrap gap-1 ml-5 mr-5 my-2 items-center justify-center p-4 rounded-lg shadow-md">
+            @foreach ($kategori as $category)
+                <div class="grid grid-cols-5 gap-4">
+                    <div class="col-span-5">
+                        <h5 class="text-xl font-bold mb-1 ml-10 mt-2 bg-amber-400 text-white py-1 px-2 rounded-sm" style="display: inline-block;">{{ $category->namaKategori }}</h5>
                     </div>
-                    <div class="divider"></div>
+                    @foreach ($artikel as $article)
+                        @if ($article->statusPost === 'Diposting' && $article->kategori->id === $category->id)
+                            <div class="p-2 my-1 ml-10">
+                                <div class="card bg-white shadow-xl w-48 h-72 items-center">
+                                    <figure>
+                                        <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita" class="lazyload w-full" />
+                                    </figure>
+                                    <div class="card-body">
+                                        <h2 class="card-title text-black hover:text-red-500 text-md">
+                                            <a href="{{ route('post.show', $article) }}">{{ $article->judulPost }}</a>
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
-            @endif
-            @endforeach          
-        </div>
+                <div class="-ml-24 mt-4">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full text-2xl tooltip" data-tip="muat lebih">
+                        <>
+                    </button>
+                </div>
+            @endforeach
+        </div>       
     </section>
     
 @endsection

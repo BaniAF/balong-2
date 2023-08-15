@@ -10,23 +10,23 @@
                 <h2 class="text-3xl text-gray-800 -mt-2 ">BALONG</h2>
             </span>
         </a>
-        <div class="relative mt-4">
+
+        <div class="relative mt-1">
             <form action="{{ route('search.news') }}" method="GET" id="searchForm">
                 @csrf
                 <div class="join">
                     <div>
-                      <div>
-                        <input class="input join-item   bg-gray-200 text-gray-600 px-4 py-2 rounded-md" 
-                        id="searchInput" name="title" type="text" placeholder="Search"/>
-                      </div>
+                        <div>
+                            <input class="input join-item bg-gray-200 text-gray-600 px-4 py-2 rounded-md focus:outline-none" 
+                            id="searchInput" name="title" type="text" placeholder="Search"/>
+                        </div>
                     </div>
                     <div class="indicator">
-                      <button type="submit" class="btn join-item  px-4 py-2 bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white rounded-md">Search</button>
+                        <button type="submit" class="btn join-item px-4 py-2 bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white rounded-md">Search</button>
                     </div>
-                  </div>
+                </div>
                 <ul id="searchResults"
-                    class="dropdown hidden absolute mt-2 py-2 w-60 text-sm dark:text-white text-black dark:bg-gray-800 bg-white rounded-sm shadow-lg z-10  ">
-                    <!-- Search results will be dynamically generated here -->
+            class="dropdown hidden absolute mt-2 py-2 w-60 text-sm dark:text-white text-black dark:bg-gray-800 bg-white rounded-sm shadow-lg z-10">                    <!-- Search results will be dynamically generated here -->
                 </ul>
             </form>
         </div>
@@ -89,7 +89,7 @@
 <!-- resources/views/search.blade.php -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+{{-- <script>
     $(document).ready(function() {
         const searchForm = $('#searchForm');
         const searchInput = $('#searchInput');
@@ -132,6 +132,51 @@
         $(document).on('click', function(event) {
             if (!$(event.target).closest(searchResults).length && !$(event.target).closest(searchInput)
                 .length) {
+                searchResults.addClass('hidden').empty();
+            }
+        });
+    });
+</script> --}}
+
+<script>
+    $(document).ready(function() {
+        const searchForm = $('#searchForm');
+        const searchInput = $('#searchInput');
+        const searchResults = $('#searchResults');
+
+        searchInput.on('input', function() {
+            const searchTerm = $(this).val().trim();
+            if (searchTerm.length > 0) {
+                $.ajax({
+                    type: 'GET',
+                    url: searchForm.attr('action'),
+                    data: searchForm.serialize(),
+                    dataType: 'json',
+                    success: function(data) {
+                        searchResults.empty();
+
+                        if (data.length > 0) {
+                            $.each(data, function(index, item) {
+                                const resultItem = $('<li class="py-2 px-4 bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white cursor-pointer">' + item.judulPost + '</li>');
+                                resultItem.click(function() {
+                                    searchInput.val(item.judulPost);
+                                    searchResults.addClass('hidden').empty();
+                                });
+                                searchResults.append(resultItem);
+                            });
+                            searchResults.removeClass('hidden');
+                        } else {
+                            searchResults.addClass('hidden').empty();
+                        }
+                    }
+                });
+            } else {
+                searchResults.addClass('hidden').empty();
+            }
+        });
+
+        $(document).on('click', function(event) {
+            if (!$(event.target).closest(searchResults).length && !$(event.target).closest(searchInput).length) {
                 searchResults.addClass('hidden').empty();
             }
         });

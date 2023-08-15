@@ -193,26 +193,13 @@ class PostController extends Controller
         ]);
     }
 
-    public function loadMore(Request $request)
-    {
-        $offset = $request->input('offset', 0);
-        $limit = 5; // Set the number of articles to load per request
-        $articles = Post::where('statusPost', 'Diposting')
-            ->orderBy('created_at', 'desc')
-            ->offset($offset)
-            ->limit($limit)
-            ->get();
-
-        return response()->json($articles);
-    }
-
     public function searchNews(Request $request)
     {
-        $searchTerm = $request->input('judulPost');
+        $searchTerm = $request->input('title');
 
         $results = Post::where('judulPost', 'like', '%' . $searchTerm . '%')->get();
 
-        return response()->json($results);
+        return view('frontend.articles.result', ['articles' => $results]);
     }
 
     public function uploadImage(Request $request)

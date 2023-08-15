@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Kategori;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class ArticleController extends Controller
 {
@@ -12,8 +15,17 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::latest()->take(5)->get();
-        return view('landing', compact('articles'));
+        $articles = Post::where('statusPost', 'Diposting')->paginate(5);
+        return view('frontend.landing', compact('articles'));
+
+        $grupPost = $articles->groupBy(function ($article) {
+            return $article->kategori->namaKategori;
+        });
+
+        // Ambil semua kategori untuk digunakan dalam tampilan
+        $kategori = Kategori::all();
+
+        return view('frontend.landing', compact('grupPost', 'kategori'));
     }
 
     /**

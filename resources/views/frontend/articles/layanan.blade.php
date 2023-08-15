@@ -5,13 +5,35 @@
 
 @section('content')
     <div class="container m-2 p-4">
+        <h1 class="font-bold text-3xl text-center">Layanan Publik</h1>
         @foreach ($publik as $item)
-            <h1>Detail publik Layanan</h1>
-            <p>ID: {{ $item->id }}</p>
-            <h1 class="font-bold text-5xl">{{ $item->namaLayanan }}</h1>
-            <p>Nama publik: {{ $item->namaLayanan }}</p>
         @endforeach
-
+        <div class="overflow-x-auto m-4 ml-10">
+            <table class="table">
+              <!-- head -->
+              <thead class="text-md text-center">
+                <tr>
+                  <th>Nama Layanan</th>
+                  <th>Deskripsi Layanan</th>
+                  <th>Keterangan</th>
+                  <th>Ketentuan</th>
+                  <th>Waktu</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- row 1 -->
+                <tr  class="hover text-md text-center">
+                    @foreach ($publik as $item)           
+                    <td>{{$item->namaLayanan}}</td>
+                    <td>{{$item->descLayanan}}</td>
+                    <td>,{{$item->keterangan}}</td>
+                    <td>,{{$item->persyaratan}}</td>
+                    <td>{{$item->jam_operasional}}</td>
+                    @endforeach
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
     </div>
 @endsection
