@@ -79,10 +79,10 @@
                 <h3 class="text-2xl font-extrabold md:font-normal text-md sm:text-md">Berita Terbaru</h3>
             </div>
             <div>
-                @php $count = 0; @endphp
-                @foreach ($artikel as $article)
+                {{--@php $count = ; @endphp--}}
+                @foreach ($articles as $article)
                     @if ($article->statusPost === 'Diposting')
-                        @if ($count < 5)
+                        {{-- @if ($count < 2) --}}
                             <div class="flex items-center ">
                                 <div class="mr-4">
                                     <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="News 3 Image"
@@ -99,11 +99,22 @@
                                 </div>
                             </div>
                             <div class="divider "></div>
-                        @endif
-                        @php $count++; @endphp
+                        {{-- @endif --}}
+                        {{-- @php $count++; @endphp --}}
                     @endif
                 @endforeach
-            
+                <div class="page mt-3">
+                    @if (!$articles->isEmpty())
+                        <div class="text-center">
+                            <div class="join">
+                                @for ($i = 1; $i <= $articles->lastPage(); $i++)
+                                    <a class="join-item btn {{ $articles->currentPage() == $i ? 'btn-active' : '' }}" href="{{ $articles->url($i) }}">{{ $i }}</a>
+                                @endfor
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
                 {{-- <div class="pagination mt-4">
                     {{ $article->links('frontend.layouts.paginasi') }}
                 </div> --}}
@@ -149,6 +160,7 @@
                     <div class="col-span-5">
                         <h5 class="text-xl font-bold mb-1 ml-10 mt-2 bg-amber-400 text-white py-1 px-2 rounded-sm" style="display: inline-block;">{{ $category->namaKategori }}</h5>
                     </div>
+                    @php $foundArticle = false; @endphp
                     @foreach ($artikel as $article)
                         @if ($article->statusPost === 'Diposting' && $article->kategori->id === $category->id)
                             <div class="p-2 my-1 ml-10">
@@ -164,14 +176,22 @@
                                 </div>
                                 <div class="divider"></div>
                             </div>
+                            @php $foundArticle = true; @endphp
                         @endif
                     @endforeach
+                    @if (!$foundArticle)
+                        <div class="p-2 my-1 ml-10">
+                            <p>Tidak ada berita pada kategori ini.</p>
+                        </div>
+                    @endif
                 </div>
-                <div class="-ml-24 mt-4">
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-full text-2xl tooltip" data-tip="muat lebih">
-                        <>
-                    </button>
-                </div>
+                 @if ($foundArticle)
+                    <div class="-ml-24 mt-0">
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white p-2 border-radius-5px text-2xl tooltip" data-tip="muat lebih">
+                            Load More
+                        </button>
+                    </div>
+                @endif
             @endforeach
         </div>       
     </section>

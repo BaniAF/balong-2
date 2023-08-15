@@ -14,7 +14,7 @@ class LandingController extends Controller
     public function index(Request $request)
     {
         // Ambil data artikel dan pengumuman dari masing-masing controller
-        // $articles = Article::all();
+        $articles = Post::paginate(5);
         $artikel = Post::all();
         $pengumuman = Pengumuman::all();
         $kategori = Kategori::all();
@@ -24,6 +24,6 @@ class LandingController extends Controller
         $weather = $weatherModel->getWeather($city);
 
         // Kirim data artikel, pengumuman, dan cuaca ke view 'landing'
-        return view('frontend.landing', compact('artikel', 'pengumuman', 'weather', 'kategori'));
+        return view('frontend.landing', compact('articles','artikel', 'pengumuman', 'weather', 'kategori'));
     }
 }
