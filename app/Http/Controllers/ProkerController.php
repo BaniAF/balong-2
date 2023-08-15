@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proker;
 use App\Models\Image_Kegiatan;
-
+use App\Models\Submenu;
 use Illuminate\Http\Request;
 
 class ProkerController extends Controller
@@ -79,6 +79,13 @@ class ProkerController extends Controller
             $proker->fileProgram = '-';
         }
         $proker->save();
+
+        $submenu = new Submenu();
+        $submenu->label = $request->namaProker;
+        $submenu->url = 'proker/{id}';
+        $submenu->menu_id = 3;
+        $submenu->status = 1;
+        $submenu->save();
 
         // Redirect atau berikan respon sesuai kebutuhan
         toast('Program Kegiatan berhasil ditambahkan', 'success');
@@ -161,6 +168,13 @@ class ProkerController extends Controller
             }
 
             $proker->save();
+
+            $submenu = new Submenu();
+            $submenu->label = $request->namaProker;
+            $submenu->url = 'proker/{id}';
+            $submenu->menu_id = 3;
+            $submenu->status = 1;
+            $submenu->save();
             // Redirect atau berikan respon sesuai kebutuhan
             toast('Program Kegiatan berhasil diperbarui', 'success');
             return redirect('proker');

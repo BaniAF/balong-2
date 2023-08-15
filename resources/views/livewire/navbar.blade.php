@@ -11,7 +11,7 @@
             </span>
         </a>
 
-        <div class="relative mt-1">
+        <div class="relative mt-4">
             <form action="{{ route('search.news') }}" method="GET" id="searchForm">
                 @csrf
                 <div class="join">
@@ -48,7 +48,7 @@
                            <a href="{{ $menuItems['url'] }}">{{ $menuItems['label'] }}</a> 
                         </ul>
                         @if (count($menuItems['submenus']))
-                            <div class="absolute hidden group-hover:block mt-1 bg-white rounded w-52 shadow-lg z-10">
+                            <div class="absolute hidden group-hover:block mt-1 justify-center bg-white rounded w-52 shadow-lg z-10">
            
                                 @foreach ($menuItems['submenus'] as $submenu)
                                     @php
@@ -60,8 +60,6 @@
                                     @endphp
                                     @if ($proker)
                                         <a href="{{ route('proker.tampil', ['id' => $proker->id]) }}" class="block px-4 py-2 text-gray-800 text-sm hover:bg-gray-100">{{ $proker->namaProker }}</a>
-                                   @elseif ($profil)
-                                   <a href="{{ route('profil.tampil', ['id' => $profil->id]) }}" class="block px-4 py-2 text-gray-800 text-sm hover:bg-gray-100">{{ $profil->namaProfil }}</a>
                                    @elseif ($bidang)
                                    <a href="{{ route('bidang.tampil', ['id' => $bidang->id]) }}" class="block px-4 py-2 text-gray-800 text-sm hover:bg-gray-100">{{ $bidang->namaBidang }}</a>
                                    @elseif ($regulasi)

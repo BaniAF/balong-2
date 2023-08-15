@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Agu 2023 pada 04.31
+-- Waktu pembuatan: 16 Agu 2023 pada 00.25
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -91,7 +91,8 @@ INSERT INTO `bidang` (`id`, `namaBidang`, `descBidang`, `fileBidang`, `created_a
 (1, 'Bidang', 'adsvf fafwdqa ascasca dqqq ', '', NULL, NULL),
 (2, 'Unit Kerja 1', 'dasdasda dadasdsa asdsaad dasdsad dasdsa dasdsa dasda dasdas dasda dasdas da as a', '', NULL, NULL),
 (3, 'Unit Kerja 2', 'uxbas dnasda dasnisa', '', NULL, NULL),
-(4, 'Unit Kerja 3', 'dadsa daas dadasd dasdas dakdsad', '', NULL, NULL);
+(4, 'Unit Kerja 3', 'dadsa daas dadasd dasdas dakdsad', '', NULL, NULL),
+(5, 'Bidang Bidung', 'Bidang Baru', '-', '2023-08-15 06:25:21', '2023-08-15 06:29:02');
 
 -- --------------------------------------------------------
 
@@ -278,11 +279,11 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id`, `label`, `url`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Home', '/', 1, NULL, NULL),
-(2, 'Profil', '/profil', 1, NULL, NULL),
+(1, 'Home', '/', 1, NULL, '2023-08-13 22:20:32'),
+(2, 'Profil', '/profiles', 1, NULL, NULL),
 (3, 'Program Kerja', '/proker', 1, NULL, NULL),
 (4, 'Bidang', '/bidang', 1, NULL, NULL),
-(5, 'Regulasi', '/regulasi', 1, NULL, NULL),
+(5, 'Regulasi', '/regulasi', 1, NULL, '2023-08-13 23:21:02'),
 (6, 'Layanan Publik', '/publik', 1, NULL, NULL),
 (7, 'Galeri', '/galeri', 1, NULL, NULL),
 (8, 'Buku Tamu', '/buktam', 1, NULL, NULL),
@@ -339,7 +340,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (31, '2023_08_13_134746_create_menu_table', 19),
 (32, '2023_08_13_134755_create_submenu_table', 19),
 (33, '2023_08_13_140134_update_submenu_table', 20),
-(34, '2023_08_11_001236_soft_delete', 21);
+(34, '2023_08_11_001236_soft_delete', 21),
+(35, '2023_08_15_141320_isi_profil', 22);
 
 -- --------------------------------------------------------
 
@@ -397,7 +399,7 @@ CREATE TABLE `pengumuman_image` (
 --
 
 INSERT INTO `pengumuman_image` (`id`, `image`, `created_at`, `updated_at`, `aktif`) VALUES
-(1, 'pengumuman1.jpeg', NULL, '2023-08-08 20:10:01', 1),
+(1, 'pengumuman1.jpeg', NULL, '2023-08-13 21:42:13', 1),
 (4, '1691374830.png', '2023-08-06 19:20:30', '2023-08-08 20:09:57', 1),
 (6, 'dsa.jpg', '2023-08-08 21:21:21', '2023-08-08 21:21:58', 0);
 
@@ -445,7 +447,34 @@ CREATE TABLE `post` (
 INSERT INTO `post` (`id`, `judulPost`, `isiPost`, `kategoriPost`, `userPost`, `statusPost`, `fotoPost`, `created_at`, `updated_at`) VALUES
 ('P003', 'Kecamatan Balong', '<p><strong>Balong </strong>adalah sebuah kecamatan di Kabupaten Ponorogo, Provinsi Jawa Timur, Indonesia. Kecamatan ini berjarak sekitar 18 kilometer dari ibu kota Kabupaten Ponorogo ke arah barat daya. Pusat pemerintahannya berada di desa Balong.&nbsp;</p>', 'K002', 'Kecamatan Balong', 'Diposting', 'P003 - Lokasi_Kecamatan_Balong,_Ponorogo.png', '2023-07-12 17:45:03', '2023-08-04 22:09:29'),
 ('P004', 'Cob', '<p><strong>Ini Juga COba</strong></p>', 'K002', 'Admin', 'Diposting', 'P004 - kue-ondeh-ondeh.jpg', '2023-07-12 18:30:02', '2023-07-25 18:19:39'),
-('P005', 'Ini Judul Belum Diposting', '<p>I<strong>ni Belum Diposting </strong>Ini Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Bel<img src=\"http://127.0.0.1:8000/uploads/Artikel/Postingan/1691393938 - 1.png\">um DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum Diposting</p>', 'K001', 'Kecamatan Balong', 'Diposting', 'P005 - IPNU IPPNU - HUT RI.jpg', '2023-08-02 20:54:52', '2023-08-07 00:39:15');
+('P005', 'Ini Judul Belum Diposting', '<p>I<strong>ni Belum Diposting </strong>Ini Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Bel<img src=\"http://127.0.0.1:8000/uploads/Artikel/Postingan/1691393938 - 1.png\">um DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum DipostingIni Belum Diposting</p>', 'K001', 'Kecamatan Balong', 'Diposting', 'P005 - IPNU IPPNU - HUT RI.jpg', '2023-08-02 20:54:52', '2023-08-07 00:39:15'),
+('P006', 'Grebek Suro 2023', '<p><strong>Grebek suro</strong> Tahun ini sangat meriah, dengan berbagai penampilan dari mulai anak muda hingga dewasa, semakin menambah kemeriahan, dan kedatangan menteri pariwisata dan ekonomi kreatif (<i>menparekraf</i>) pak <strong>Sandiaga Uno.</strong></p>', 'K005', 'Kecamatan Balong', 'Diposting', 'P006 - pengumuman1.jpeg', '2023-08-14 18:03:47', '2023-08-14 18:04:01'),
+('P007', 'Keindahan Burung', '<p>Burung yang indah itu sedang bertengger pada sebuah dahan, bisa jadi mungkin hanya sekedar melihat keindahan alam ini yang mulai rapuh dan mulai sirna. seharusnya jangan hanya menikmati perekonomian yang semakin tinggi alam menjadi korbannya</p>', 'K004', 'Kecamatan Balong', 'Diposting', 'P007 - gambar1.jpg', '2023-08-14 18:05:55', '2023-08-14 18:05:55');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `profiles`
+--
+
+CREATE TABLE `profiles` (
+  `id` varchar(10) NOT NULL,
+  `visi` varchar(255) NOT NULL,
+  `misi` varchar(255) NOT NULL,
+  `sasaran` varchar(255) NOT NULL,
+  `tujuan` varchar(255) NOT NULL,
+  `fileStruktur` varchar(255) NOT NULL,
+  `ketStruktur` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `profiles`
+--
+
+INSERT INTO `profiles` (`id`, `visi`, `misi`, `sasaran`, `tujuan`, `fileStruktur`, `ketStruktur`, `created_at`, `updated_at`) VALUES
+('PF001', '<p>Ini Visi Baru</p>', '<p>Ini Misi Baru</p>', '<p>Ini Sasaran <strong>Baru</strong></p>', '<p>Ini Tujuan<strong> Baru Hauyukk&nbsp;</strong></p>', '', 'Ini Keterangan Struktur', NULL, '2023-08-15 15:05:28');
 
 -- --------------------------------------------------------
 
@@ -500,7 +529,8 @@ INSERT INTO `proker` (`id`, `namaProker`, `descProker`, `fileProgram`, `created_
 ('PK04', 'DPA', 'dadsad', '-', '2023-08-08 19:58:43', '2023-08-08 19:58:43'),
 ('PK05', 'PERJANJIAN KINERJA', 'dasdasddasdasdasdqwewqqweq', '-', '2023-08-08 19:59:01', '2023-08-08 19:59:01'),
 ('PK06', 'LAPORAN KINERJA', 'wqednwqiudwqydqdq', '-', '2023-08-08 19:59:21', '2023-08-08 19:59:21'),
-('PK07', 'RENCANA KERJA', 'zasxrdctfvybhudaoidqwdv', '-', '2023-08-08 19:59:37', '2023-08-08 19:59:37');
+('PK07', 'RENCANA KERJA', 'zasxrdctfvybhudaoidqwdv', '-', '2023-08-08 19:59:37', '2023-08-08 19:59:37'),
+('PK08', 'Jalan Baru', 'bandaidia dwudndq  dqwd', '-', '2023-08-15 06:46:36', '2023-08-15 06:46:36');
 
 -- --------------------------------------------------------
 
@@ -549,7 +579,7 @@ INSERT INTO `regulasi` (`id`, `namaRegulasi`, `descRegulasi`, `fileRegulasi`, `c
 (3, 'Peraturan Menteri', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL),
 (4, 'Peraturan Bupati', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL),
 (5, 'Peraturan Daerah', 'swedcfvgbhnj adbasydbaudba dashdbausbda dashbdsahb hdabhdbsa dashdbash dasdbas bdahbda', '', NULL, NULL),
-(6, 'Keputusan Presiden', 'dada dadksad kadasdams dqwiodqo qidmqo', '', NULL, NULL);
+(6, 'Peraturan Bani', 'dmasdmsa dasidsa dasdas', '-', '2023-08-15 06:43:38', '2023-08-15 06:43:38');
 
 -- --------------------------------------------------------
 
@@ -594,7 +624,12 @@ INSERT INTO `submenu` (`id`, `created_at`, `updated_at`, `label`, `url`, `menu_i
 (20, NULL, NULL, 'Peraturan Menteri', '/regulasi/{id}', '5', 1),
 (21, NULL, NULL, 'Peraturan Bupati', '/regulasi/{id}', '5', 1),
 (22, NULL, NULL, 'Peraturan Daerah', '/regulasi/{id}', '5', 1),
-(23, NULL, NULL, 'Keputusan Presiden', '/regulasi/{label}', '5', 1);
+(23, NULL, NULL, 'Keputusan Presiden', '/regulasi/{label}', '5', 1),
+(24, '2023-08-15 06:20:55', '2023-08-15 06:20:55', 'Bidang 5', 'bidang/{id}', '4', 1),
+(25, '2023-08-15 06:25:21', '2023-08-15 06:25:21', 'Bidang Baru', 'bidang/{id}', '4', 1),
+(26, '2023-08-15 06:29:02', '2023-08-15 06:29:02', 'Bidang Bidung', 'bidang/{id}', '4', 1),
+(27, '2023-08-15 06:45:06', '2023-08-15 06:45:06', 'Peraturan Bani', '/regulasi/{id}', '5', 1),
+(28, '2023-08-15 06:46:36', '2023-08-15 06:46:36', 'Jalan Baru', 'proker/{id}', '3', 1);
 
 -- --------------------------------------------------------
 
@@ -777,12 +812,6 @@ ALTER TABLE `articles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT untuk tabel `bidang`
---
-ALTER TABLE `bidang`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT untuk tabel `categories`
 --
 ALTER TABLE `categories`
@@ -810,7 +839,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengumuman_image`
@@ -831,16 +860,10 @@ ALTER TABLE `profils`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `regulasi`
---
-ALTER TABLE `regulasi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
 -- AUTO_INCREMENT untuk tabel `submenu`
 --
 ALTER TABLE `submenu`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT untuk tabel `weather`

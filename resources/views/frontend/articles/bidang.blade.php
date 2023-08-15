@@ -8,7 +8,7 @@
         <h1>Detail bidang Kerja</h1>
         <p>ID: {{ $bidang->id }}</p>
         <h1 class="font-bold text-5xl">{{ $bidang->namaBidang }}</h1>
-        <p>Nama bidang: {{ $bidang->namaBidang }}</p>
+        <p>Nama bidang: {{ $bidang->descBidang }}</p>
         {{-- @if ($bidang->fileBidang && pathinfo($bidang->fileBidang, PATHINFO_EXTENSION) === 'pdf')
             <p>File Terkait:</p>
             <iframe
@@ -24,7 +24,6 @@
         @endif --}}
 
         @if ($bidang->fileBidang && pathinfo($bidang->fileBidang, PATHINFO_EXTENSION) === 'pdf')
-            <p>File Terkait: {{ $bidang->fileBidang }}</p>
             <div class="m-2 p-2">
                 <iframe src="{{ asset('uploads/File/' . $bidang->fileBidang) }}" width="100%" height="600px"></iframe>
                 {{-- <embed src="{{ asset('uploads/File/' . $bidang->fileBidang) }}" type="application/pdf" width="100%"

@@ -31,6 +31,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+    @foreach ($profiles as $item)
+        
     <div class="nav-align-top mb-4">
         <ul class="nav nav-tabs nav-fill" role="tablist">
             <li class="nav-item">
@@ -51,7 +53,8 @@
                 Ini Nanti Untuk Tugas dan Fungsi
             </div>
             <div class="tab-pane fade" id="navs-justified-visi" role="tabpanel">
-                <form class="row g-3">
+                <form class="row g-3" action="{{ route('profil.edit', $item->id) }}" method="POST">
+                    @csrf
                     <div class="col-md-6">
                         <label class="form-label">Visi</label>
                         <textarea name="visi" id="visi" cols="5" rows="3" class="form-control editor"></textarea>
@@ -61,22 +64,23 @@
                         <textarea name="misi" id="misi" cols="5" rows="3" class="form-control editor"></textarea>
                     </div>
                     <div class="col-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary" name="visimisi">Simpan</button>
                     </div>
                 </form>
             </div>
             <div class="tab-pane fade" id="navs-justified-tujuan" role="tabpanel">
-                <form class="row g-3">
+                <form class="row g-3" action="{{ route('profil.edit', $item->id) }}" method="POST">
+                    @csrf
                     <div class="col-md-6">
                         <label class="form-label">Tujuan</label>
-                        <textarea name="tujuan" id="tujuan" cols="5" rows="3" class="form-control editor"></textarea>
+                        <textarea name="tujuanP" id="tujuan" cols="5" rows="3" class="form-control editor"></textarea>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Sasaran</label>
                         <textarea name="sasaran" id="sasaran" cols="5" rows="3" class="form-control editor"></textarea>
                     </div>
                     <div class="col-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary" name="tujuan">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -89,7 +93,7 @@
                         <label for="ImageUpload" class="btn btn-primary mt-2 mb-2 btn-md w-100">Pilih Foto</label>
                         <span class="text-danger text-capitalize fw-semibold mt-2">* max 2 mb</span> <br>
                         <label class="form-label mt-4">Keterangan</label>
-                        <textarea name="keteranganGambar" id="keteranganGambar" cols="5" rows="3" class="form-control editor"></textarea>
+                        <textarea name="ketStruktur" id="ketStruktur" cols="5" rows="3" class="form-control editor"></textarea>
                         <span class="text-danger text-capitalize fw-semibold mt-2">* Opsional</span>
                     </div>
                     <div class="col-md-8">
@@ -105,80 +109,49 @@
             </div>
         </div>
     </div>
-    <!-- Card Tugas dan Fungsi -->
-    <!-- <div class="card mb-4">
-        <div class="card-header p-4 pb-0">
-            <h5 class="fw-semibold">Tugas dan Fungsi</h5>
-            <hr>
-        </div>
-        <div class="card-body">
-            
-        </div>
-    </div> -->
+    @endforeach
+{{-- hasil  tabel--}}
 
-    <!-- Card Visi Misi -->
-    <!-- <div class="card mb-4">
-        <div class="card-header p-4 pb-0">
-            <h5 class="fw-semibold">Visi & Misi, Tujuan, dan Sasaran</h5>
-            <hr>
+{{-- <div class="card">
+    <div class="card-body">
+        <div class="card-title d-flex align-items-center justify-content-between">
+            <h5 class="fw-semibold">Daftar Profil</h5>
         </div>
-        <div class="card-body">
-            <form class="row g-3">
-                <div class="col-md-6">
-                    <label class="form-label">Visi</label>
-                    <textarea name="visi" id="visi" cols="5" rows="3" class="form-control editor"></textarea>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Misi</label>
-                    <textarea name="misi" id="misi" cols="5" rows="3" class="form-control editor"></textarea>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Tujuan</label>
-                    <textarea name="tujuan" id="tujuan" cols="5" rows="3" class="form-control editor"></textarea>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Sasaran</label>
-                    <textarea name="sasaran" id="sasaran" cols="5" rows="3" class="form-control editor"></textarea>
-                </div>
-                <div class="col-12 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div> -->
-
-    <!-- Card Strukur Organisasi -->
-    <!-- <div class="card mb-4">
-        <div class="card-header p-4 pb-0">
-            <h5 class="fw-semibold">Struktur Organisasi</h5>
-            <hr>
-        </div>
-        <div class="card-body">
-            <form class="row g-3">
-                <div class="col-md-4">
-                    <label class="form-label">Upload File</label>
-                    <input type="file" id="ImageUpload" name="fotoPost" accept=".png, .jpg, .jpeg" class="d-none" />
-                    <label for="ImageUpload" class="btn btn-primary mt-2 mb-2 btn-md w-100">Pilih Foto</label>
-                    <span class="text-danger text-capitalize fw-semibold mt-2">* max 2 mb</span> <br>
-                    <label class="form-label mt-4">Keterangan</label>
-                    <textarea name="keteranganGambar" id="keteranganGambar" cols="5" rows="3" class="form-control editor"></textarea>
-                    <span class="text-danger text-capitalize fw-semibold mt-2">* Opsional</span>
-                </div>
-                <div class="col-md-8">
-                    <label class="form-label">Preview</label>
-                    <div class="previewFile">
-                        <img id="ImagePreview" src="{{ asset('images/dummy.jpg') }}" class="img-fluid" style="max-height: 450px;">
-                    </div>
-                </div>
-                <div class="col-12 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div> -->
-
+        <table class="table table-bordered">
+            <thead class="text-center fw-bolder">
+                <tr>
+                    <th>Visi</th>
+                    <th>Misi</th>
+                    <th>Tujuan</th>
+                    <th>Sasran</th>
+                    <th>Struktur Organisasi</th>
+                </tr>
+            </thead>
+            <tbody class="text-left">
+                @if ($profiles->isEmpty())
+                    <tr>
+                        <td colspan="5" class="text-center fw-semibold">Belum ada profiles</td>
+                    </tr>
+                @else
+                    @foreach ($profiles as $item)
+                        <tr>
+                            <td style="text-align: justify;">{{ Str::limit($item->visi , 50, ' ...') }}</td>
+                            <td style="text-align: justify;">{{ Str::limit($item->misi , 50, ' ...') }}</td>
+                            <td style="text-align: justify;">{{ Str::limit($item->tujuan , 50, ' ...') }}</td>
+                            <td style="text-align: justify;">{{ Str::limit($item->sasaran , 50, ' ...') }}</td>
+                            <td style="text-align: justify;">{{ Str::limit($item->ketStruktur , 50, ' ...') }}</td>
+                            
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+        </table>
+        
+    </div>
+</div> --}}
     <!-- Card -->
     <script>
+        
         document.querySelectorAll('.editor').forEach(editorTextarea => {
             ClassicEditor
                 .create(editorTextarea, {
@@ -187,13 +160,42 @@
                     }
                 })
                 .then(editor => {
-                    // Set data dari textarea ke CKEditor
-                    editor.setData(editorTextarea.value);
+                    // Mengambil ID textarea yang terkait dengan editor saat ini
+                    const textareaId = editorTextarea.getAttribute('id');
+                    
+                    // Menentukan bagian dari $item yang ingin ditampilkan berdasarkan ID textarea
+                    let content = '';
+                    @foreach($profiles as $item)
+                    switch (textareaId) {
+                        case 'visi':
+                            content = '{!! $item->visi !!}';
+                            break;
+                        case 'misi':
+                            content = '{!! $item->misi !!}';
+                            break;
+                        case 'tujuan':
+                            content = '{!! $item->tujuan !!}';
+                            break;
+                        case 'sasaran':
+                            content = '{!! $item->sasaran !!}';
+                            break;
+                        case 'ketStruktur':
+                            content = '{!! $item->ketStruktur !!}';
+                            break;
+                        // Tambahkan kasus lain jika ada lebih banyak textarea
+                        default:
+                            content = '';
+                            break;
+                    }
+                    @endforeach
+                    // Set data dari variabel content ke CKEditor
+                    editor.setData(content);
                 })
                 .catch(error => {
                     console.error(error);
                 });
         });
+
         // Fungsi untuk menampilkan preview gambar saat dipilih
         function showImagePreview(input) {
             if (input.files && input.files[0]) {

@@ -13,6 +13,7 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AkunController;
+use App\Http\Controllers\Bidang2Controller;
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\BukuTamuController;
 use App\Http\Controllers\dashboardController;
@@ -72,12 +73,11 @@ Route::get('/proker/{kode}', [ProkerController::class, 'tampilKode'])->name('pro
 
 Route::get('/bidang/{id}', [BidangController::class, 'tampilBidang'])->name('bidang.tampil');
 Route::get('/bidang/{label}', [BidangController::class, 'tampilLabel'])->name('bidang.tampil.label');
-// Route::get('/bidang/{kode}', [ProkerController::class, 'tampilKode'])->name('bidang.tampil.kode');
 
 Route::get('/regulasi/{id}', [RegulasiController::class, 'tampilRegulasi'])->name('regulasi.tampil');
 
-Route::get('/profil/{id}', [ProfilController::class, 'tampilProfil'])->name('profil.tampil');
-Route::get('/profil/{label}', [ProfilController::class, 'tampilProf'])->name('profil.tampil.profil');
+Route::get('/profiles', [ProfilController::class, 'tampilProfil'])->name('profil.tampil');
+
 
 Route::get('/publik', [LayananController::class, 'tampil'])->name('publik.tampil');
 
@@ -117,7 +117,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/kategoriPost/edit/{id}', [KategoriController::class, 'editKategori'])->name('edit-kategori');
     Route::post('/kategoriPost/hapus/{id}', [KategoriController::class, 'hapusKategori'])->name('hapus-kategori');
 
-
     // Kelola Program Kegiatan
     Route::get('/proker', [ProkerController::class, 'daftarProker'])->name('proker');
     Route::get('/tambah-foto', [ProkerController::class, 'tambahImage'])->name('tambah-foto');
@@ -125,6 +124,29 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/program/{id}/hapus', [ProkerController::class, 'hapusProgram'])->name('program.hapus');
     Route::post('/proker/edit/{id}', [ProkerController::class, 'editProgram'])->name('proker-edit');
     Route::post('/deleteImage', [ProkerController::class, 'hapusImageProgram'])->name('deleteImage');
+
+    // Kelola Bidang
+    Route::get('/bidang', [BidangController::class, 'daftarBidang'])->name('bidang');
+    Route::get('/tambah-foto', [BidangController::class, 'tambahImage'])->name('tambah-foto');
+    Route::post('/tambah-bidang', [BidangController::class, 'tambahBidang'])->name('tambah-bidang');
+    Route::post('/bidang/{id}/hapus', [BidangController::class, 'hapusBidang'])->name('bidang.hapus');
+    Route::post('/bidang/edit/{id}', [BidangController::class, 'editBidang'])->name('bidang-edit');
+
+    // Kelola Profil
+    Route::get('/profil', [ProfilController::class, 'daftarProfil'])->name('profil');
+    Route::get('/tambah-foto', [ProfilController::class, 'tambahImage'])->name('tambah-foto');
+    Route::post('/tambah-profil', [ProfilController::class, 'tambahProfil'])->name('tambah-profil');
+    Route::post('/profil/{id}/hapus', [ProfilController::class, 'hapusProfil'])->name('profil.hapus');
+    Route::post('/edit-profil/{id}', [ProfilController::class, 'editProfil'])->name('profil.edit');
+
+    // Kelola Regulasi
+    Route::get('/regulasi', [RegulasiController::class, 'daftarRegulasi'])->name('regulasi');
+    Route::get('/tambah-foto', [RegulasiController::class, 'tambahImage'])->name('tambah-foto');
+    Route::post('/tambah-regulasi', [RegulasiController::class, 'tambahRegulasi'])->name('tambah-regulasi');
+    Route::post('/regulasi/{id}/hapus', [RegulasiController::class, 'hapusRegulasi'])->name('regulasi.hapus');
+    Route::post('/regulasi/edit/{id}', [RegulasiController::class, 'editRegulasi'])->name('regulasi-edit');
+
+
     // Kelola Layanan Publik
     Route::get('/layanan-publik', [LayananController::class, 'daftarLayanan'])->name('layanan-publik');
     Route::post('/tambah-layanan', [LayananController::class, 'tambahLayanan'])->name('tambah-layanan');
@@ -148,28 +170,20 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pegawai/edit/{id}', [PegawaiController::class, 'updatePegawai'])->name('pegawai-edit');
     Route::post('/pegawai/{id}/hapus', [PegawaiController::class, 'hapusPegawai'])->name('pegawai-hapus');
 
-    // kelola menu
-    // Route::get('/menu', [MenuItemController::class, 'create'])->name('menu.create');
-    // Route::post('/menu', [MenuItemController::class, 'store'])->name('menuitem.store');
-
     //kelola saran
     Route::get('/saran', [ContactController::class, 'index'])->name('saran.index');
 
     Route::post('/tambah-foto-kegiatan', [ProkerController::class, 'tambahFotoKegiatan'])->name('tambah-foto-kegiatan');
     //kelola saran
-    // Route::get('/profil', [ProfilController::class, 'index'])->name('saran.index');
-    Route::get('/profil', function () {
-        return view('backend.pages.profil');
-    });
 
-
-    Route::get('/bidang', function () {
-        return view('backend.pages.bidang');
-    });
+    // Route::get('/profil', function () {
+    //     return view('backend.pages.profil');
+    // });
 
     Route::get('/menu', function () {
         return view('backend.pages.menu');
     });
+
     Route::post('/menu/{id}/aktifkan', [MenuItemController::class, 'aktifkanMenu'])->name('menu.aktifkan');
 
     Route::get('/list', [PengumumanController::class, 'lihat'])->name('list.lihat');

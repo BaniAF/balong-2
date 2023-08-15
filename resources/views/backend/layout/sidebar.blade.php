@@ -16,7 +16,7 @@
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <li class="menu-item pt-4">
-            <a href="/" class="menu-link">
+            <a href="/admin" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-home"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
@@ -76,7 +76,7 @@
             </a>
         </li>
         <li class="menu-item">
-            <a href="Regulasi" class="menu-link">
+            <a href="/regulasi" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-landmark"></i>
                 <div data-i18n="Account Settings">Regulasi</div>
             </a>
