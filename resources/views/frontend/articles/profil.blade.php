@@ -6,20 +6,23 @@
 @section('content')
 
 <div class="container m-2 p-4">
-    {{-- <h1 class="font-bold text-3xl">{{ $profil->namaProfil }}</h1>
-    <p> {{ $profil->namaProfil }}</p> --}}
+    @php
+        $activeMenuId = request('id');
+    @endphp
 
-    @foreach ($pegawai as $item)
-        <h1>{{$item->namaPegawai}}</h1>
-    @endforeach
-    {{-- @if ($Regulasi->fileRegulasi && pathinfo($Regulasi->fileRegulasi, PATHINFO_EXTENSION) === 'pdf')
-        <div class="m-2 p-2">
-            <iframe src="{{ asset('uploads/File/' . $Regulasi->fileRegulasi) }}" width="100%" height="600px"></iframe>
-        </div>
-    @else
-    <p class="text-gray-100">tidak ada dokumen yang ditampilkan</p>
-    @endif --}}
-    <!-- Tampilkan detail Proker lainnya sesuai kebutuhan -->
+    @if ($activeMenuId == 5)
+        @foreach ($pegawai as $item)
+            <h1>{{ $item->namaPegawai }}</h1>
+        @endforeach
+    @elseif ($activeMenuId == 4)
+        @if (!$Profil->isEmpty())
+            <h1 class="fw-bolder">VISI</h1>
+            <h1>{!! $Profil[0]->visi !!}</h1>
+            <h1 class="fw-bolder">VISI</h1>
+            <h1>{!! $Profil[0]->misi !!}</h1>
+
+        @endif
+    @endif
 </div>
 @endsection
 
