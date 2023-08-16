@@ -29,7 +29,7 @@ class ContactController extends Controller
             'message' => $request->input('message'),
         ]);
 
-        return view('contact.thankyou');
+        return view('frontend.contact.thankyou');
     }
 
     public function index()

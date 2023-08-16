@@ -14,7 +14,7 @@
 <style>
     
     swiper-container {
-      width: 60%;
+      width: 100%;
       height: 60%;
     }
 
@@ -176,92 +176,6 @@
 
 
     <section id="berita-kategori" class="p-16">
-        <!-- berita bagian bawah -->
-        {{-- <div class="bg-white flex flex-wrap gap-1 ml-5 mr-5 my-2 items-center justify-center p-4 rounded-lg shadow-md">
-            @foreach ($kategori as $category)
-                <div class="grid grid-cols-5 gap-2 justify-center items-center">
-                    <div class="col-span-5">
-                        <h5 class="text-xl font-bold mb-1 ml-10 mt-2 bg-amber-400 text-white py-1 px-2 rounded-sm" style="display: inline-block;">{{ $category->namaKategori }}</h5>
-                    </div>
-                    @php $foundArticle = false; @endphp
-                    @foreach ($artikel as $article)
-                        @if ($article->statusPost === 'Diposting' && $article->kategori->id === $category->id)
-                            <div class="p-2 my-1 ml-8 mr-15">
-                                <div class="card bg-white shadow-xl w-40 h-60">
-                                    <figure>
-                                        <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita" class="lazyload w-full" />
-                                    </figure>
-                                    <div class="card-body">
-                                        <h2 class="card-title text-black hover:text-red-500 text-sm">
-                                            <a href="{{ route('post.show', $article) }}">{{ $article->judulPost }}</a>
-                                        </h2>
-                                    </div>
-                                </div>
-                                <div class="divider"></div>
-                            </div>
-                            @php $foundArticle = true; @endphp
-                        @endif
-                    @endforeach
-                    @if (!$foundArticle)
-                        <div class="p-2 my-1 ml-10">
-                            <p>Tidak ada berita pada kategori ini.</p>
-                        </div>
-                    @endif
-                </div>
-                 @if ($foundArticle)
-                    <div class="-ml-24 mt-0">
-                        <button class="bg-blue-500 hover:bg-blue-600 text-white p-2 border-radius-5px text-2xl tooltip" data-tip="muat lebih">
-                            Load More
-                        </button>
-                    </div>
-                @endif
-            @endforeach
-        </div>        --}}
-
-        {{-- <div class="bg-white flex flex-wrap gap-1 ml-5 mr-5 my-2 items-center justify-center p-4 rounded-lg shadow-md">
-            @foreach ($kategori as $category)
-                <div class="grid grid-cols-5 gap-2 justify-center items-center">
-                    <div class="col-span-5">
-                        <h5 class="text-xl font-bold mb-1 ml-10 mt-2 bg-amber-400 text-white py-1 px-2 rounded-sm" style="display: inline-block;">{{ $category->namaKategori }}</h5>
-                    </div>
-                    @php $foundArticle = false; @endphp
-                    @php $articleCounter = 0; @endphp
-                    @foreach ($artikel as $article)
-                        @if ($article->statusPost === 'Diposting' && $article->kategori->id === $category->id)
-                            @if ($articleCounter < 5)
-                                <div class="p-2 my-1 ml-8 mr-15">
-                                    <div class="card bg-white shadow-xl w-40 h-60">
-                                        <figure>
-                                            <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita" class="lazyload w-full" />
-                                        </figure>
-                                        <div class="card-body">
-                                            <h2 class="card-title text-black hover:text-red-500 text-sm">
-                                                <a href="{{ route('post.show', $article) }}">{{ $article->judulPost }}</a>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                    <div class="divider"></div>
-                                </div>
-                                @php $foundArticle = true; @endphp
-                            @endif
-                            @php $articleCounter++; @endphp
-                        @endif
-                    @endforeach
-                    @if (!$foundArticle)
-                        <div class="p-2 my-1 ml-10">
-                            <p>Tidak ada berita pada kategori ini.</p>
-                        </div>
-                    @endif
-                </div>
-                @if ($foundArticle)
-                    <div class="-ml-24 mt-0" id="loadMoreButton-{{ $category->id }}">
-                        <button class="bg-blue-500 hover:bg-blue-600 text-white p-2 border-radius-5px text-2xl tooltip" data-tip="muat lebih" onclick="loadMore('{{ $category->id }}', '{{ $articleCounter }}')">
-                            Load More
-                        </button>
-                    </div>
-                @endif
-            @endforeach
-        </div> --}}
         <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
         slides-per-view="3">
         <swiper-slide>Slide 1</swiper-slide>
@@ -274,18 +188,17 @@
         <swiper-slide>Slide 8</swiper-slide>
         <swiper-slide>Slide 9</swiper-slide>
       </swiper-container>
-      
         <div class="bg-white flex flex-wrap gap-1 ml-5 mr-5 my-2 items-center justify-center p-4 rounded-lg shadow-md">
             @foreach ($kategori as $category)
-                <div class="grid grid-cols-5 gap-2 justify-center items-center">
-                    <div class="col-span-5">
-                        <h5 class="text-xl font-bold mb-1 ml-10 mt-2 bg-amber-400 text-white py-1 px-2 rounded-sm" style="display: inline-block;">{{ $category->namaKategori }}</h5>
-                    </div>
-                    <div class="swiper-container border border-red-700" style="width:1000px">
-                        <div class="swiper-wrapper">
-                            @php $foundArticle = false; @endphp
+                <div class="swiper-container" style="width:1000px">
+                    <div class="swiper-wrapper">
+                        <div class="grid grid-cols-5 gap-2 justify-center items-center swiper-slide">
+                            <div class="col-span-5">
+                                <h5 class="text-xl font-bold mb-1 ml-10 mt-2 bg-amber-400 text-white py-1 px-2 rounded-sm" style="display: inline-block;">{{ $category->namaKategori }}</h5>
+                            </div>
+                            @php $foundArticle = false; $articleCount = 0; @endphp
                             @foreach ($artikel as $article)
-                                @if ($article->statusPost === 'Diposting' && $article->kategori->id === $category->id)
+                                @if ($article->statusPost === 'Diposting' && $article->kategori->id === $category->id && $articleCount < 5)
                                     <div class="swiper-slide p-2 my-7">
                                         <div class="card bg-white shadow-xl w-40 h-60">
                                             <figure>
@@ -299,26 +212,22 @@
                                         </div>
                                         <div class="divider"></div>
                                     </div>
-                                    @php $foundArticle = true; @endphp
+                                    @php $foundArticle = true; $articleCount++; @endphp
                                 @endif
                             @endforeach
-                            @if ($foundArticle)
-                                <div class="swiper-button-next"></div>
-                                <div class="swiper-button-prev"></div>
+                            @if (!$foundArticle)
+                                <div class="p-2 my-1 ml-10">
+                                    <p>Tidak ada berita pada kategori ini.</p>
+                                </div>
                             @endif
                         </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
-                    @if (!$foundArticle)
-                        <div class="p-2 my-1 ml-10">
-                            <p>Tidak ada berita pada kategori ini.</p>
-                        </div>
-                    @endif
                 </div>
             @endforeach
         </div>
-        
-        
-        
+
     </section>
 @endsection
 
