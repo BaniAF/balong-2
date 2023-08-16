@@ -105,7 +105,7 @@
     </div>
 
     <div class="modal fade" id="modalDetail" data-bs-backdrop="static" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-md">
             <form class="modal-content" >
                 <div class="modal-header">
                     <h3 class="modal-title" id="backDropModalTitle">Detail Saran</h3>
@@ -145,25 +145,29 @@
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>
-                    <p class="fw-semibold mb-2 me-2" style="font-size:15px">${label} </p>
+                    <p class="fw-semibold mb-2 me-5" style="font-size:15px">${label} </p>
                 </td>
                 <td>
                     <p class="fw-normal mb-2 me-3" style="font-size:15px"> : </p>
                 </td>
                 <td>
-                    <p class="fw-normal mb-2 " style="font-size:15px word-break: break-word;"> ${value} </p>                
+                    <p class="fw-normal mb-2" style="font-size:15px word-wrap: break-word;"> ${splitText(value)} </p>                
                 </td>
             `;
             tableBody.appendChild(row);
         }
-
+        function splitText(text) {
+            const chunks = [];
+            for (let i = 0; i < text.length; i += 50) {
+                chunks.push(text.slice(i, i + 50));
+            }
+            return chunks.join('<br>');
+        }
         // Menambahkan informasi ke dalam tabel
         addRow('Nama', nama);
         addRow('E-mail', email);
         addRow('No Hp', phone);
-        addRow('Isi Pesan', pesan);
-       
-        
+        addRow('Isi Pesan', pesan);      
     }
     function closeModal() {
         const modal = document.getElementById('modalDetail');

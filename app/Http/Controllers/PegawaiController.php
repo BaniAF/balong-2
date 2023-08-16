@@ -44,10 +44,7 @@ class PegawaiController extends Controller
         $id = 'PEG' . str_pad($lastId + 1, 2, '0', STR_PAD_LEFT);
 
         // Upload file foto
-        $fileFoto = $request->file('fotoPegawai');
-        $namaPegawai = $request->namaPegawai;
-        $namaFoto = $namaPegawai . ' - ' . $id . '.' . $fileFoto->getClientOriginalExtension();
-        $fileFoto->move(public_path('uploads/Pegawai/'), $namaFoto);
+        
 
         // Menggabungkan jabatan jika memilih anggota
         $pangkat = $request->pangkat;
@@ -61,7 +58,20 @@ class PegawaiController extends Controller
         $pegawai->jenisKelamin = $request->jenisKelamin;
         $pegawai->jabatan = $request->jabatan;
         $pegawai->pangkat = $pangkat;
-        $pegawai->fotoPegawai = $namaFoto;
+
+        if ($request->hasFile('fotoPegawai')) {
+            // Upload file foto baru
+            $fileFoto = $request->file('fotoPegawai');
+            $namaPegawai = $request->namaPegawai;
+            $namaFoto = $namaPegawai . ' - ' . $id . '.' . $fileFoto->getClientOriginalExtension();
+            $fileFoto->move(public_path('uploads/Pegawai/'), $namaFoto);
+
+            // Set fotoPegawai dengan nama foto baru
+            $pegawai->fotoPegawai = $namaFoto;
+        } else {
+            // Jika tidak ada foto yang diunggah, set fotoPegawai dengan "-"
+            $pegawai->fotoPegawai = '-';
+        }
         $pegawai->save();
         // Redirect atau berikan respon sesuai kebutuhan
         toast('Data Pegawai berhasil ditambahkan', 'success');
