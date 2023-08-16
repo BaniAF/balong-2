@@ -109,7 +109,7 @@
                 type="button" >
                 <i class='bx bxs-file-plus me-2'></i>Tambah
             </button> -->
-            <a href="/tambah-pegawai" class="btn btn-md bg-primary mb-2 text-white fw-semibold">
+            <a href="/formPegawai" class="btn btn-md bg-primary mb-2 text-white fw-semibold">
                 <i class='bx bxs-user-plus me-2'></i>Tambah Pegawai
             </a>
         </div>
@@ -165,6 +165,22 @@
                                     data-foto= "{{$dataPegawai->fotoPegawai}}"
                                 >
                                     <i class="bx bx-edit-alt bx-s m-1"></i>
+                                </button>
+                                <button
+                                    id="btnEditPegawai"
+                                    class="tf-icons btn btn-sm btn-outline-info me-1 btn-icon rounded-pill btn-detail" 
+                                    type="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalDetail"
+                                    data-id="{{ $dataPegawai->id }}"
+                                    data-nip="{{ $dataPegawai->nip }}"
+                                    data-nama="{{ $dataPegawai->namaPegawai }}"
+                                    data-jabatan="{{ $dataPegawai->jabatan }}"
+                                    data-jenis="{{ $dataPegawai->jenisKelamin }}"
+                                    data-pangkat="{{ $dataPegawai->pangkat }}"
+                                    data-foto= "{{$dataPegawai->fotoPegawai}}"
+                                >
+                                    <i class="bx bx-detail bx-s m-1"></i>
                                 </button>
                                 <form action="{{ route('pegawai-hapus', $dataPegawai->id) }}" method="post">
                                     @csrf
@@ -498,6 +514,48 @@
     </div>
 </div>
 
+<!-- Modal Detail -->
+<div class="modal fade" id="modalDetail" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <form class="modal-content" enctype="multipart/form-data" method="post" id="formDetail">
+            @csrf
+            <div class="modal-header">
+                <h3 class="modal-title" id="backDropModalTitle">Detail Data Pegawai</h3>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-7">
+                        <table>
+                            <tbody id="tableDetail">
+                                <tr>
+                                    <td>
+                                        <p class="fw-normal mb-0" style="font-size:15px">Data Pegawai</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-5 text-center img-pegawai">
+                        <img id="pegawaiImg" src="" alt="Foto Pegawai" style="height:250px; width:250px; border-radius:5px;">
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer d-flex">
+                <button type="button" class="btn btn-outline-danger mb-0" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- Modal untuk preview gambar -->
 <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
@@ -570,32 +628,66 @@
             setDefaultImagePreview();
         }
     }
-    // const existingJabatan = ["Camat"]; // Gantilah ini dengan data jabatan yang sudah ada di tabel
 
-    // function showBidangOptions() {
-    //     const jabatanSelect = document.getElementById('jabatan');
-    //     const selectedJabatan = jabatanSelect.value;
+    // Fungsi Detail
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mendapatkan modal dan tombol detail
+        const modal = document.getElementById('modalDetail');
+        const buttons = document.querySelectorAll('.btn-detail');
 
-    //     // Reset dropdown options
-    //     jabatanSelect.innerHTML = '<option value="">-- Pilih Jabatan --</option>';
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                // const nip = this.getAttribute('data-id');
+                const nip = this.getAttribute('data-nip');
+                const nama = this.getAttribute('data-nama');
+                const jabatan = this.getAttribute('data-jabatan');
+                const jenis = this.getAttribute('data-jenis');
+                const pangkat = this.getAttribute('data-pangkat');
+                const fotoP = this.getAttribute('data-foto');
 
-    //     const jabatanOptions = ['Camat', 'Sekretaris Kecamatan', 'Jabatan Fungsional Tertentu', 'Subag Perencanaan dan Keuangan', 'Subag Umum dan Kepegawaian', 'Kasi Tata Pemerintahan', 'Kasi Ketentraman dan Ketertiban', 'Kasi Kesejahteraan Sosial', 'Kasi Pembangunan dan Pemberdayaan Masyarakat', 'Staff'];
+                // Menampilkan modal
+                modal.style.display = 'block';
+                // Memanggil fungsi openModal dengan nilai-nilai dari atribut data
+                openModal(nip, nama, jabatan, jenis, pangkat, fotoP);
+            });
+        });
+    });
+    function openModal(nip, nama, jabatan, jenis, pangkat, fotoP) {
+        const modal = document.getElementById('modalDetail');
+        modal.style.display = 'block';
 
-    //     jabatanOptions.forEach((jabatan) => {
-    //         if (!existingJabatan.includes(jabatan) || jabatan === selectedJabatan) {
-    //             const option = document.createElement('option');
-    //             option.value = jabatan;
-    //             option.text = jabatan;
-    //             if (jabatan === selectedJabatan) {
-    //                 option.selected = true;
-    //             }
-    //             jabatanSelect.appendChild(option);
-    //         }
-    //     });
-    // }
+        const tableBody = document.getElementById('tableDetail');
+        tableBody.innerHTML = ''; // Bersihkan isi tabel sebelum mengisi ulang
 
-    // // Panggil fungsi showBidangOptions saat halaman dimuat untuk menginisialisasi dropdown pertama kali
-    // showBidangOptions();
+        // Menambahkan baris informasi ke dalam tabel
+        function addRow(label, value) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <p class="fw-semibold mb-2 me-2" style="font-size:17px">${label} </p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-2 me-3" style="font-size:17px"> : </p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-2" style="font-size:17px"> ${value}</p>                
+                </td>
+            `;
+            tableBody.appendChild(row);
+        }
+
+        // Menambahkan informasi ke dalam tabel
+        addRow('NIP Pegawai', nip);
+        addRow('Nama Pegawai', nama);
+        addRow('Jenis Kelamin', jenis);
+        addRow('Pendidikan Terakhir', '-');
+        addRow('Jabatan', jabatan);
+        addRow('Pangkat / Golongan', pangkat);
+
+        const imgElement = document.querySelector('#pegawaiImg');
+        const fotoUrl = `uploads/Pegawai/${fotoP}`; // Membangun URL lengkap gambar
+        imgElement.src = fotoUrl;
+    }
 </script>
 <script>
     function showErrorModal(errors) {

@@ -44,12 +44,12 @@
                     </tr>
                 </thead>
                 <tbody class="text-left">
-                    @if ($postingan->where('statusPost', '!=', 'Diposting')->isEmpty())
+                    @if ($postinganBelumDiposting->isEmpty())
                         <tr>
                             <td colspan="7" class="text-center fw-semibold">Belum ada postingan</td>
                         </tr>
                     @else
-                        @foreach ($postingan as $post)
+                        @foreach ($postinganBelumDiposting as $post)
                             @if ($post->statusPost != 'Diposting')
                                 <tr>
                                     <td class="p-2 m-1 text-center">{{ $post->created_at->format('d M Y') }}</td>
@@ -115,19 +115,19 @@
                 </tbody>
             </table>
             <div class="page">
-                @if (!$postingan->where('statusPost', '!=', 'Diposting')->isEmpty())
+                @if (!$postinganBelumDiposting->isEmpty())
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item {{ $postingan->currentPage() == 1 ? 'disabled' : '' }}">
-                                <a class="page-link" href="{{ $postingan->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                            <li class="page-item {{ $postinganBelumDiposting->currentPage() == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $postinganBelumDiposting->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
                             </li>
-                            @for ($i = 1; $i <= $postingan->lastPage(); $i++)
-                                <li class="page-item {{ $postingan->currentPage() == $i ? 'active' : '' }}">
-                                    <a class="page-link" href="{{ $postingan->url($i) }}">{{ $i }}</a>
+                            @for ($i = 1; $i <= $postinganBelumDiposting->lastPage(); $i++)
+                                <li class="page-item {{ $postinganBelumDiposting->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $postinganBelumDiposting->url($i) }}">{{ $i }}</a>
                                 </li>
                             @endfor
-                            <li class="page-item {{ $postingan->currentPage() == $postingan->lastPage() ? 'disabled' : '' }}">
-                                <a class="page-link" href="{{ $postingan->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                            <li class="page-item {{ $postinganBelumDiposting->currentPage() == $postinganBelumDiposting->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $postinganBelumDiposting->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
                             </li>
                         </ul>
                     </nav>
@@ -154,12 +154,12 @@
                     </tr>
                 </thead>
                 <tbody class="text-left">
-                    @if ($postingan->where('statusPost', '==', 'Diposting')->isEmpty())
+                    @if ($postinganDiposting->isEmpty())
                         <tr>
                             <td colspan="7" class="text-center fw-semibold">Belum ada postingan yang Diposting</td>
                         </tr>
                     @else
-                        @foreach ($postingan as $post)
+                        @foreach ($postinganDiposting as $post)
                             @if ($post->statusPost == 'Diposting')
                                 <tr>
                                     <td class="p-2 m-1 text-center">{{ $post->created_at->format('d M Y') }}</td>
@@ -225,19 +225,19 @@
                 </tbody>
             </table>
             <div class="page">
-                @if (!$postingan->where('statusPost', '==', 'Diposting')->isEmpty())
+                @if (!$postinganDiposting->isEmpty())
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item {{ $postingan->currentPage() == 1 ? 'disabled' : '' }}">
-                                <a class="page-link" href="{{ $postingan->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                            <li class="page-item {{ $postinganDiposting->currentPage() == 1 ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $postinganDiposting->previousPageUrl() }}"><i class="tf-icon bx bx-chevrons-left"></i></a>
                             </li>
-                            @for ($i = 1; $i <= $postingan->lastPage(); $i++)
-                                <li class="page-item {{ $postingan->currentPage() == $i ? 'active' : '' }}">
-                                    <a class="page-link" href="{{ $postingan->url($i) }}">{{ $i }}</a>
+                            @for ($i = 1; $i <= $postinganDiposting->lastPage(); $i++)
+                                <li class="page-item {{ $postinganDiposting->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $postinganDiposting->url($i) }}">{{ $i }}</a>
                                 </li>
                             @endfor
-                            <li class="page-item {{ $postingan->currentPage() == $postingan->lastPage() ? 'disabled' : '' }}">
-                                <a class="page-link" href="{{ $postingan->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                            <li class="page-item {{ $postinganDiposting->currentPage() == $postinganDiposting->lastPage() ? 'disabled' : '' }}">
+                                <a class="page-link" href="{{ $postinganDiposting->nextPageUrl() }}"><i class="tf-icon bx bx-chevrons-right"></i></a>
                             </li>
                         </ul>
                     </nav>

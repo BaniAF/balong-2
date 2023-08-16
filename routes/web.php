@@ -169,6 +169,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/tambah-pegawai', [PegawaiController::class, 'tambahPegawai'])->name('tambah-pegawai');
     Route::post('/pegawai/edit/{id}', [PegawaiController::class, 'updatePegawai'])->name('pegawai-edit');
     Route::post('/pegawai/{id}/hapus', [PegawaiController::class, 'hapusPegawai'])->name('pegawai-hapus');
+    Route::get('/formPegawai', function () {
+        return view('backend.pages.buku-tamu.tambah-pegawai');
+    });
 
     //kelola saran
     Route::get('/saran', [ContactController::class, 'index'])->name('saran.index');
