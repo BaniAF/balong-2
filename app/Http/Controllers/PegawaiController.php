@@ -63,7 +63,7 @@ class PegawaiController extends Controller
             // Upload file foto baru
             $fileFoto = $request->file('fotoPegawai');
             $namaPegawai = $request->namaPegawai;
-            $namaFoto = $namaPegawai . ' - ' . $id . '.' . $fileFoto->getClientOriginalExtension();
+            $namaFoto = $id . ' - ' . $namaPegawai . '.' . $fileFoto->getClientOriginalExtension();
             $fileFoto->move(public_path('uploads/Pegawai/'), $namaFoto);
 
             // Set fotoPegawai dengan nama foto baru
