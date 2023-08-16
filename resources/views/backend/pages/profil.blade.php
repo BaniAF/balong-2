@@ -85,25 +85,26 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="navs-justified-struktur" role="tabpanel">
-                <form class="row g-3">
+                <form class="row g-3" action="{{ route('profil.edit', $item->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="col-md-4">
                         <label class="form-label">Upload File</label>
                         <!-- <label for="imageUpload" class="form-label mt-2">Upload Foto</label> -->
-                        <input type="file" id="ImageUpload" name="fotoPost" accept=".png, .jpg, .jpeg" class="d-none" />
+                        <input type="file" id="ImageUpload" name="fotoStruktur" accept=".png, .jpg, .jpeg" class="d-none" />
                         <label for="ImageUpload" class="btn btn-primary mt-2 mb-2 btn-md w-100">Pilih Foto</label>
                         <span class="text-danger text-capitalize fw-semibold mt-2">* max 2 mb</span> <br>
                         <label class="form-label mt-4">Keterangan</label>
                         <textarea name="ketStruktur" id="ketStruktur" cols="5" rows="3" class="form-control editor"></textarea>
                         <span class="text-danger text-capitalize fw-semibold mt-2">* Opsional</span>
-                    </div>
+                    </div>  
                     <div class="col-md-8">
                         <label class="form-label">Preview</label>
                         <div class="previewFile">
-                            <img id="ImagePreview" src="{{ asset('images/dummy.jpg') }}" class="img-fluid" style="max-height: 450px;">
+                            <img id="ImagePreview" src="{{ asset('uploads/images/' . $item->fileStruktur) }}" class="img-fluid" style="max-height: 450px;">
                         </div>
                     </div>
                     <div class="col-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary" name="struktur">Simpan</button>
                     </div>
                 </form>
             </div>

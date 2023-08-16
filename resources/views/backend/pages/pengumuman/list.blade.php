@@ -64,6 +64,15 @@
                                     <span style="display: block; margin-top: 1px;">
                                         Ukuran File : {{ $fileSize }} Mb
                                     </span>
+                                    @if($item->aktif === 1)
+                                        <span style="margin-top: 1px;" class="badge bg-success">
+                                            Aktif
+                                        </span>
+                                    @else
+                                        <span style="margin-top: 1px;" class="badge bg-danger">
+                                            Nonaktif
+                                        </span>
+                                    @endif
                                 </td>
                                 <td class="text-center">
                                     @if ($item->image)
