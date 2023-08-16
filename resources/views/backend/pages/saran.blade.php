@@ -61,15 +61,17 @@
                                 <td class="text-center aligns-item-center">
                                     <div
                                         class="button-container d-flex justify-content-center align-items-center posting-form">
-                                        <form action="{{ route('saran.lihat', $isi->id) }}" method="post">
-                                            @csrf
-                                            <button
-                                                class="tf-icons btn btn-sm btn-icon btn-outline-danger me-1 rounded-pill show_confirm"
-                                                type="submit" data-bs-toggle="tooltip" data-bs-offset="0,4"
-                                                data-bs-placement="bottom" data-bs-html="true" title="<span>Details</span>">
-                                                <i class='bx bxs-detail'></i>
-                                            </button>
-                                        </form>
+                                        <button
+                                            class="tf-icons btn btn-sm btn-outline-primary me-1 btn-icon rounded-pill btn-detail"
+                                            type="button" data-bs-toggle="modal" data-bs-target="#modalDetail"
+                                            data-id="{{ $isi->id }}"
+                                            data-bs-nama="{{ $isi->name }}"
+                                            data-bs-email="{{ $isi->email }}"
+                                            data-bs-phone="{{ $isi->phone }}"
+                                            data-bs-pesan="{{ $isi->message }}"
+                                            data-bs-placement="bottom" data-bs-html="true" title="<span>Detail</span>">
+                                            <i class='bx bxs-detail'></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -101,40 +103,93 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
+
+    <div class="modal fade" id="modalDetail" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
-            <form class="modal-content" enctype="multipart/form-data" method="post" action="{{ route('tambah-program') }}">
-                @csrf
+            <form class="modal-content" >
                 <div class="modal-header">
-                    <h3 class="modal-title" id="backDropModalTitle">Tambah Program Kegiatan</h3>
+                    <h3 class="modal-title" id="backDropModalTitle">Detail Saran</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body ">
-                    <div class="row">
-                        <div class="col-12 mb-2">
-                            <label for="nameBackdrop" class="form-label">Nama Program Kegiatan</label>
-                            <input type="text" name="namaProker" id="nameBackdrop" class="form-control"
-                                placeholder="Contoh : Hari Jadi Kecamatan Balong" />
-                        </div>
-                    </div>
-                    <div class="mb-2">
-                        <label for="nameBackdrop" class="form-label">Deskripsi Kegiatan</label>
-                        <textarea name="descProker" id="descProker" cols="10" rows="3" class="form-control"
-                            placeholder="Isi Postingan / Berita"></textarea>
-                    </div>
-                    <div>
-                        <label for="nameBackdrop" class="form-label">Tambahkan File <span class="text-capitalize fw-semibold text-danger">*</span></label>
-                        <input type="file" name="fileProgram" id="fileProgram" class="form-control mb-1" accept=".pdf" max="2048">
-                        <span class="text-capitalize fw-semibold text-danger">* Opsional.</span>
-                    </div>
-                    <div class="modal-footer d-flex">
-                        <button type="button" class="btn btn-outline-danger mb-0" data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="submit" class="btn btn-primary mb-0" name="submitType" value="simpan">Simpan</button>
-                    </div>
+                <div class="modal-body text-black">
+                    <table>
+                        <tbody id="tableDetail">
+                            <tr>
+                                <td>
+                                    <p class="fw-normal mb-0" style="font-size:15px">Anggota</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer d-flex mt-1">
+                    <button type="button" class="btn btn-outline-danger mb-0" data-bs-dismiss="modal">
+                        Close
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 @endsection
+
+<script>
+    function openModal(nama,email,phone,pesan) {
+        const modal = document.getElementById('modalDetail');
+        modal.style.display = 'block';
+
+        const tableBody = document.getElementById('tableDetail');
+        tableBody.innerHTML = ''; // Bersihkan isi tabel sebelum mengisi ulang
+
+        // Menambahkan baris informasi ke dalam tabel
+        function addRow(label, value) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <p class="fw-semibold mb-2 me-2" style="font-size:15px">${label} </p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-2 me-3" style="font-size:15px"> : </p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-2 " style="font-size:15px word-break: break-word;"> ${value} </p>                
+                </td>
+            `;
+            tableBody.appendChild(row);
+        }
+
+        // Menambahkan informasi ke dalam tabel
+        addRow('Nama', nama);
+        addRow('E-mail', email);
+        addRow('No Hp', phone);
+        addRow('Isi Pesan', pesan);
+       
+        
+    }
+    function closeModal() {
+        const modal = document.getElementById('modalDetail');
+        modal.style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mendapatkan modal dan tombol detail
+        const modal = document.getElementById('modalDetail');
+        const buttons = document.querySelectorAll('.btn-detail');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                // const nip = this.getAttribute('data-id');
+                const nama = this.getAttribute('data-bs-nama');
+                const email = this.getAttribute('data-bs-email');
+                const phone = this.getAttribute('data-bs-phone');
+                const pesan = this.getAttribute('data-bs-pesan');
+
+
+                // Menampilkan modal
+                modal.style.display = 'block';
+
+                // Memanggil fungsi openModal dengan nilai-nilai dari atribut data
+                openModal(nama,email,phone,pesan);
+            });
+        });
+    });
+</script>

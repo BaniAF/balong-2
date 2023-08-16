@@ -98,7 +98,7 @@
     <div class="flex">
         {{-- berita atas --}}
         <div class="flex flex-wrap gap-1  ml-9 my-4 mr-2 w-2/3 bg-white p-4 rounded-lg shadow-md">
-            <div class="border-l-4 border-indigo-500 p-2 justify-start text-left h-10 mt-5 mb-4">
+            <div class="border-l-4 border-indigo-500 p-2 justify-start text-left h-10 mt-5 mb-4 mr-20">
                 <h3 class="text-2xl font-extrabold md:font-normal text-md sm:text-md">Berita Terbaru</h3>
             </div>
             <div>

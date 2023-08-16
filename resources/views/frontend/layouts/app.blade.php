@@ -8,7 +8,7 @@
     
 
     <title>@yield('title')</title>
-
+    <script src="//unpkg.com/alpinejs" defer></script>
     <link rel="icon" href="{{ asset('assets/img/logokab.png') }}" class="w-3 h-auto">
 @stack('style')
     <!-- Fonts -->
@@ -54,6 +54,7 @@
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
     @stack('script')
+    
 
 </body>
 

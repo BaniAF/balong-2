@@ -32,7 +32,7 @@
         </div>
     </div>
     {{-- bagian bawah --}}
-    <div class="container flex justify-between h-16 mx-auto">
+    {{-- <div class="container flex justify-between h-16 mx-auto">
         <ul class="items-stretch hidden space-x-3 lg:flex">
             <div class="relative">
                 @php
@@ -81,6 +81,19 @@
             @endif
             </div>
         </ul>
+    </div> --}}
+
+    <div class="">
+      
+        <div class="group inline-block relative" x-data="{isshow:false}">
+            <ul class="text-gray-800 font-bold text-md px-4 py-2 " @mouseenter="isshow=true">
+               <a href="#">Ini Menu</a> 
+            </ul>
+
+            <div x-show="isshow" @mouseleave="isshow=false" x-transition class="absolute group-hover:block mt-1 justify-center bg-white rounded w-52 shadow-lg z-10">
+                <a href="#">Ini Menu</a> 
+            </div>
+        </div>
     </div>
 </header>
 
