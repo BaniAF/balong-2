@@ -14,20 +14,22 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAO-ccTqjDiPdSx-N9Rzy6eN1h_Z1QmQCw&callback=initMap" async
         defer></script>
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
         
     <script>
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: {
-                    lat: -7.2575,
-                    lng: 112.7521
+                    lat: -7.956060,
+                    lng: 111.432814
                 },
-                zoom: 10
+                zoom: 20
             });
         }
     </script>
@@ -49,6 +51,7 @@
 </div>
     <script src="{{ asset('js/maps.js') }}"></script>
     
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
     @stack('script')
 

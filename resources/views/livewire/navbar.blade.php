@@ -60,6 +60,8 @@
                                     @endphp
                                     @if ($proker)
                                         <a href="{{ route('proker.tampil', ['id' => $proker->id]) }}" class="block px-4 py-2 text-gray-800 text-sm hover:bg-gray-100">{{ $proker->namaProker }}</a>
+                                   @elseif ($profil)
+                                   <a href="{{ route('profil.tampil', ['id' => $profil->id]) }}" class="block px-4 py-2 text-gray-800 text-sm hover:bg-gray-100">{{ $profil->namaProfil }}</a>
                                    @elseif ($bidang)
                                    <a href="{{ route('bidang.tampil', ['id' => $bidang->id]) }}" class="block px-4 py-2 text-gray-800 text-sm hover:bg-gray-100">{{ $bidang->namaBidang }}</a>
                                    @elseif ($regulasi)

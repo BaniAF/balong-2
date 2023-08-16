@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
 use App\Models\Profil;
 use App\Models\profiles;
 use App\Models\Submenu;
@@ -63,6 +64,14 @@ class ProfilController extends Controller
         toast('Regulasi berhasil ditambahkan', 'success');
         return redirect('profil');
     }
+    public function tambah(Request $request)
+    {
+        $request->validate([
+            'visi' => 'required',
+            'misi' => 'required',
+            'fileStruktur' => 'nullable|mimes:pdf|max:2048',
+        ]);
+    }
 
     public function editProfil(Request $request, $id)
     {
@@ -78,8 +87,8 @@ class ProfilController extends Controller
         // dd($id);
         // Cari program kegiatan berdasarkan id
         $profil = Profiles::find($id);
-        // dd($request->all());
-        if ($profil) {            
+
+        if ($profil) {
             if ($request->has('visimisi')) {
                 # code...
                 $profil->visi = $request->visi;
@@ -88,29 +97,24 @@ class ProfilController extends Controller
                 # code...
                 $profil->sasaran = $request->sasaran;
                 $profil->tujuan = $request->tujuanP;
-            } elseif ($request->has('struktur')) {
-                if ($request->ketStruktur === null) {
-                    $profil->ketStruktur = "-";
-                } else {
-                    $profil->ketStruktur = $request->ketStruktur;
-                }
-
-                if ($request->hasFile('fotoStruktur')) {
-                // Upload file foto baru
-                    $fileFoto = $request->file('fotoStruktur');
-                    // dd($fileFoto);
-                    $namaFoto = $fileFoto->getClientOriginalName();
-                    $fileFoto->move(public_path('uploads/images'), $namaFoto);
-                    // Hapus foto lama (jika ada)
-                    if ($profil->fileStruktur) {
-                        $oldPath = public_path('uploads/images/' . $profil->fileStruktur);
-                        if (file_exists($oldPath)) {
-                            unlink($oldPath);
-                        }
-                    }
-                    $profil->fileStruktur = $namaFoto;
-                }
             }
+            // Update data program kegiatan
+
+            // if ($request->hasFile('fileRegulasi')) {
+            //     if ($profil->fileProfil) {
+            //         $oldFilePath = public_path('uploads/File/' . $profil->fileProfil);
+            //         if (file_exists($oldFilePath)) {
+            //             unlink($oldFilePath);
+            //         }
+            //     }
+
+            //     // Store the new fileRegulasi and update the fileRegulasi attribute in the database
+            //     $file = $request->file('fileProfil');
+            //     $filename = $id . '_' . $file->getClientOriginalName();
+            //     $file->move(public_path('uploads/File/'), $filename); // Simpan file ke direktori tujuan
+            //     $profil->fileProfil = $filename;
+            // }
+
             $profil->save();
             // Redirect atau berikan respon sesuai kebutuhan
             toast('Profil berhasil diperbarui', 'success');
@@ -124,6 +128,7 @@ class ProfilController extends Controller
     public function tampilProfil()
     {
         $Profil = profiles::all();
-        return view('frontend.articles.profil', compact('Profil'));
+        $pegawai = Pegawai::all();
+        return view('frontend.articles.profil', compact('Profil', 'pegawai'));
     }
 }

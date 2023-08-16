@@ -24,6 +24,6 @@ class Kategori extends Model
 
     public function artikel()
     {
-        return $this->hasMany(Article::class, 'kategoriPost', 'id');
+        return $this->hasMany(Post::class, 'kategoriPost', 'id');
     }
 }

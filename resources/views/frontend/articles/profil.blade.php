@@ -4,37 +4,22 @@
 @endsection
 
 @section('content')
-    <div class="container m-2 p-4">
-        <div>
-            <h1 class="font-bold text-3xl">Visi</h1>
-            <p> {!! $Profil->visi !!}</p>
-        </div>
-        <div>
-            <h1 class="font-bold text-3xl">Misi</h1>
-            <p> {!! $Profil->misi!!}</p>
-        </div>
-        <div>
-            <h1 class="font-bold text-3xl">Sasaran</h1>
-            <p> {!! $Profil->sasaran!!}</p>
-        </div>
-        <div>
-            <h1 class="font-bold text-3xl">Tujuan</h1>
-            <p> {!! $Profil->tujuan!!}</p>
-        </div>
 
-        <div>
-            <h1 class="font-bold text-3xl">Struktur Organisasi</h1>
-            <p> {!! $Profil->ketStruktur!!}</p>
-            @if ($Profil->fileStruktur && pathinfo($Profil->fileStruktur, PATHINFO_EXTENSION) === 'pdf')
-                <div class="m-2 p-2">
-                    <iframe src="{{ asset('uploads/File/' . $Profil->fileStruktur) }}" width="100%" height="600px"></iframe>
-                </div>
-            @else
-            <p class="text-gray-100">tidak ada dokumen yang ditampilkan</p>
-            @endif
-        </div>
+<div class="container m-2 p-4">
+    {{-- <h1 class="font-bold text-3xl">{{ $profil->namaProfil }}</h1>
+    <p> {{ $profil->namaProfil }}</p> --}}
 
-        <!-- Tampilkan detail Proker lainnya sesuai kebutuhan -->
-    </div>
+    @foreach ($pegawai as $item)
+        <h1>{{$item->namaPegawai}}</h1>
+    @endforeach
+    {{-- @if ($Regulasi->fileRegulasi && pathinfo($Regulasi->fileRegulasi, PATHINFO_EXTENSION) === 'pdf')
+        <div class="m-2 p-2">
+            <iframe src="{{ asset('uploads/File/' . $Regulasi->fileRegulasi) }}" width="100%" height="600px"></iframe>
+        </div>
+    @else
+    <p class="text-gray-100">tidak ada dokumen yang ditampilkan</p>
+    @endif --}}
+    <!-- Tampilkan detail Proker lainnya sesuai kebutuhan -->
+</div>
 @endsection
 

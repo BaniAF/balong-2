@@ -10,7 +10,7 @@
                 <form method="POST" action="{{ route('contact.submit') }}"
                     class="container w-full max-w-xl p-8 mx-auto space-y-6 rounded-md shadow dark:bg-gray-900">
                     @csrf
-                    <h2 class="w-full text-5xl font-bold justify-center">{{ __('Contact Me') }}</h2>
+                    <h2 class="w-full text-4xl font-bold justify-center">{{ __('Kontak Kami') }}</h2>
                     <div>
                         <label for="name" class="block mb-1 ml-1">{{ __('Name') }}</label>
                         <input id="name" type="text" placeholder="Your name"

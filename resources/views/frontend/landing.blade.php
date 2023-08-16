@@ -11,6 +11,29 @@
 
 
 @section('content')
+<style>
+    
+    swiper-container {
+      width: 60%;
+      height: 60%;
+    }
+
+    swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    swiper-slide img {
+      display: block;
+      width: 40%;
+      height: 40%;
+      object-fit: cover;
+    }
+  </style>
     {{-- slider --}}
    
     {{-- endslider --}}
@@ -19,11 +42,11 @@
         <div class="flex justify-center">
             <div class="hero bg-white ml-14 px-3 mx-1 mt-5 rounded shadow-xl">
                 <div class="hero-content flex-col justify-items-center">
+                    @foreach ($artikel->take(1) as $article)
                     <div class="rounded-lg overflow-hidden" style="height: 400px; width: 800px;">
-                        <img src="https://source.unsplash.com/random/1200x800/?2" alt="Image" class=" object-cover" />
+                        <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Image" class=" object-cover" />
                     </div>
                     <div class="align-baseline">
-                        @foreach ($artikel->take(1) as $article)
                             <h1 class="text-2xl font-bold hover:text-red-500 justify-items-center">
                                 <a href="{{ route('articles.show', $article) }}">{{ $article->judulPost }}</a>
                             </h1>
@@ -75,7 +98,7 @@
     <div class="flex">
         {{-- berita atas --}}
         <div class="flex flex-wrap gap-1  ml-9 my-4 mr-2 w-2/3 bg-white p-4 rounded-lg shadow-md">
-            <div class="border-l-4 border-indigo-500 p-2 justify-start text-left h-10 mt-5">
+            <div class="border-l-4 border-indigo-500 p-2 justify-start text-left h-10 mt-5 mb-4">
                 <h3 class="text-2xl font-extrabold md:font-normal text-md sm:text-md">Berita Terbaru</h3>
             </div>
             <div>
@@ -90,10 +113,10 @@
                                 </div>
                                 <div> 
                                     <a href="{{ route('post.show', $article) }}">
-                                        <h1 class="text-purple-500 text-2xl font-bold">{{ $article->judulPost }}
+                                        <h1 class="hover:text-red-500 text-2xl font-bold">{{ $article->judulPost }}
                                         </h1>
                                     </a>
-                                    <p> {!! Str::limit(strip_tags($article->isiPost), 75) !!}</p>
+                                    <p class="mt-2"> {!! Str::limit(strip_tags($article->isiPost), 75) !!}</p>
                                     <p class="text-gray-500 text-sm p-4"><i class='bx bx-calendar'></i>
                                         {{ $article->created_at->format('d M Y') }}</p>
                                 </div>
@@ -154,22 +177,22 @@
 
     <section id="berita-kategori" class="p-16">
         <!-- berita bagian bawah -->
-        <div class="bg-white flex flex-wrap gap-1 ml-5 mr-5 my-2 items-center justify-center p-4 rounded-lg shadow-md">
+        {{-- <div class="bg-white flex flex-wrap gap-1 ml-5 mr-5 my-2 items-center justify-center p-4 rounded-lg shadow-md">
             @foreach ($kategori as $category)
-                <div class="grid grid-cols-5 gap-4">
+                <div class="grid grid-cols-5 gap-2 justify-center items-center">
                     <div class="col-span-5">
                         <h5 class="text-xl font-bold mb-1 ml-10 mt-2 bg-amber-400 text-white py-1 px-2 rounded-sm" style="display: inline-block;">{{ $category->namaKategori }}</h5>
                     </div>
                     @php $foundArticle = false; @endphp
                     @foreach ($artikel as $article)
                         @if ($article->statusPost === 'Diposting' && $article->kategori->id === $category->id)
-                            <div class="p-2 my-1 ml-10">
-                                <div class="card bg-white shadow-xl w-48 h-72 items-center">
+                            <div class="p-2 my-1 ml-8 mr-15">
+                                <div class="card bg-white shadow-xl w-40 h-60">
                                     <figure>
                                         <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita" class="lazyload w-full" />
                                     </figure>
                                     <div class="card-body">
-                                        <h2 class="card-title text-black hover:text-red-500 text-md">
+                                        <h2 class="card-title text-black hover:text-red-500 text-sm">
                                             <a href="{{ route('post.show', $article) }}">{{ $article->judulPost }}</a>
                                         </h2>
                                     </div>
@@ -193,13 +216,114 @@
                     </div>
                 @endif
             @endforeach
-        </div>       
+        </div>        --}}
+
+        {{-- <div class="bg-white flex flex-wrap gap-1 ml-5 mr-5 my-2 items-center justify-center p-4 rounded-lg shadow-md">
+            @foreach ($kategori as $category)
+                <div class="grid grid-cols-5 gap-2 justify-center items-center">
+                    <div class="col-span-5">
+                        <h5 class="text-xl font-bold mb-1 ml-10 mt-2 bg-amber-400 text-white py-1 px-2 rounded-sm" style="display: inline-block;">{{ $category->namaKategori }}</h5>
+                    </div>
+                    @php $foundArticle = false; @endphp
+                    @php $articleCounter = 0; @endphp
+                    @foreach ($artikel as $article)
+                        @if ($article->statusPost === 'Diposting' && $article->kategori->id === $category->id)
+                            @if ($articleCounter < 5)
+                                <div class="p-2 my-1 ml-8 mr-15">
+                                    <div class="card bg-white shadow-xl w-40 h-60">
+                                        <figure>
+                                            <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita" class="lazyload w-full" />
+                                        </figure>
+                                        <div class="card-body">
+                                            <h2 class="card-title text-black hover:text-red-500 text-sm">
+                                                <a href="{{ route('post.show', $article) }}">{{ $article->judulPost }}</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <div class="divider"></div>
+                                </div>
+                                @php $foundArticle = true; @endphp
+                            @endif
+                            @php $articleCounter++; @endphp
+                        @endif
+                    @endforeach
+                    @if (!$foundArticle)
+                        <div class="p-2 my-1 ml-10">
+                            <p>Tidak ada berita pada kategori ini.</p>
+                        </div>
+                    @endif
+                </div>
+                @if ($foundArticle)
+                    <div class="-ml-24 mt-0" id="loadMoreButton-{{ $category->id }}">
+                        <button class="bg-blue-500 hover:bg-blue-600 text-white p-2 border-radius-5px text-2xl tooltip" data-tip="muat lebih" onclick="loadMore('{{ $category->id }}', '{{ $articleCounter }}')">
+                            Load More
+                        </button>
+                    </div>
+                @endif
+            @endforeach
+        </div> --}}
+        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
+        slides-per-view="3">
+        <swiper-slide>Slide 1</swiper-slide>
+        <swiper-slide>Slide 2</swiper-slide>
+        <swiper-slide>Slide 3</swiper-slide>
+        <swiper-slide>Slide 4</swiper-slide>
+        <swiper-slide>Slide 5</swiper-slide>
+        <swiper-slide>Slide 6</swiper-slide>
+        <swiper-slide>Slide 7</swiper-slide>
+        <swiper-slide>Slide 8</swiper-slide>
+        <swiper-slide>Slide 9</swiper-slide>
+      </swiper-container>
+      
+        <div class="bg-white flex flex-wrap gap-1 ml-5 mr-5 my-2 items-center justify-center p-4 rounded-lg shadow-md">
+            @foreach ($kategori as $category)
+                <div class="grid grid-cols-5 gap-2 justify-center items-center">
+                    <div class="col-span-5">
+                        <h5 class="text-xl font-bold mb-1 ml-10 mt-2 bg-amber-400 text-white py-1 px-2 rounded-sm" style="display: inline-block;">{{ $category->namaKategori }}</h5>
+                    </div>
+                    <div class="swiper-container border border-red-700" style="width:1000px">
+                        <div class="swiper-wrapper">
+                            @php $foundArticle = false; @endphp
+                            @foreach ($artikel as $article)
+                                @if ($article->statusPost === 'Diposting' && $article->kategori->id === $category->id)
+                                    <div class="swiper-slide p-2 my-7">
+                                        <div class="card bg-white shadow-xl w-40 h-60">
+                                            <figure>
+                                                <img src="{{ asset('uploads/Artikel/' . $article->fotoPost) }}" alt="Gambar Berita" class="w-full" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title text-black hover:text-red-500 text-sm">
+                                                    <a href="{{ route('post.show', $article) }}">{{ $article->judulPost }}</a>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                        <div class="divider"></div>
+                                    </div>
+                                    @php $foundArticle = true; @endphp
+                                @endif
+                            @endforeach
+                            @if ($foundArticle)
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            @endif
+                        </div>
+                    </div>
+                    @if (!$foundArticle)
+                        <div class="p-2 my-1 ml-10">
+                            <p>Tidak ada berita pada kategori ini.</p>
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+        
+        
+        
     </section>
-    
 @endsection
 
 <!-- Add the following script to your Blade template -->
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         let offset = 5; // Start with the initial count of 5 articles
         const loadMoreBtn = document.querySelector('.load-more-btn');
@@ -232,4 +356,30 @@
                 .catch(error => console.error(error));
         });
     });
+</script> --}}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function loadMore(categoryId, offset) {
+        $.get('/load-more', { categoryId: categoryId, offset: offset }, function(data) {
+            var container = $("#loadMoreButton-" + categoryId).parent().prev();
+            container.append(data);
+            $("#loadMoreButton-" + categoryId).remove();
+        });
+    }
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var mySwiper = new Swiper(".swiper-container", {
+            slidesPerView: 1,
+            spaceBetween: 1,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>

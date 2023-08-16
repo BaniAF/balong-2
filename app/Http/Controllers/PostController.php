@@ -12,23 +12,14 @@ class PostController extends Controller
     // fungsi menampilkan semua postingan
     public function daftarPostingan($view)
     {
-        $postinganBelumDiposting = Post::where('statusPost', 'Belum Diposting')->paginate(3);
-        $postinganDiposting = Post::where('statusPost', 'Diposting')->paginate(3);
+        $postingan = Post::with('kategori')->paginate(3);
         $kategoriList = Kategori::all(); // Mendapatkan data kategori
         $dataGaleri = Post::select('fotoPost', 'judulPost')->get();
         $galeriKegiatan = Image_Kegiatan::all();
-
         if ($view === 'post') {
-            return view('backend.pages.postingan', [
-                'postinganBelumDiposting' => $postinganBelumDiposting,
-                'postinganDiposting' => $postinganDiposting,
-                'kategoriList' => $kategoriList
-            ]);
+            return view('backend.pages.postingan', ['postingan' => $postingan, 'kategoriList' => $kategoriList]);
         } elseif ($view === 'galeriPost') {
-            return view('backend.pages.galeri', [
-                'dataGaleri' => $dataGaleri,
-                'galeriKegiatan' => $galeriKegiatan
-            ]);
+            return view('backend.pages.galeri', ['dataGaleri' => $dataGaleri, 'galeriKegiatan' => $galeriKegiatan]);
         }
     }
     public function editPostingan($id)
@@ -198,7 +189,7 @@ class PostController extends Controller
         // Pass the $article data to the frontend.show.blade.php view
         return view('frontend.articles.show', [
             'article' => $article,
-            'relatedArticles' => $article->related(),
+            'relatedArticles' => $article->situsmirip(),
         ]);
     }
 

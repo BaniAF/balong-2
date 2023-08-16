@@ -30,9 +30,9 @@ class Post extends Model
         return $this->belongsTo(Kategori::class, 'kategoriPost', 'id')->withTrashed();
     }
 
-    public function related()
+    public function situsmirip()
     {
-        if ($this->category) {
+        if ($this->kategori) {
             return $this->kategori->artikel()
                 ->where('id', '!=', $this->id)
                 ->get();

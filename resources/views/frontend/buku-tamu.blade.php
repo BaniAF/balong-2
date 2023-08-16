@@ -3,81 +3,68 @@
     BUKU TAMU - KECAMATAN BALONG
 @endsection
 @section('content')
-    <div class="container-fluid" style="margin-top:20px;">
-        <div class="row" style="d-flex justify-content-center items-align-center">
-            <div class="col-md-7 border bordered-black"
-                style="margin-left:50px;margin-right:10px; padding:10px; d-flex justify-content-center items-align-center">
-                <h2 class="text-center"> BUKU TAMU </h2>
-                <div class="container" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
-                    <div class="">
-                        <form class="" enctype="multipart/form-data" method="post"
-                            action="{{ route('tambah.tamu') }}">
-                            @csrf
-                            <div class="">
-                                <div class="row">
-                                    <div class="col-md-6 mb-2">
-                                        <label for="nameBackdrop" class="form-label">Nama Pengunjung</label>
-                                        <input type="text" name="namaPengunjung" id="namaPengunjung" class="form-control"
-                                            placeholder="Contoh : Moh. Sifaul Khoir" />
-                                    </div>
-                                    <div class="col-md-6 mb-2">
-                                        <label for="nameBackdrop" class="form-label">Nomor Telepon</label>
-                                        <input type="text" name="noTelp" id="noTelp" class="form-control"
-                                            placeholder="Contoh : 081332408340" />
-                                    </div>
+<div class="container mx-auto mt-1">
+    <div class="flex justify-center items-center">
+        <div class="w-7/12 border border-black p-10">
+            <h2 class="text-center text-xl font-semibold mb-6">BUKU TAMU</h2>
+            <div class="container" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
+                <div>
+                    <form class="" enctype="multipart/form-data" method="post" action="{{ route('tambah.tamu') }}">
+                        @csrf
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="namaPengunjung" class="form-label">Nama Pengunjung</label>
+                                    <input type="text" name="namaPengunjung" id="namaPengunjung" class="form-control w-full px-4 py-2 rounded border focus:outline-none focus:border-blue-500" placeholder="Contoh : Moh. Sifaul Khoir" />
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 mb-2" id="jenisKeperluanContainer">
-                                        <label for="nameBackdrop" class="form-label">Jenis Keperluan</label>
-                                        <select name="keperluan" id="keperluan" class="form-control"
-                                            onchange="showOptions()">
-                                            <option value="">-- Pilih Keperluan --</option>
-                                            <option value="Penerbitan Surat">Penerbitan Surat</option>
-                                            <option value="Bertemu Dengan">Bertemu Dengan</option>
-                                            <option value="Pelayanan Masyarakat">Pelayanan Masyarakat</option>
-                                            <option value="Pengaduan Masyarakat">Pengaduan Masyarakat</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-2" id="suratOptions" style="display: none;">
-                                        <label for="nameBackdrop" class="form-label">Jenis Surat</label>
-                                        <select name="surat" id="surat" class="form-control">
-                                            <option value="">-- Pilih Surat --</option>
-                                            <option value="Akta Kelahiran">Akta Kelahiran</option>
-                                            <option value="Akta Kematian">Akta Kematian</option>
-                                            <option value="Akta Nikah">Akta Nikah</option>
-                                            <option value="Izin Usaha">Izin Usaha</option>
-                                            <option value="Kartu Keluarga">Kartu Keluarga</option>
-                                            <option value="Izin Acara / Kegiatan">Izin Acara / Kegiatan</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-2" id="pegawaiOptions" style="display: none;">
-                                        <label for="pegawai" class="form-label">Pilih Pegawai</label>
-                                        <select name="pegawai" id="pegawai" class="form-control">
-                                            <option value="">-- Pilih Pegawai --</option>
-                                            @foreach ($pegawai as $dataPegawai)
-                                                <option value="{{ $dataPegawai->namaPegawai }}">
-                                                    {{ $dataPegawai->namaPegawai }}</option>
-                                            @endforeach
-                                            <!-- Tambahkan data pegawai lain sesuai kebutuhan -->
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="nameBackdrop" class="form-label">Keterangan</label>
-                                    <textarea name="keterangan" id="keterangan" cols="5" rows="3" class="form-control"
-                                        placeholder="Contoh : Pengajuan Surat PKL"></textarea>
+                                <div>
+                                    <label for="noTelp" class="form-label">Nomor Telepon</label>
+                                    <input type="text" name="noTelp" id="noTelp" class="form-control w-full px-4 py-2 rounded border focus:outline-none focus:border-blue-500" placeholder="Contoh : 081332408340" />
                                 </div>
                             </div>
-                            <div class=" d-flex">
-                                <button type="submit" class="btn btn-primary mb-0" name="submitType"
-                                    value="simpan">Simpan</button>
+                            <div class="mb-4" id="jenisKeperluanContainer">
+                                <label for="keperluan" class="form-label">Jenis Keperluan</label>
+                                <select name="keperluan" id="keperluan" class="form-control w-full px-4 py-2 rounded border focus:outline-none focus:border-blue-500" onchange="showOptions()">
+                                    <option value="">-- Pilih Keperluan --</option>
+                                    <option value="Penerbitan Surat">Penerbitan Surat</option>
+                                    <option value="Bertemu Dengan">Bertemu Dengan</option>
+                                    <option value="Pelayanan Masyarakat">Pelayanan Masyarakat</option>
+                                    <option value="Pengaduan Masyarakat">Pengaduan Masyarakat</option>
+                                </select>
                             </div>
-                        </form>
-                    </div>
+                            <div class="grid grid-cols-2 gap-4" id="suratOptions" style="display: none;">
+                                <div>
+                                    <label for="surat" class="form-label">Jenis Surat</label>
+                                    <select name="surat" id="surat" class="form-control w-full px-4 py-2 rounded border focus:outline-none focus:border-blue-500">
+                                        <option value="">-- Pilih Surat --</option>
+                                        <option value="Akta Kelahiran">Akta Kelahiran</option>
+                                        <!-- Pilihan surat lainnya -->
+                                    </select>
+                                </div>
+                                <div id="pegawaiOptions" style="display: none;">
+                                    <label for="pegawai" class="form-label">Pilih Pegawai</label>
+                                    <select name="pegawai" id="pegawai" class="form-control w-full px-4 py-2 rounded border focus:outline-none focus:border-blue-500">
+                                        <option value="">-- Pilih Pegawai --</option>
+                                        <!-- Looping data pegawai -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="keterangan" class="form-label">Keterangan</label>
+                                <textarea name="keterangan" id="keterangan" cols="5" rows="3" class="form-control w-full px-4 py-2 rounded border focus:outline-none focus:border-blue-500" placeholder="Contoh : Pengajuan Surat PKL"></textarea>
+                            </div>
+                        </div>
+                        <div class="flex justify-end mt-6">
+                            <button type="submit" class="btn btn-primary px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">Simpan</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+
 
     <script>
         function showOptions() {
