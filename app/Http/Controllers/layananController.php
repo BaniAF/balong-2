@@ -88,9 +88,16 @@ class layananController extends Controller
             'jam_operasional_buka' => 'required',
             'jam_operasional_tutup' => 'required',
             'kategoriLayanan' => 'required',
-            'persyaratan' => 'required',
-            'biaya' => 'required',
-            'keterangan' => 'required',
+            'persyaratan' => 'nullable',
+            'biaya' => 'nullable',
+            'keterangan' => 'nullable',
+        ], [
+            'namaLayanan.required' => 'Nama Layanan Harus Di isi',
+            'descLayanan.required' => 'Deskripsi Layanan Harus Di isi',
+            'lokasi.required' => 'Lokasi Layanan Harus Di isi',
+            'jam_operasioanl_buka.required' => 'Jam Buka Layanan Harus Di isi',
+            'jam_operasional_tutup.required' => 'Jam Tutup Layanan Harus Di isi',
+            'kategoriLayanan.required' => 'Kategori Layanan Harus Di Pilih',
         ]);
 
         // Gabungkan nilai jam_operasional_buka dan jam_operasional_tutup
