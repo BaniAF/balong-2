@@ -87,10 +87,10 @@ Profil
         @if (!$Profil->isEmpty())
             <div class="container m-2 p-4 ">
                 <h1 class="font-bold text-3xl">Struktur Organisasi</h1>
-                <p> {!! $Profil[2]->descProfil !!}</p>
-                @if ($Profil[2]->fileProfil && pathinfo($Profil[2]->fileProfil, PATHINFO_EXTENSION) === 'pdf')
+                <p> {!! $Profil[3]->descProfil !!}</p>
+                @if ($Profil[3]->fileProfil && pathinfo($Profil[3]->fileProfil, PATHINFO_EXTENSION) === 'pdf')
                     <div class="m-2 p-2 flex justify-center items-center">
-                        <iframe src="{{ asset('uploads/File/' . $Profil[2]->fileProfil) }}" width="100%" height="600px"></iframe>
+                        <iframe src="{{ asset('uploads/File/' . $Profil[3]->fileProfil) }}" width="100%" height="600px"></iframe>
                     </div>
                 @else
                 <p class="text-grey">Tidak ada dokumen yang ditampilkan</p>
@@ -101,7 +101,7 @@ Profil
     @elseif ($activeMenuId == 2)
         @if (!$Profil->isEmpty())
           <div class="container m-2 p-4 ">
-              <h1 class="font-bold text-3xl">Struktur Organisasi</h1>
+              <h1 class="font-bold text-3xl">Tugas dan Fungsi</h1>
               <p> {!! $Profil[1]->descProfil !!}</p>
               @if ($Profil[1]->fileProfil && pathinfo($Profil[1]->fileProfil, PATHINFO_EXTENSION) === 'pdf')
                   <div class="m-2 p-2 flex justify-center items-center">
@@ -117,7 +117,7 @@ Profil
     @elseif ($activeMenuId == 1)
         @if (!$Profil->isEmpty())
             <div class="container m-2 p-4 ">
-                <h1 class="font-bold text-3xl">Struktur Organisasi</h1>
+                <h1 class="font-bold text-3xl text-center">Organisasi dan Tata Kerja</h1>
                 <p> {!! $Profil[0]->descProfil !!}</p>
                 @if ($Profil[0]->fileProfil && pathinfo($Profil[0]->fileProfil, PATHINFO_EXTENSION) === 'pdf')
                     <div class="m-2 p-2 flex justify-center items-center">
