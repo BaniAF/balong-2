@@ -43,26 +43,22 @@
                     @php
                         $menuAktif = true;
                     @endphp
-                    <div x-data="{isshow:false}" @mouseenter="isshow=true" class="group inline-block relative">
+                    <div class="group inline-block relative">
                         <ul class="text-gray-800 font-bold text-md px-4 py-2">
                            <a href="{{ $menuItems['url'] }}">{{ $menuItems['label'] }}</a> 
                         </ul>
                         @if (count($menuItems['submenus']))
-                            <div x-show="isshow" @mouseleave="isshow=false"  x-transition:enter="transition ease-out duration-180"
-    x-transition:enter-start="opacity-0 scale-90"
-        x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-180"
-        x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-90" 
-        class="absolute group-hover:block mt-1 justify-center bg-white rounded w-52 shadow-lg z-10">
+                            <div class="absolute hidden group-hover:block mt-1 justify-center bg-white rounded w-52 shadow-lg z-10">
            
                                 @foreach ($menuItems['submenus'] as $submenu)
+                                @if ($submenu->status === 1)
                                     @php
                                         // Menggunakan relasi untuk mendapatkan data Proker yang sesuai
                                         $proker = $submenu->proker;
                                         $profil = $submenu->profil;
                                         $bidang = $submenu->bidang;
                                         $regulasi = $submenu->regulasi;
+                                        $submenuAktif = true;
                                     @endphp
                                     @if ($proker)
                                         <a href="{{ route('proker.tampil', ['id' => $proker->id]) }}" class="block px-4 py-2 text-gray-800 text-sm hover:bg-gray-100">{{ $proker->namaProker }}</a>
@@ -72,6 +68,7 @@
                                    <a href="{{ route('bidang.tampil', ['id' => $bidang->id]) }}" class="block px-4 py-2 text-gray-800 text-sm hover:bg-gray-100">{{ $bidang->namaBidang }}</a>
                                    @elseif ($regulasi)
                                    <a href="{{ route('regulasi.tampil', ['id' => $regulasi->id]) }}" class="block px-4 py-2 text-gray-800 text-sm hover:bg-gray-100">{{ $regulasi->namaRegulasi }}</a>
+                                        @endif
                                         @endif
                                 @endforeach
                             </div>
@@ -89,23 +86,10 @@
         </ul>
     </div> 
 
-    {{-- <div class="">
-      
-        <div class="group inline-block relative" x-data="{isshow:false}">
-            <ul class="text-gray-800 font-bold text-md px-4 py-2 " @mouseenter="isshow=true">
-               <a href="#">Ini Menu</a> 
-            </ul>
-
-            <div x-show="isshow" @mouseleave="isshow=false" x-transition class="absolute group-hover:block mt-1 justify-center bg-white rounded w-52 shadow-lg z-10">
-                <a href="#">Ini Menu</a> 
-            </div>
-        </div>
-    </div>
 </header>
 
 
-<!-- Include jQuery -->
-<!-- resources/views/search.blade.php -->
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 {{-- <script>

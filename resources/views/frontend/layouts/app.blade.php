@@ -8,7 +8,6 @@
     
 
     <title>@yield('title')</title>
-    <script src="//unpkg.com/alpinejs" defer></script>
     <link rel="icon" href="{{ asset('assets/img/logokab.png') }}" class="w-3 h-auto">
 @stack('style')
     <!-- Fonts -->
