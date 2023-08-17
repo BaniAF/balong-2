@@ -1,5 +1,5 @@
 
-<header class="p-2 bg-gray-50 text-gray-100 grid grid-rows-[auto,1fr] justify-center">
+<header class="p-2 bg-gray-50 text-black grid grid-rows-[auto,1fr] justify-center">
 
     {{-- bagian atas --}}
     <div class="flex justify-center items-center">
@@ -32,7 +32,7 @@
         </div>
     </div>
     {{-- bagian bawah --}}
-    {{-- <div class="container flex justify-between h-16 mx-auto">
+    <div class="container flex justify-between h-16 mx-auto">
         <ul class="items-stretch hidden space-x-3 lg:flex">
             <div class="relative">
                 @php
@@ -43,12 +43,18 @@
                     @php
                         $menuAktif = true;
                     @endphp
-                    <div class="group inline-block relative">
+                    <div x-data="{isshow:false}" @mouseenter="isshow=true" class="group inline-block relative">
                         <ul class="text-gray-800 font-bold text-md px-4 py-2">
                            <a href="{{ $menuItems['url'] }}">{{ $menuItems['label'] }}</a> 
                         </ul>
                         @if (count($menuItems['submenus']))
-                            <div class="absolute hidden group-hover:block mt-1 justify-center bg-white rounded w-52 shadow-lg z-10">
+                            <div x-show="isshow" @mouseleave="isshow=false"  x-transition:enter="transition ease-out duration-180"
+    x-transition:enter-start="opacity-0 scale-90"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-180"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-90" 
+        class="absolute group-hover:block mt-1 justify-center bg-white rounded w-52 shadow-lg z-10">
            
                                 @foreach ($menuItems['submenus'] as $submenu)
                                     @php
@@ -81,9 +87,9 @@
             @endif
             </div>
         </ul>
-    </div> --}}
+    </div> 
 
-    <div class="">
+    {{-- <div class="">
       
         <div class="group inline-block relative" x-data="{isshow:false}">
             <ul class="text-gray-800 font-bold text-md px-4 py-2 " @mouseenter="isshow=true">
