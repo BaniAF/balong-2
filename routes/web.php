@@ -187,7 +187,12 @@ Route::middleware(['auth'])->group(function () {
         return view('backend.pages.menu');
     });
 
+    Route::get('/submenu', function () {
+        return view('backend.pages.submenu');
+    });
+
     Route::post('/menu/{id}/aktifkan', [MenuItemController::class, 'aktifkanMenu'])->name('menu.aktifkan');
+    Route::post('/submenu/{id}/aktifkan', [SubmenuItemController::class, 'aktifkanSubmenu'])->name('submenu.aktifkan');
 
     Route::get('/list', [PengumumanController::class, 'lihat'])->name('list.lihat');
     Route::post('/tambah-gambar', [PengumumanController::class, 'tambahGambar'])->name('tambah-gambar');

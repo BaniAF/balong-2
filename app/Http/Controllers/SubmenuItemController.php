@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MenuItems;
+use App\Models\Submenu;
 use App\Models\SubmenuItem;
 use Illuminate\Http\Request;
 
@@ -77,5 +78,22 @@ class SubmenuItemController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function aktifkanSubmenu($id)
+    {
+        $submenuItems = Submenu::find($id);
+
+        if ($submenuItems) {
+            // Ubah status aktif dari gambar
+            $submenuItems->status = !$submenuItems->status;
+            $submenuItems->save();
+
+            toast('Status berhasil diubah', 'success');
+        } else {
+            toast('Status Gagal diubah', 'error');
+        }
+
+        return redirect('submenu');
     }
 }
