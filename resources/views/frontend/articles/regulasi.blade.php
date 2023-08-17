@@ -4,11 +4,11 @@
 @endsection
 
 @section('content')
-    <div class="container m-2 p-4">
+    <div class="container m-4 p-4 ">
         <h1 class="font-bold text-3xl">{{ $Regulasi->namaRegulasi }}</h1>
-        <p> {{ $Regulasi->descRegulasi }}</p>
+        <p class="ml-14 text-lg">{{ $program->descRegulasi }}</p>
         @if ($Regulasi->fileRegulasi && pathinfo($Regulasi->fileRegulasi, PATHINFO_EXTENSION) === 'pdf')
-            <div class="m-2 p-2">
+            <div class="m-2 p-2 flex justify-center items-center mt-4">
                 <iframe src="{{ asset('uploads/File/' . $Regulasi->fileRegulasi) }}" width="100%" height="600px"></iframe>
             </div>
         @else
