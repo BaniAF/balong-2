@@ -35,7 +35,7 @@
                       <div class="flex items-center space-x-3">
                       <div class="avatar">
                         <div class="mask mask-squircle w-12 h-12">
-                            <img src="{{ asset ('uploads/Pegawai/'. $item->fotoPegawai)}}" alt="Avatar Tailwind CSS Component" />
+                            <img src="{{ asset ('uploads/Pegawai/'. $item->fotoPegawai)}}" alt="Foto Pegawai" />
                         </div>
                     </div>
                     <div>
@@ -48,10 +48,17 @@
                     <div class="text-lg">
                         {{ $item->jabatan }}
                     </div>
-                    <br/>
-                    <span class="badge badge-ghost badge-md">{{ $item->pangkat }}</span>
+                    <span class="badge badge-ghost badge-md font-semibold">{{ $item->pangkat }}</span>
                   </td>
-                  <td>Purple</td>
+                  <td>
+                    <div class="text-lg">
+                        @if ($item->pendTerakhir)
+                          {{ $item->pendTerakhir }}  
+                        @else
+                            -
+                        @endif
+                    </div>
+                  </td>
                   <th>
                   </th>
                 </tr>

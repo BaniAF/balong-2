@@ -207,8 +207,22 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-2">
-                        <label for="pegawai" class="form-label">Jabatan</label>
+                    <div class="col-md-4 mb-2">
+                        <label for="pegawai" class="form-label">Pendidikan</label>
+                        <select name="pendidikan" id="pendidikan" class="form-control">
+                            <option value="-">-- Pilih Pangkat --</option>
+                            <option value="SD/MI/Sederajat">SD/MI/Sederajat</option>
+                            <option value="SMP/MTs/Sederajat">SMP/MTs/Sederajat</option>
+                            <option value="SMA/SMK/Sederajat">SMA/SMK/Sederajat</option>
+                            <option value="D3">D3</option>
+                            <option value="S1">S1</option>
+                            <option value="S2">S2</option>
+                            <option value="S3">S3</option>
+                            <!-- Tambahkan data pegawai lain sesuai kebutuhan -->
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <label for="pegawai" class="form-label">Pangkat</label>
                         <select name="pangkat" id="pangkat" class="form-control">
                             <option value="">-- Pilih Pangkat --</option>
                             <option value="Juru">Golongan I - Juru</option>
@@ -218,7 +232,7 @@
                             <!-- Tambahkan data pegawai lain sesuai kebutuhan -->
                         </select>
                     </div>
-                    <div class="col-md-6 mb-2" id="golonganOptions">
+                    <div class="col-md-4 mb-2" id="golonganOptions">
                         <label for="pegawai" class="form-label">Golongan</label>
                         <select name="golongan" id="golongan" class="form-control">
                             <option value="">-- Pilih Golongan --</option>

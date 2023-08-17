@@ -58,6 +58,7 @@ class PegawaiController extends Controller
         $pegawai->jenisKelamin = $request->jenisKelamin;
         $pegawai->jabatan = $request->jabatan;
         $pegawai->pangkat = $pangkat;
+        $pegawai->pendTerakhir = $request->pendidikan;
 
         if ($request->hasFile('fotoPegawai')) {
             // Upload file foto baru
@@ -127,6 +128,7 @@ class PegawaiController extends Controller
             $pegawai->namaPegawai = $request->namaPegawai;
             $pegawai->jabatan = $request->jabatan;
             $pegawai->pangkat = $pangkat;
+            $pegawai->pendTerakhir = $request->pendidikan;
             $pegawai->save();
 
             // Redirect atau berikan respon sesuai kebutuhan

@@ -162,12 +162,13 @@
                                     data-jabatan="{{ $dataPegawai->jabatan }}"
                                     data-jenis="{{ $dataPegawai->jenisKelamin }}"
                                     data-pangkat="{{ $dataPegawai->pangkat }}"
+                                    data-pend="{{ $dataPegawai->pendTerakhir }}"
                                     data-foto= "{{$dataPegawai->fotoPegawai}}"
                                 >
                                     <i class="bx bx-edit-alt bx-s m-1"></i>
                                 </button>
                                 <button
-                                    id="btnEditPegawai"
+                                    id="btn-detail"
                                     class="tf-icons btn btn-sm btn-outline-info me-1 btn-icon rounded-pill btn-detail" 
                                     type="button"
                                     data-bs-toggle="modal"
@@ -178,6 +179,7 @@
                                     data-jabatan="{{ $dataPegawai->jabatan }}"
                                     data-jenis="{{ $dataPegawai->jenisKelamin }}"
                                     data-pangkat="{{ $dataPegawai->pangkat }}"
+                                    data-pend="{{ $dataPegawai->pendTerakhir }}"
                                     data-foto= "{{$dataPegawai->fotoPegawai}}"
                                 >
                                     <i class="bx bx-detail bx-s m-1"></i>
@@ -226,152 +228,10 @@
         </div>
     </div>
 </div>
-<!-- Modal Tambah Pegawai -->
-<div class="modal fade" id="backDropModal" data-bs-backdrop="static" tabindex="-1">
-    <div class="modal-dialog">
-        <form class="modal-content" enctype="multipart/form-data" method="post" action="{{ route('tambah-pegawai') }}" id="formTambah">
-            @csrf
-            <div class="modal-header">
-                <h3 class="modal-title" id="backDropModalTitle">Tambah Data Pegawai</h3>
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                ></button>
-            </div>
-            <div class="modal-body">
-                <div class="avatar-upload">
-                    <div class="avatar-edit">
-                        <input type='file' id="imageUpload" name="fotoPegawai" accept=".png, .jpg, .jpeg" />
-                        <label for="imageUpload">
-                            <i class='bx bxs-edit-alt'></i>
-                        </label>
-                    </div>
-                    <div class="avatar-preview">
-                        <div id="imagePreview" style="background-image: url('');">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-2">
-                        <label for="nameBackdrop" class="form-label">NIP Pegawai</label>
-                        <input
-                            type="text"
-                            name="nip"
-                            id="nip"
-                            class="form-control border"
-                            placeholder="Contoh : 2131730052"
-                        />
-                        <span class="error-message text-danger" id="nip-error"></span>
-                    </div>
-                    <div class="col-md-6 mb-2">
-                        <label for="nameBackdrop" class="form-label">Nama Pegawai</label>
-                        <input
-                            type="text"
-                            name="namaPegawai"
-                            id="namaPegawai"
-                            class="form-control"
-                            placeholder="Contoh : Moh. Sifaul Khoir"
-                        />
-                        <span class="error-message text-danger" id="namaPegawai-error"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-2">
-                        <label for="pegawai" class="form-label">Jabatan</label>
-                        <select name="jabatan" id="jabatan" class="form-control" onchange="showBidangOptions()">
-                            <option value="">-- Pilih Jabatan --</option>
-                            <option value="Camat">Camat</option>
-                            <option value="Sekretaris Kecamatan">Sekretaris Kecamatan</option>
-                            <option value="Jabatan Fungsional Tertentu">Jabatan Fungsional Tertentu</option>
-                            <option value="Subag Perencanaan dan Keuangan">Subag Perencanaan dan Keuangan</option>
-                            <option value="Subag Umum dan Kepegawaian">Subag Umum dan Kepegawaian</option>
-                            <option value="Kasi Tata Pemerintahan">Kasi Tata Pemerintahan</option>
-                            <option value="Kasi Ketentraman dan Ketertiban">Kasi Ketentraman dan Ketertiban</option>
-                            <option value="Kasi Kesejahteraan Sosial">Kasi Kesejahteraan Sosial</option>
-                            <option value="Kasi Pembangunan dan Pemberdayaan Masyarakat">Kasi Pembangunan dan Pemberdayaan Masyarakat</option>
-                            <option value="Staff">Staff</option>
-                            <!-- Tambahkan data pegawai lain sesuai kebutuhan -->
-                        </select>
-                    </div>
-                    <div class="col-md-6 mb-2">
-                        <label for="nameBackdrop" class="form-label">Jenis Kelamin</label>
-                        <div class="col-md">
-                            <div class="form-check form-check-inline mt-2">
-                                <input
-                                class="form-check-input"
-                                type="radio"
-                                name="jenisKelamin"
-                                id="jenisKelamin"
-                                value="Laki - Laki"
-                                />
-                                <label class="form-check-label" for="inlineRadio1">Laki - Laki</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input
-                                class="form-check-input"
-                                type="radio"
-                                name="jenisKelamin"
-                                id="jenisKelamin"
-                                value="Perempuan"
-                                />
-                                <label class="form-check-label" for="inlineRadio2">Perempuan</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-2">
-                        <label for="pegawai" class="form-label">Jabatan</label>
-                        <select name="pangkat" id="pangkat" class="form-control">
-                            <option value="">-- Pilih Pangkat --</option>
-                            <option value="Juru">Golongan I - Juru</option>
-                            <option value="Pengatur">Golongan II - Pengatur</option>
-                            <option value="Penata">Golongan III - Penata</option>
-                            <option value="Pembina">Golongan IV - Pembina</option>
-                            <!-- Tambahkan data pegawai lain sesuai kebutuhan -->
-                        </select>
-                    </div>
-                    <div class="col-md-6 mb-2" id="golonganOptions">
-                        <label for="pegawai" class="form-label">Golongan</label>
-                        <select name="golongan" id="golongan" class="form-control">
-                            <option value="">-- Pilih Golongan --</option>
-                            <option value="I-A">I-A</option>
-                            <option value="I-B">I-B</option>
-                            <option value="I-C">I-C</option>
-                            <option value="I-D">I-D</option>
-                            <option value="II-A">II-A</option>
-                            <option value="II-B">II-B</option>
-                            <option value="II-C">II-C</option>
-                            <option value="II-D">II-D</option>
-                            <option value="III-A">III-A</option>
-                            <option value="III-B">III-B</option>
-                            <option value="III-C">III-C</option>
-                            <option value="III-D">III-D</option>
-                            <option value="IV-A">IV-A</option>
-                            <option value="IV-B">IV-B</option>
-                            <option value="IV-C">IV-C</option>
-                            <option value="IV-D">IV-D</option>
-                            <option value="IV-E">IV-E</option>
-                            <!-- Tambahkan data pegawai lain sesuai kebutuhan -->
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer d-flex">
-                <button type="button" class="btn btn-outline-danger mb-0" data-bs-dismiss="modal">
-                    Close
-                </button>
-                <button type="button" class="btn btn-primary mb-0" name="submitType" value="simpan" onclick="saveData()">Simpan</button>
-            </div>
-        </form>
-    </div>
-</div>
 
 <!-- Modal Edit -->
 <div class="modal fade" id="modalEdit" data-bs-backdrop="static" tabindex="-1">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <form class="modal-content" enctype="multipart/form-data" method="post" action="{{ route('pegawai-edit', '') }}" id="formEdit">
             @csrf
             <div class="modal-header">
@@ -468,7 +328,21 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-2">
+                    <div class="col-md-4 mb-2">
+                        <label for="pegawai" class="form-label">Pendidikan</label>
+                        <select name="pendidikan" id="pendidikan" class="form-control">
+                            <option value="-">-- Pilih Pendidikan --</option>
+                            <option value="SD/MI/Sederajat">SD/MI/Sederajat</option>
+                            <option value="SMP/MTs/Sederajat">SMP/MTs/Sederajat</option>
+                            <option value="SMA/SMK/Sederajat">SMA/SMK/Sederajat</option>
+                            <option value="D3">D3</option>
+                            <option value="S1">S1</option>
+                            <option value="S2">S2</option>
+                            <option value="S3">S3</option>
+                            <!-- Tambahkan data pegawai lain sesuai kebutuhan -->
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-2">
                         <label for="pegawai" class="form-label">Jabatan</label>
                         <select name="pangkat" id="pangkat" class="form-control">
                             <option value="">-- Pilih Pangkat --</option>
@@ -479,7 +353,7 @@
                             <!-- Tambahkan data pegawai lain sesuai kebutuhan -->
                         </select>
                     </div>
-                    <div class="col-md-6 mb-2" id="golonganOptions">
+                    <div class="col-md-4 mb-2" id="golonganOptions">
                         <label for="pegawai" class="form-label">Golongan</label>
                         <select name="golongan" id="golongan" class="form-control">
                             <option value="">-- Pilih Golongan --</option>
@@ -572,31 +446,67 @@
 </div>
 
 <script>
-    // Fungsi untuk menghapus gambar dari pratinjau
-    function removeModal() {
-        const imagePreview = document.getElementById("imagePreview");
-        imagePreview.style.backgroundImage = "none";
-        document.getElementById('nip-error').textContent = '';
-        document.getElementById('namaPegawai-error').textContent = '';
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+        // Mendapatkan modal dan tombol detail
+        const modal = document.getElementById('modalDetail');
+        const buttons = document.querySelectorAll('.btn-detail');
 
-    // Fungsi untuk mendengarkan peristiwa penutupan modal
-    function closeModalEventListener() {
-        // Anda dapat mengganti "backDropModal" dengan ID modal Anda yang sesuai
-        const modal = document.getElementById("backDropModal");
-        const imageUpload = document.getElementById("imageUpload");
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                // const nip = this.getAttribute('data-id');
+                const nip = this.getAttribute('data-nip');
+                const nama = this.getAttribute('data-nama');
+                const jabatan = this.getAttribute('data-jabatan');
+                const jenis = this.getAttribute('data-jenis');
+                const pangkat = this.getAttribute('data-pangkat');
+                const fotoP = this.getAttribute('data-foto');
+                const pendidikan = this.getAttribute('data-pend');
 
-        modal.addEventListener("hidden.bs.modal", function () {
-            // Reset input file untuk menghapus gambar yang dipilih sebelumnya
-            imageUpload.value = "";
-            // Hapus gambar dari pratinjau ketika modal ditutup
-            removeModal();
+                // Menampilkan modal
+                modal.style.display = 'block';
+                // Memanggil fungsi openModal dengan nilai-nilai dari atribut data
+                openModal(nip, nama, jabatan, jenis, pangkat, fotoP, pendidikan);
+            });
         });
+    });
+    function openModal(nip, nama, jabatan, jenis, pangkat, fotoP, pendidikan) {
+        const modal = document.getElementById('modalDetail');
+        modal.style.display = 'block';
+
+        const tableBody = document.getElementById('tableDetail');
+        tableBody.innerHTML = ''; // Bersihkan isi tabel sebelum mengisi ulang
+
+        // Menambahkan baris informasi ke dalam tabel
+        function addRow(label, value) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <p class="fw-semibold mb-2 me-2" style="font-size:17px">${label} </p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-2 me-3" style="font-size:17px"> : </p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-2" style="font-size:17px"> ${value}</p>                
+                </td>
+            `;
+            tableBody.appendChild(row);
+        }
+
+        // Menambahkan informasi ke dalam tabel
+        addRow('NIP Pegawai', nip);
+        addRow('Nama Pegawai', nama);
+        addRow('Jenis Kelamin', jenis);
+        addRow('Pendidikan Terakhir', pendidikan);
+        addRow('Jabatan', jabatan);
+        addRow('Pangkat / Golongan', pangkat);
+
+        const imgElement = document.querySelector('#pegawaiImg');
+        const fotoUrl = `uploads/Pegawai/${fotoP}`; // Membangun URL lengkap gambar
+        imgElement.src = fotoUrl;
     }
-
-    // Panggil fungsi untuk mendengarkan peristiwa penutupan modal saat halaman dimuat
-    closeModalEventListener();
-
+</script>
+<script>
     // Panggil fungsi untuk mendengarkan perubahan pada input imageUpload
     document.getElementById("imageUpload").onchange = function (event) {
         const file = event.target.files[0];
@@ -628,153 +538,9 @@
             setDefaultImagePreview();
         }
     }
-
-    // Fungsi Detail
-    document.addEventListener('DOMContentLoaded', function () {
-        // Mendapatkan modal dan tombol detail
-        const modal = document.getElementById('modalDetail');
-        const buttons = document.querySelectorAll('.btn-detail');
-
-        buttons.forEach(button => {
-            button.addEventListener('click', function () {
-                // const nip = this.getAttribute('data-id');
-                const nip = this.getAttribute('data-nip');
-                const nama = this.getAttribute('data-nama');
-                const jabatan = this.getAttribute('data-jabatan');
-                const jenis = this.getAttribute('data-jenis');
-                const pangkat = this.getAttribute('data-pangkat');
-                const fotoP = this.getAttribute('data-foto');
-
-                // Menampilkan modal
-                modal.style.display = 'block';
-                // Memanggil fungsi openModal dengan nilai-nilai dari atribut data
-                openModal(nip, nama, jabatan, jenis, pangkat, fotoP);
-            });
-        });
-    });
-    function openModal(nip, nama, jabatan, jenis, pangkat, fotoP) {
-        const modal = document.getElementById('modalDetail');
-        modal.style.display = 'block';
-
-        const tableBody = document.getElementById('tableDetail');
-        tableBody.innerHTML = ''; // Bersihkan isi tabel sebelum mengisi ulang
-
-        // Menambahkan baris informasi ke dalam tabel
-        function addRow(label, value) {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>
-                    <p class="fw-semibold mb-2 me-2" style="font-size:17px">${label} </p>
-                </td>
-                <td>
-                    <p class="fw-normal mb-2 me-3" style="font-size:17px"> : </p>
-                </td>
-                <td>
-                    <p class="fw-normal mb-2" style="font-size:17px"> ${value}</p>                
-                </td>
-            `;
-            tableBody.appendChild(row);
-        }
-
-        // Menambahkan informasi ke dalam tabel
-        addRow('NIP Pegawai', nip);
-        addRow('Nama Pegawai', nama);
-        addRow('Jenis Kelamin', jenis);
-        addRow('Pendidikan Terakhir', '-');
-        addRow('Jabatan', jabatan);
-        addRow('Pangkat / Golongan', pangkat);
-
-        const imgElement = document.querySelector('#pegawaiImg');
-        const fotoUrl = `uploads/Pegawai/${fotoP}`; // Membangun URL lengkap gambar
-        imgElement.src = fotoUrl;
-    }
 </script>
 <script>
-    function showErrorModal(errors) {
-        var nipError = document.getElementById('nip-error');
-        var namaPegawaiError = document.getElementById('namaPegawai-error');
-
-        var nipInput = document.getElementById('nip');
-        var namaPegawaiInput = document.getElementById('namaPegawai');
-
-        nipError.textContent = errors.nip || '';
-        namaPegawaiError.textContent = errors.namaPegawai || '';
-
-        // Tambahkan logika untuk menambahkan kelas 'error-border' pada form input yang tidak valid
-        if (errors.nip) {
-            nipInput.classList.add('border', 'border-danger');
-        } else {
-            nipInput.classList.remove('border', 'border-danger');
-        }
-        if (errors.namaPegawai) {
-            namaPegawaiInput.classList.add('border', 'border-danger');
-        } else {
-            namaPegawaiInput.classList.remove('border', 'border-danger');
-        }
-
-        // Tampilkan modal jika ada pesan error
-        if (errors.nip || errors.namaPegawai) {
-            var modalElement = document.getElementById('backDropModal');
-            var modal = bootstrap.Modal.getInstance(modalElement);
-            modal.show();
-        }
-    }
-    // Fungsi untuk memvalidasi form
-    function validateForm() {
-        var nipInput = document.getElementById('nip').value;
-        var namaPegawaiInput = document.getElementById('namaPegawai').value;
-        var errors = {};
-
-        if (nipInput === '') {
-            errors.nip = '* NIP Pegawai harus diisi.';
-        }
-        if (namaPegawaiInput === '') {
-            errors.namaPegawai = '* Nama Pegawai harus diisi.';
-        }
-        return errors;
-    }
-
-    // Fungsi untuk menyimpan data
-    function saveData() {
-        var errors = validateForm();
-        if (Object.keys(errors).length > 0) {
-            // Jika terjadi error, tampilkan pesan error di dalam modal
-            showErrorModal(errors);
-        } else {
-            // Jika tidak ada error, submit form secara manual
-            var form = document.getElementById('formTambah');
-            form.submit();
-        }
-    }
-
-    // Event listener ketika modal ditutup, hapus kelas error pada form input
-    document.addEventListener('DOMContentLoaded', function () {
-        var modalElement = document.getElementById('backDropModal');
-        modalElement.addEventListener('hide.bs.modal', function () {
-            var nipInput = document.getElementById('nip');
-            var namaPegawaiInput = document.getElementById('namaPegawai');
-
-            nipInput.classList.remove('border', 'border-danger');
-            namaPegawaiInput.classList.remove('border', 'border-danger');
-        });
-    });
-    document.addEventListener("DOMContentLoaded", function () {
-        const imagePreviewModal = new bootstrap.Modal(document.getElementById("imagePreviewModal"));
-        const previewImage = document.getElementById("previewImage");
-
-        // Tangkap semua elemen img dengan data-bs-toggle="modal"
-        const previewTriggers = document.querySelectorAll("img[data-bs-toggle='modal']");
-
-        // Tambahkan event click pada setiap elemen img dengan data-bs-toggle="modal"
-        previewTriggers.forEach((trigger) => {
-            trigger.addEventListener("click", function () {
-                const imageSrc = this.getAttribute("data-image-src");
-                previewImage.src = imageSrc;
-                imagePreviewModal.show();
-            });
-        });
-    });
-    // Edit Form
+        // Edit Form
     $(document).ready(function () {
         // Mendapatkan modal dan form
         var modal = $('#modalEdit');
@@ -864,6 +630,7 @@
             var jabatan = button.data('jabatan');
             var jkelamin = button.data('jenis');
             var pangkat = button.data('pangkat'); 
+            var pendidikan = button.data('pend'); 
             var foto = button.data('foto'); 
 
             console.log("Data pada elemen button:", button.data());
@@ -873,6 +640,7 @@
             modal.find('#nip').val(nip);
             modal.find('#namaPegawai').val(nama);
             modal.find('#jabatan').val(jabatan);
+            modal.find('#pendidikan').val(pendidikan);
             $('input[name="jenisKelamin"]').filter('[value="' + jkelamin + '"]').prop('checked', true);
             var editImagePreview = modal.find('#editImagePreview');
             if (foto) {
