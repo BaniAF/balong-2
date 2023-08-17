@@ -70,6 +70,7 @@ class BidangController extends Controller
         $bidang = Bidang::where('id', $id)->first();
 
         if ($bidang) {
+            Submenu::where('label', $bidang->namaBidang)->delete();
             // Hapus data postingan dari database
             $bidang->delete();
             toast('Bidang berhasil dihapus', 'success');

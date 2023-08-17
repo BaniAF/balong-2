@@ -70,6 +70,8 @@ class RegulasiController extends Controller
         $regulasi = Regulasi::where('id', $id)->first();
 
         if ($regulasi) {
+            // Hapus data pada tabel submenus dengan nama yang sama
+            Submenu::where('label', $regulasi->namaRegulasi)->delete();
             // Hapus data postingan dari database
             $regulasi->delete();
             toast('Regulasi berhasil dihapus', 'success');

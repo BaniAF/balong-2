@@ -13,7 +13,7 @@ class ProfilController extends Controller
     public function daftarProfil()
     {
         // $profil = Profil::paginate(10);
-        $profiles = profiles::all();
+        $profiles = Profil::all();
         return view('backend.pages.profil', ['profiles' => $profiles]);
     }
     public function tambahImage()
@@ -64,39 +64,65 @@ class ProfilController extends Controller
         toast('Regulasi berhasil ditambahkan', 'success');
         return redirect('profil');
     }
-    public function tambah(Request $request)
-    {
-        $request->validate([
-            'visi' => 'required',
-            'misi' => 'required',
-            'fileStruktur' => 'nullable|mimes:pdf|max:2048',
-        ]);
-    }
 
+    public function saveFile($request, $profil, $buttonName)
+    {
+        if ($request->hasFile('file' . $buttonName) && $request->file('file' . $buttonName)->isValid()) {
+            $file = $request->file('file' . $buttonName);
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('uploads/File/'), $filename); // Simpan file ke direktori tujuan
+            
+            if ($profil->fileStruktur && $profil->fileStruktur !== '-') {
+                $path = public_path('uploads/File/' . $profil->fileStruktur);
+                if (file_exists($path)) {
+                    unlink($path); // Menghapus file yang sudah ada
+                }
+            }
+            $profil->fileProfil = $filename; // Simpan nama file ke kolom yang sesuai dalam database
+        }
+    }
     public function editProfil(Request $request, $id)
     {
         $request->validate([
-            'visi' => 'nullable',
-            'tujuan' => 'nullable',
-            'sasaran' => 'nullable',
-            'misi' => 'nullable',
+            'ketTugas' => 'nullable',
+            'ketVisiMisi' => 'nullable',
+            'ketOrg' => 'nullable',
             'ketStruktur' => 'nullable',
-            'fileStruktur' => 'nullable|mimes:jpg, png, jpeg|max:2048',
+            'fileProfil' => 'max:45',
+            'fileStruktur' => 'nullable|mimes:pdf|max:2048',
+            'fileTugas' => 'nullable|mimes:pdf|max:2048',
+            'fileOrg' => 'nullable|mimes:pdf|max:2048',
+            'fileVisiMisi' => 'nullable|mimes:pdf|max:2048',
+        ], [
+            'fileStruktur.mimes' => 'File Struktur harus berformat PDF',
+            'fileTugas.mimes' => 'File Tugas harus berformat PDF',
+            'fileOrg.mimes' => 'File Organisasi harus berformat PDF',
+            'fileVisiMisi.mimes' => 'File Visi Misi harus berformat PDF',
+            'fileStruktur.max' => 'Ukuran File Struktur maksimal 2MB',
+            'fileTugas.max' => 'Ukuran File Tugas maksimal 2MB',
+            'fileOrg.max' => 'Ukuran File Organisasi maksimal 2MB',
+            'fileProfil.max' => 'Nama File maksimal 50 Karakter',
+            'fileVisiMisi.max' => 'Ukuran File Visi Misi maksimal 2MB',
         ]);
-        // dd($request->all());
-        // dd($id);
         // Cari program kegiatan berdasarkan id
-        $profil = Profiles::find($id);
+        $profil = Profil::find($id);
 
         if ($profil) {
-            if ($request->has('visimisi')) {
+            if ($request->has('organisasi')) {
                 # code...
-                $profil->visi = $request->visi;
-                $profil->misi = $request->misi;
-            } else if ($request->has('tujuan')) {
+                $profil->descProfil = $request->ketOrg;
+                $this->saveFile($request, $profil, 'Org');
+            } else if ($request->has('tugas')) {
                 # code...
-                $profil->sasaran = $request->sasaran;
-                $profil->tujuan = $request->tujuanP;
+                $profil->descProfil = $request->ketTugas;
+                $this->saveFile($request, $profil, 'Tugas');
+            } else if ($request->has('visiMisi')) {
+                # code...
+                $profil->descProfil = $request->ketVisiMisi;
+                $this->saveFile($request, $profil, 'VisiMisi');
+            } elseif ($request->has('struktur')) {
+                $profil->descProfil = $request->ketVisiMisi;
+                $this->saveFile($request, $profil, 'Struktur');
             }
             // Update data program kegiatan
 
@@ -127,7 +153,7 @@ class ProfilController extends Controller
 
     public function tampilProfil()
     {
-        $Profil = profiles::all();
+        $Profil = Profil::all();
         $pegawai = Pegawai::all();
         return view('frontend.articles.profil', compact('Profil', 'pegawai'));
     }

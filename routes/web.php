@@ -50,7 +50,7 @@ Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('art
 Route::get('/load-more', [PostController::class, 'loadMore'])->name('loadMore');
 Route::get('/search-news', [PostController::class, 'searchNews'])->name('search.news');
 
-Route::get('post/{artikel}', [PostController::class, 'lihat'])->name('post.show');
+Route::get('post/{article}', [PostController::class, 'lihat'])->name('post.show');
 
 Route::get('/petasitus', [mapsController::class, 'showMap'])->name('petasitus.maps');
 

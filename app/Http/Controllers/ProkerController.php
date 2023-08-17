@@ -98,6 +98,7 @@ class ProkerController extends Controller
         $proker = Proker::where('id', $id)->first();
 
         if ($proker) {
+            Submenu::where('label', $proker->namaProker)->delete();
             // Hapus data postingan dari database
             $proker->delete();
             toast('Program Kegiatan berhasil dihapus', 'success');

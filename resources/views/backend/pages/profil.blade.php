@@ -31,18 +31,18 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    @foreach ($profiles as $item)
+    {{-- @foreach ($profiles as $item) --}}
         
     <div class="nav-align-top mb-4">
         <ul class="nav nav-tabs nav-fill" role="tablist">
             <li class="nav-item">
-                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-home" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-home me-2"></i> Tugas dan Fungsi </button>
+                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-home" aria-controls="navs-justified-home" aria-selected="true"><i class="tf-icons bx bx-home me-2"></i> Organisasi dan Tata Kerja </button>
             </li>
             <li class="nav-item">
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-visi" aria-controls="navs-justified-visi" aria-selected="false"><i class="tf-icons bx bx-user me-2"></i> Visi Misi </button>
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-visi" aria-controls="navs-justified-visi" aria-selected="false"><i class="tf-icons bx bx-user me-2"></i> Tugas Dan Fungsi </button>
             </li>
             <li class="nav-item">
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-tujuan" aria-controls="navs-justified-tujuan" aria-selected="false"><i class="tf-icons bx bx-message-square me-2"></i> Sasaran dan Tujuan </button>
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-tujuan" aria-controls="navs-justified-tujuan" aria-selected="false"><i class="tf-icons bx bx-message-square me-2"></i> Visi, Misi, Sasaran dan Tujuan </button>
             </li>
             <li class="nav-item">
                 <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-struktur" aria-controls="navs-justified-struktur" aria-selected="false"><i class="tf-icons bx bx-message-square me-2"></i> Struktur Organisasi </button>
@@ -50,58 +50,101 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade show active" id="navs-justified-home" role="tabpanel">
-                Ini Nanti Untuk Tugas dan Fungsi
-            </div>
-            <div class="tab-pane fade" id="navs-justified-visi" role="tabpanel">
-                <form class="row g-3" action="{{ route('profil.edit', $item->id) }}" method="POST">
+                <form class="row g-3" action="{{ route('profil.edit', 1) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="col-md-6">
-                        <label class="form-label">Visi</label>
-                        <textarea name="visi" id="visi" cols="5" rows="3" class="form-control editor"></textarea>
+                    <div class="col-md-5">
+                        <label class="form-label">Upload File</label>
+                        <input type="file" id="fileUploadOrg" name="fileOrg" accept=".pdf" class="d-none"/>
+                        <label for="fileUploadOrg" class="btn btn-primary mt-2 mb-2 btn-md w-100">Pilih File</label>
+                        <span class="text-danger text-capitalize fw-semibold mt-2">* max 2 mb</span> <br>
+                        <label class="form-label mt-4">Keterangan</label>
+                        <textarea name="ketOrg" id="ketOrg" cols="5" rows="3" class="form-control editor"></textarea>
+                        <span class="text-danger text-capitalize fw-semibold mt-2">* Opsional</span>
                     </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Misi</label>
-                        <textarea name="misi" id="misi" cols="5" rows="3" class="form-control editor"></textarea>
+                    <div class="col-md-7">
+                        <label class="form-label">Preview File</label>
+                        @if ($profiles[0]->fileProfil)
+                            <iframe id="pdfIframeOrg" src="{{ asset('uploads/File/' . $profiles[0]->fileProfil) }}" frameborder="0" width="100%" height="600px"></iframe>
+                        @else
+                            <iframe id="pdfIframeOrg" src="" frameborder="0" width="100%" height="600px"></iframe>
+                        @endif
+                        {{-- <iframe id="pdfIframeOrg" src="" frameborder="0" width="100%" height="600px"></iframe> --}}
                     </div>
                     <div class="col-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary" name="visimisi">Simpan</button>
+                        <button type="submit" class="btn btn-primary" name="organisasi">Simpan</button>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="navs-justified-visi" role="tabpanel">
+                <form class="row g-3" action="{{ route('profil.edit', 2) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="col-md-5">
+                        <label class="form-label">Upload File</label>
+                        <input type="file" id="fileUploadTugas" name="fileTugas" accept=".pdf" class="d-none"/>
+                        <label for="fileUploadTugas" class="btn btn-primary mt-2 mb-2 btn-md w-100">Pilih File</label>
+                        <span class="text-danger text-capitalize fw-semibold mt-2">* max 2 mb</span> <br>
+                        <label class="form-label mt-4">Keterangan</label>
+                        <textarea name="ketTugas" id="ketTugas" cols="5" rows="3" class="form-control editor"></textarea>
+                        <span class="text-danger text-capitalize fw-semibold mt-2">* Opsional</span>
+                    </div>
+                    <div class="col-md-7">
+                        <label class="form-label">Preview File</label>
+                        @if ($profiles[1]->fileProfil)
+                            <iframe id="pdfIframeTugas" src="{{ asset('uploads/File/' . $profiles[1]->fileProfil) }}" frameborder="0" width="100%" height="600px"></iframe>
+                        @else
+                            <iframe id="pdfIframeTugas" src="" frameborder="0" width="100%" height="600px"></iframe>
+                        @endif
+                    </div>
+                    <div class="col-12 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary" name="tugas">Simpan</button>
                     </div>
                 </form>
             </div>
             <div class="tab-pane fade" id="navs-justified-tujuan" role="tabpanel">
-                <form class="row g-3" action="{{ route('profil.edit', $item->id) }}" method="POST">
+                <form class="row g-3" action="{{ route('profil.edit', 4) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="col-md-6">
-                        <label class="form-label">Tujuan</label>
-                        <textarea name="tujuanP" id="tujuan" cols="5" rows="3" class="form-control editor"></textarea>
+                    <div class="col-md-5">
+                        <label class="form-label">Upload File</label>
+                        <input type="file" id="fileUploadVisiMisi" name="fileVisiMisi" accept=".pdf" class="d-none"/>
+                        <label for="fileUploadVisiMisi" class="btn btn-primary mt-2 mb-2 btn-md w-100">Pilih File</label>
+                        <span class="text-danger text-capitalize fw-semibold mt-2">* max 2 mb</span> <br>
+                        <label class="form-label mt-4">Keterangan</label>
+                        <textarea name="ketVisiMisi" id="ketVisiMisi" cols="5" rows="3" class="form-control editor"></textarea>
+                        <span class="text-danger text-capitalize fw-semibold mt-2">* Opsional</span>
                     </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Sasaran</label>
-                        <textarea name="sasaran" id="sasaran" cols="5" rows="3" class="form-control editor"></textarea>
+                    <div class="col-md-7">
+                        <label class="form-label">Preview File</label>
+                        @if ($profiles[3]->fileProfil)
+                            <iframe id="pdfIframeVisiMisi" src="{{ asset('uploads/File/' . $profiles[3]->fileProfil) }}" frameborder="0" width="100%" height="600px"></iframe>
+                        @else
+                            <iframe id="pdfIframeVisiMisi" src="" frameborder="0" width="100%" height="600px"></iframe>
+                        @endif
                     </div>
                     <div class="col-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary" name="tujuan">Simpan</button>
+                        <button type="submit" class="btn btn-primary" name="visiMisi">Simpan</button>
                     </div>
                 </form>
             </div>
             <div class="tab-pane fade" id="navs-justified-struktur" role="tabpanel">
-                <form class="row g-3" action="{{ route('profil.edit', $item->id) }}" method="POST" enctype="multipart/form-data">
+                <form class="row g-3" action="{{ route('profil.edit', 3) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <label class="form-label">Upload File</label>
                         <!-- <label for="imageUpload" class="form-label mt-2">Upload Foto</label> -->
-                        <input type="file" id="ImageUpload" name="fotoStruktur" accept=".png, .jpg, .jpeg" class="d-none" />
-                        <label for="ImageUpload" class="btn btn-primary mt-2 mb-2 btn-md w-100">Pilih Foto</label>
+                        <input type="file" id="fileUploadStruktur" name="fileStruktur" accept=".pdf" class="d-none"/>
+                        <label for="fileUploadStruktur" class="btn btn-primary mt-2 mb-2 btn-md w-100">Pilih File</label>
                         <span class="text-danger text-capitalize fw-semibold mt-2">* max 2 mb</span> <br>
                         <label class="form-label mt-4">Keterangan</label>
                         <textarea name="ketStruktur" id="ketStruktur" cols="5" rows="3" class="form-control editor"></textarea>
                         <span class="text-danger text-capitalize fw-semibold mt-2">* Opsional</span>
-                    </div>  
-                    <div class="col-md-8">
-                        <label class="form-label">Preview</label>
-                        <div class="previewFile">
-                            <img id="ImagePreview" src="{{ asset('uploads/images/' . $item->fileStruktur) }}" class="img-fluid" style="max-height: 450px;">
-                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <label class="form-label">Preview File</label>
+                        @if ($profiles[2]->fileProfil)
+                            <iframe id="pdfIframeStruktur" src="{{ asset('uploads/File/' . $profiles[2]->fileProfil) }}" frameborder="0" width="100%" height="600px"></iframe>
+                        @else
+                            <iframe id="pdfIframeStruktur" src="" frameborder="0" width="100%" height="600px"></iframe>
+                        @endif
                     </div>
                     <div class="col-12 d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary" name="struktur">Simpan</button>
@@ -110,49 +153,10 @@
             </div>
         </div>
     </div>
-    @endforeach
+    {{-- @endforeach --}}
 {{-- hasil  tabel--}}
-
-{{-- <div class="card">
-    <div class="card-body">
-        <div class="card-title d-flex align-items-center justify-content-between">
-            <h5 class="fw-semibold">Daftar Profil</h5>
-        </div>
-        <table class="table table-bordered">
-            <thead class="text-center fw-bolder">
-                <tr>
-                    <th>Visi</th>
-                    <th>Misi</th>
-                    <th>Tujuan</th>
-                    <th>Sasran</th>
-                    <th>Struktur Organisasi</th>
-                </tr>
-            </thead>
-            <tbody class="text-left">
-                @if ($profiles->isEmpty())
-                    <tr>
-                        <td colspan="5" class="text-center fw-semibold">Belum ada profiles</td>
-                    </tr>
-                @else
-                    @foreach ($profiles as $item)
-                        <tr>
-                            <td style="text-align: justify;">{{ Str::limit($item->visi , 50, ' ...') }}</td>
-                            <td style="text-align: justify;">{{ Str::limit($item->misi , 50, ' ...') }}</td>
-                            <td style="text-align: justify;">{{ Str::limit($item->tujuan , 50, ' ...') }}</td>
-                            <td style="text-align: justify;">{{ Str::limit($item->sasaran , 50, ' ...') }}</td>
-                            <td style="text-align: justify;">{{ Str::limit($item->ketStruktur , 50, ' ...') }}</td>
-                            
-                        </tr>
-                    @endforeach
-                @endif
-            </tbody>
-        </table>
-        
-    </div>
-</div> --}}
     <!-- Card -->
     <script>
-        
         document.querySelectorAll('.editor').forEach(editorTextarea => {
             ClassicEditor
                 .create(editorTextarea, {
@@ -163,32 +167,39 @@
                 .then(editor => {
                     // Mengambil ID textarea yang terkait dengan editor saat ini
                     const textareaId = editorTextarea.getAttribute('id');
-                    
-                    // Menentukan bagian dari $item yang ingin ditampilkan berdasarkan ID textarea
+                    // Menggunakan JSON untuk menyimpan konten dari Profil sesuai ID textarea
+                    const profileContent = {!! $profiles->toJson() !!};
                     let content = '';
-                    @foreach($profiles as $item)
-                    switch (textareaId) {
-                        case 'visi':
-                            content = '{!! $item->visi !!}';
-                            break;
-                        case 'misi':
-                            content = '{!! $item->misi !!}';
-                            break;
-                        case 'tujuan':
-                            content = '{!! $item->tujuan !!}';
-                            break;
-                        case 'sasaran':
-                            content = '{!! $item->sasaran !!}';
-                            break;
-                        case 'ketStruktur':
-                            content = '{!! $item->ketStruktur !!}';
-                            break;
-                        // Tambahkan kasus lain jika ada lebih banyak textarea
-                        default:
-                            content = '';
-                            break;
-                    }
-                    @endforeach
+
+                    // Loop melalui profileContent untuk menemukan konten yang sesuai berdasarkan textareaId
+                    profileContent.forEach(item => {
+                        switch (textareaId) {
+                            case 'ketOrg':
+                                if (item.id === 1) { // ID untuk Tugas pada profil
+                                    content = item.descProfil;
+                                }
+                                break;
+                            case 'ketTugas':
+                                if (item.id === 2) { // ID untuk Tugas pada profil
+                                    content = item.descProfil;
+                                }
+                                break;
+                            case 'ketVisiMisi':
+                                if (item.id === 4) { // ID untuk Visi Misi pada profil
+                                    content = item.descProfil;
+                                }
+                                break;
+                            case 'ketStruktur':
+                                if (item.id === 3) { // ID untuk Struktur pada profil
+                                    content = item.descProfil;
+                                }
+                                break;
+                            // Tambahkan kasus lain jika ada lebih banyak textarea
+                            default:
+                                content = '';
+                                break;
+                        }
+                    });
                     // Set data dari variabel content ke CKEditor
                     editor.setData(content);
                 })
@@ -198,24 +209,40 @@
         });
 
         // Fungsi untuk menampilkan preview gambar saat dipilih
-        function showImagePreview(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
+        function showPDFPreview(input, iframeId) {
+            var iframe = document.getElementById(iframeId);
+            var file = input.files[0];
 
-                reader.onload = function (e) {
-                const previewElement = document.getElementById('ImagePreview');
-                previewElement.src = e.target.result;
-                };
-
-                reader.readAsDataURL(input.files[0]);
+            if (file) {
+                var objectURL = URL.createObjectURL(file);
+                iframe.src = objectURL;
+            } else {
+                iframe.src = "";
             }
         }
 
-            // Tambahkan event listener untuk input file
-        const imageUploadInput = document.getElementById('ImageUpload');
-        imageUploadInput.addEventListener('change', function () {
-            showImagePreview(this);
+        // Mengambil referensi elemen input file dan menambahkan event listener untuk form struktur
+        var fileUploadStruktur = document.getElementById('fileUploadStruktur');
+        fileUploadStruktur.addEventListener('change', function() {
+            showPDFPreview(this, 'pdfIframeStruktur');
         });
 
+        // Mengambil referensi elemen input file dan menambahkan event listener untuk form Visi Misi
+        var fileUploadRegulasi = document.getElementById('fileUploadTugas');
+        fileUploadRegulasi.addEventListener('change', function() {
+            showPDFPreview(this, 'pdfIframeTugas');
+        });        
+
+        // Mengambil referensi elemen input file dan menambahkan event listener untuk form regulasi
+        var fileUploadRegulasi = document.getElementById('fileUploadOrg');
+        fileUploadRegulasi.addEventListener('change', function() {
+            showPDFPreview(this, 'pdfIframeOrg');
+        });
+
+        // Mengambil referensi elemen input file dan menambahkan event listener untuk form regulasi
+        var fileUploadRegulasi = document.getElementById('fileUploadVisiMisi');
+        fileUploadRegulasi.addEventListener('change', function() {
+            showPDFPreview(this, 'pdfIframeVisiMisi');
+        });
     </script>
 @endsection
